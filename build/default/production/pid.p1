@@ -1,0 +1,557 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"17 pid.c
+[c E7 0 1 .. ]
+[n E7 . PID_Direction_Direct PID_Direction_Reverse  ]
+"21 pid.h
+[s S1 `f 1 `f 1 `f 1 `f 1 `f 1 `f 1 `E7 1 `f 1 `f 1 `f 1 `f 1 `f 1 `ul 1 `f 1 `f 1 `uc 1 ]
+[n S1 . dispKp dispKi dispKd kp ki kd controllerDirection myInput myOutput mySetpoint ITerm lastInput SampleTime outMin outMax inAuto ]
+"67
+[v _PID_SetOutputLimits `(v ~T0 @X0 0 ef3`*S1`f`f ]
+"80
+[v _PID_SetControllerDirection `(v ~T0 @X0 0 ef2`*S1`E7 ]
+"74
+[v _PID_SetTunings `(v ~T0 @X0 0 ef4`*S1`f`f`f ]
+"154 pid.c
+[c E3 1 0 .. ]
+[n E3 . PID_Mode_Automatic PID_Mode_Manual  ]
+"10
+[v _PID_Initialize `(v ~T0 @X0 0 ef1`*S1 ]
+[; ;pid.h: 4: typedef float FloatType;
+[; ;stdbool.h: 12: typedef unsigned char bool;
+[; ;pid.h: 9: typedef enum
+[; ;pid.h: 10: {
+[; ;pid.h: 11: PID_Mode_Automatic = 1,
+[; ;pid.h: 12: PID_Mode_Manual = 0
+[; ;pid.h: 13: } PidModeType;
+[; ;pid.h: 15: typedef enum
+[; ;pid.h: 16: {
+[; ;pid.h: 17: PID_Direction_Direct = 0,
+[; ;pid.h: 18: PID_Direction_Reverse = 1
+[; ;pid.h: 19: } PidDirectionType;
+[; ;pid.h: 21: typedef struct {
+[; ;pid.h: 22: FloatType dispKp;
+[; ;pid.h: 23: FloatType dispKi;
+[; ;pid.h: 24: FloatType dispKd;
+[; ;pid.h: 26: FloatType kp;
+[; ;pid.h: 27: FloatType ki;
+[; ;pid.h: 28: FloatType kd;
+[; ;pid.h: 30: PidDirectionType controllerDirection;
+[; ;pid.h: 32: FloatType myInput;
+[; ;pid.h: 33: FloatType myOutput;
+[; ;pid.h: 34: FloatType mySetpoint;
+[; ;pid.h: 38: FloatType ITerm, lastInput;
+[; ;pid.h: 40: unsigned long SampleTime;
+[; ;pid.h: 41: FloatType outMin, outMax;
+[; ;pid.h: 42: bool inAuto;
+[; ;pid.h: 43: } PidType;
+[; ;pid.h: 49: void PID_init(PidType* pid,
+[; ;pid.h: 50: FloatType kp,
+[; ;pid.h: 51: FloatType ki,
+[; ;pid.h: 52: FloatType kd,
+[; ;pid.h: 53: PidDirectionType controllerDirection);
+[; ;pid.h: 56: void PID_SetMode(PidType* pid, PidModeType mode);
+[; ;pid.h: 62: bool PID_Compute(PidType* pid);
+[; ;pid.h: 67: void PID_SetOutputLimits(PidType* pid, FloatType min, FloatType max);
+[; ;pid.h: 74: void PID_SetTunings(PidType* pid, FloatType kp, FloatType ki, FloatType kd);
+[; ;pid.h: 80: void PID_SetControllerDirection(PidType* pid, PidDirectionType Direction);
+[; ;pid.h: 84: void PID_SetSampleTime(PidType* pid, int newSampleTime);
+[; ;pid.h: 91: FloatType PID_GetKp(PidType* pid);
+[; ;pid.h: 92: FloatType PID_GetKi(PidType* pid);
+[; ;pid.h: 93: FloatType PID_GetKd(PidType* pid);
+[; ;pid.h: 94: PidModeType PID_GetMode(PidType* pid);
+[; ;pid.h: 95: PidDirectionType PID_GetDirection(PidType* pid);
+[; ;pid.c: 10: void PID_Initialize(PidType* pid);
+"16 pid.c
+[v _PID_init `(v ~T0 @X0 1 ef5`*S1`f`f`f`E7 ]
+"17
+{
+[; ;pid.c: 16: void PID_init(PidType* pid, FloatType Kp, FloatType Ki, FloatType Kd,
+[; ;pid.c: 17: PidDirectionType ControllerDirection) {
+[e :U _PID_init ]
+"16
+[v _pid `*S1 ~T0 @X0 1 r1 ]
+[v _Kp `f ~T0 @X0 1 r2 ]
+[v _Ki `f ~T0 @X0 1 r3 ]
+[v _Kd `f ~T0 @X0 1 r4 ]
+"17
+[v _ControllerDirection `E7 ~T0 @X0 1 r5 ]
+[f ]
+[; ;pid.c: 18: pid->myInput = 0;
+"18
+[e = . *U _pid 7 -> -> 0 `i `f ]
+[; ;pid.c: 19: pid->myOutput = 0;
+"19
+[e = . *U _pid 8 -> -> 0 `i `f ]
+[; ;pid.c: 20: pid->mySetpoint = 0;
+"20
+[e = . *U _pid 9 -> -> 0 `i `f ]
+[; ;pid.c: 21: pid->ITerm = 0;
+"21
+[e = . *U _pid 10 -> -> 0 `i `f ]
+[; ;pid.c: 22: pid->lastInput = 0;
+"22
+[e = . *U _pid 11 -> -> 0 `i `f ]
+[; ;pid.c: 23: pid->inAuto = 0;
+"23
+[e = . *U _pid 15 -> -> 0 `i `uc ]
+[; ;pid.c: 25: PID_SetOutputLimits(pid, 0, 0xffff);
+"25
+[e ( _PID_SetOutputLimits (3 , , _pid -> -> 0 `i `f -> -> 65535 `ui `f ]
+[; ;pid.c: 28: pid->SampleTime = 1000;
+"28
+[e = . *U _pid 12 -> -> -> 1000 `i `l `ul ]
+[; ;pid.c: 30: PID_SetControllerDirection(pid, ControllerDirection);
+"30
+[e ( _PID_SetControllerDirection (2 , _pid _ControllerDirection ]
+[; ;pid.c: 31: PID_SetTunings(pid, Kp, Ki, Kd);
+"31
+[e ( _PID_SetTunings (4 , , , _pid _Kp _Ki _Kd ]
+[; ;pid.c: 34: }
+"34
+[e :UE 2 ]
+}
+"43
+[v _PID_Compute `(uc ~T0 @X0 1 ef1`*S1 ]
+{
+[; ;pid.c: 43: bool PID_Compute(PidType* pid) {
+[e :U _PID_Compute ]
+[v _pid `*S1 ~T0 @X0 1 r1 ]
+[f ]
+[; ;pid.c: 44: if (!pid->inAuto) {
+"44
+[e $ ! ! != -> . *U _pid 15 `i -> -> -> 0 `i `uc `i 4  ]
+{
+[; ;pid.c: 45: return 0;
+"45
+[e ) -> -> 0 `i `uc ]
+[e $UE 3  ]
+"46
+}
+[e :U 4 ]
+"51
+[v _input `f ~T0 @X0 1 a ]
+[; ;pid.c: 46: }
+[; ;pid.c: 51: FloatType input = pid->myInput;
+[e = _input . *U _pid 7 ]
+"52
+[v _error `f ~T0 @X0 1 a ]
+[; ;pid.c: 52: FloatType error = pid->mySetpoint - input;
+[e = _error - . *U _pid 9 _input ]
+[; ;pid.c: 53: pid->ITerm += (pid->ki * error);
+"53
+[e =+ . *U _pid 10 * . *U _pid 4 _error ]
+[; ;pid.c: 54: if (pid->ITerm > pid->outMax)
+"54
+[e $ ! > . *U _pid 10 . *U _pid 14 5  ]
+[; ;pid.c: 55: pid->ITerm = pid->outMax;
+"55
+[e = . *U _pid 10 . *U _pid 14 ]
+[e $U 6  ]
+"56
+[e :U 5 ]
+[; ;pid.c: 56: else if (pid->ITerm < pid->outMin)
+[e $ ! < . *U _pid 10 . *U _pid 13 7  ]
+[; ;pid.c: 57: pid->ITerm = pid->outMin;
+"57
+[e = . *U _pid 10 . *U _pid 13 ]
+[e :U 7 ]
+"58
+[e :U 6 ]
+[v _dInput `f ~T0 @X0 1 a ]
+[; ;pid.c: 58: FloatType dInput = (input - pid->lastInput);
+[e = _dInput - _input . *U _pid 11 ]
+"61
+[v _output `f ~T0 @X0 1 a ]
+[; ;pid.c: 61: FloatType output = pid->kp * error + pid->ITerm - pid->kd * dInput;
+[e = _output - + * . *U _pid 3 _error . *U _pid 10 * . *U _pid 5 _dInput ]
+[; ;pid.c: 63: if (output > pid->outMax)
+"63
+[e $ ! > _output . *U _pid 14 8  ]
+[; ;pid.c: 64: output = pid->outMax;
+"64
+[e = _output . *U _pid 14 ]
+[e $U 9  ]
+"65
+[e :U 8 ]
+[; ;pid.c: 65: else if (output < pid->outMin)
+[e $ ! < _output . *U _pid 13 10  ]
+[; ;pid.c: 66: output = pid->outMin;
+"66
+[e = _output . *U _pid 13 ]
+[e :U 10 ]
+"67
+[e :U 9 ]
+[; ;pid.c: 67: pid->myOutput = output;
+[e = . *U _pid 8 _output ]
+[; ;pid.c: 70: pid->lastInput = input;
+"70
+[e = . *U _pid 11 _input ]
+[; ;pid.c: 72: return 1;
+"72
+[e ) -> -> 1 `i `uc ]
+[e $UE 3  ]
+[; ;pid.c: 76: }
+"76
+[e :UE 3 ]
+}
+"85
+[v _PID_SetTunings `(v ~T0 @X0 1 ef4`*S1`f`f`f ]
+{
+[; ;pid.c: 85: void PID_SetTunings(PidType* pid, FloatType Kp, FloatType Ki, FloatType Kd) {
+[e :U _PID_SetTunings ]
+[v _pid `*S1 ~T0 @X0 1 r1 ]
+[v _Kp `f ~T0 @X0 1 r2 ]
+[v _Ki `f ~T0 @X0 1 r3 ]
+[v _Kd `f ~T0 @X0 1 r4 ]
+[f ]
+[; ;pid.c: 86: if (Kp < 0 || Ki < 0 || Kd < 0){
+"86
+[e $ ! || || < _Kp -> -> 0 `i `f < _Ki -> -> 0 `i `f < _Kd -> -> 0 `i `f 12  ]
+{
+[; ;pid.c: 87: return;
+"87
+[e $UE 11  ]
+"88
+}
+[e :U 12 ]
+[; ;pid.c: 88: }
+[; ;pid.c: 90: pid->dispKp = Kp;
+"90
+[e = . *U _pid 0 _Kp ]
+[; ;pid.c: 91: pid->dispKi = Ki;
+"91
+[e = . *U _pid 1 _Ki ]
+[; ;pid.c: 92: pid->dispKd = Kd;
+"92
+[e = . *U _pid 2 _Kd ]
+"94
+[v _SampleTimeInSec `f ~T0 @X0 1 a ]
+[; ;pid.c: 94: FloatType SampleTimeInSec = ((FloatType) pid->SampleTime) / 1000;
+[e = _SampleTimeInSec / -> . *U _pid 12 `f -> -> 1000 `i `f ]
+[; ;pid.c: 95: pid->kp = Kp;
+"95
+[e = . *U _pid 3 _Kp ]
+[; ;pid.c: 96: pid->ki = Ki * SampleTimeInSec;
+"96
+[e = . *U _pid 4 * _Ki _SampleTimeInSec ]
+[; ;pid.c: 97: pid->kd = Kd / SampleTimeInSec;
+"97
+[e = . *U _pid 5 / _Kd _SampleTimeInSec ]
+[; ;pid.c: 99: if (pid->controllerDirection == PID_Direction_Reverse) {
+"99
+[e $ ! == -> . *U _pid 6 `i -> . `E7 1 `i 13  ]
+{
+[; ;pid.c: 100: pid->kp = (0 - pid->kp);
+"100
+[e = . *U _pid 3 - -> -> 0 `i `f . *U _pid 3 ]
+[; ;pid.c: 101: pid->ki = (0 - pid->ki);
+"101
+[e = . *U _pid 4 - -> -> 0 `i `f . *U _pid 4 ]
+[; ;pid.c: 102: pid->kd = (0 - pid->kd);
+"102
+[e = . *U _pid 5 - -> -> 0 `i `f . *U _pid 5 ]
+"103
+}
+[e :U 13 ]
+[; ;pid.c: 103: }
+[; ;pid.c: 104: }
+"104
+[e :UE 11 ]
+}
+"109
+[v _PID_SetSampleTime `(v ~T0 @X0 1 ef2`*S1`i ]
+{
+[; ;pid.c: 109: void PID_SetSampleTime(PidType* pid, int NewSampleTime) {
+[e :U _PID_SetSampleTime ]
+[v _pid `*S1 ~T0 @X0 1 r1 ]
+[v _NewSampleTime `i ~T0 @X0 1 r2 ]
+[f ]
+[; ;pid.c: 110: if (NewSampleTime > 0) {
+"110
+[e $ ! > _NewSampleTime -> 0 `i 15  ]
+{
+"111
+[v _ratio `f ~T0 @X0 1 a ]
+[; ;pid.c: 111: FloatType ratio = (FloatType) NewSampleTime / (FloatType) pid->SampleTime;
+[e = _ratio / -> _NewSampleTime `f -> . *U _pid 12 `f ]
+[; ;pid.c: 112: pid->ki *= ratio;
+"112
+[e =* . *U _pid 4 _ratio ]
+[; ;pid.c: 113: pid->kd /= ratio;
+"113
+[e =/ . *U _pid 5 _ratio ]
+[; ;pid.c: 114: pid->SampleTime = (unsigned long) NewSampleTime;
+"114
+[e = . *U _pid 12 -> _NewSampleTime `ul ]
+"115
+}
+[e :U 15 ]
+[; ;pid.c: 115: }
+[; ;pid.c: 116: }
+"116
+[e :UE 14 ]
+}
+"126
+[v _PID_SetOutputLimits `(v ~T0 @X0 1 ef3`*S1`f`f ]
+{
+[; ;pid.c: 126: void PID_SetOutputLimits(PidType* pid, FloatType Min, FloatType Max) {
+[e :U _PID_SetOutputLimits ]
+[v _pid `*S1 ~T0 @X0 1 r1 ]
+[v _Min `f ~T0 @X0 1 r2 ]
+[v _Max `f ~T0 @X0 1 r3 ]
+[f ]
+[; ;pid.c: 127: if (Min >= Max) {
+"127
+[e $ ! >= _Min _Max 17  ]
+{
+[; ;pid.c: 128: return;
+"128
+[e $UE 16  ]
+"129
+}
+[e :U 17 ]
+[; ;pid.c: 129: }
+[; ;pid.c: 130: pid->outMin = Min;
+"130
+[e = . *U _pid 13 _Min ]
+[; ;pid.c: 131: pid->outMax = Max;
+"131
+[e = . *U _pid 14 _Max ]
+[; ;pid.c: 133: if (pid->inAuto) {
+"133
+[e $ ! != -> . *U _pid 15 `i -> -> -> 0 `i `uc `i 18  ]
+{
+[; ;pid.c: 134: if (pid->myOutput > pid->outMax) {
+"134
+[e $ ! > . *U _pid 8 . *U _pid 14 19  ]
+{
+[; ;pid.c: 135: pid->myOutput = pid->outMax;
+"135
+[e = . *U _pid 8 . *U _pid 14 ]
+"136
+}
+[; ;pid.c: 136: } else if (pid->myOutput < pid->outMin) {
+[e $U 20  ]
+[e :U 19 ]
+[e $ ! < . *U _pid 8 . *U _pid 13 21  ]
+{
+[; ;pid.c: 137: pid->myOutput = pid->outMin;
+"137
+[e = . *U _pid 8 . *U _pid 13 ]
+"138
+}
+[e :U 21 ]
+"140
+[e :U 20 ]
+[; ;pid.c: 138: }
+[; ;pid.c: 140: if (pid->ITerm > pid->outMax) {
+[e $ ! > . *U _pid 10 . *U _pid 14 22  ]
+{
+[; ;pid.c: 141: pid->ITerm = pid->outMax;
+"141
+[e = . *U _pid 10 . *U _pid 14 ]
+"142
+}
+[; ;pid.c: 142: } else if (pid->ITerm < pid->outMin) {
+[e $U 23  ]
+[e :U 22 ]
+[e $ ! < . *U _pid 10 . *U _pid 13 24  ]
+{
+[; ;pid.c: 143: pid->ITerm = pid->outMin;
+"143
+[e = . *U _pid 10 . *U _pid 13 ]
+"144
+}
+[e :U 24 ]
+"145
+[e :U 23 ]
+}
+[e :U 18 ]
+[; ;pid.c: 144: }
+[; ;pid.c: 145: }
+[; ;pid.c: 146: }
+"146
+[e :UE 16 ]
+}
+"153
+[v _PID_SetMode `(v ~T0 @X0 1 ef2`*S1`E3 ]
+"154
+{
+[; ;pid.c: 153: void PID_SetMode(PidType* pid, PidModeType Mode)
+[; ;pid.c: 154: {
+[e :U _PID_SetMode ]
+"153
+[v _pid `*S1 ~T0 @X0 1 r1 ]
+[v _Mode `E3 ~T0 @X0 1 r2 ]
+"154
+[f ]
+"155
+[v _newAuto `uc ~T0 @X0 1 a ]
+[; ;pid.c: 155: bool newAuto = (Mode == PID_Mode_Automatic);
+[e = _newAuto -> -> == -> _Mode `i -> . `E3 0 `i `i `uc ]
+[; ;pid.c: 156: if(newAuto != pid->inAuto)
+"156
+[e $ ! != -> _newAuto `i -> . *U _pid 15 `i 26  ]
+[; ;pid.c: 157: {
+"157
+{
+[; ;pid.c: 158: PID_Initialize(pid);
+"158
+[e ( _PID_Initialize (1 _pid ]
+"159
+}
+[e :U 26 ]
+[; ;pid.c: 159: }
+[; ;pid.c: 160: pid->inAuto = newAuto;
+"160
+[e = . *U _pid 15 _newAuto ]
+[; ;pid.c: 161: }
+"161
+[e :UE 25 ]
+}
+"167
+[v _PID_Initialize `(v ~T0 @X0 1 ef1`*S1 ]
+{
+[; ;pid.c: 167: void PID_Initialize(PidType* pid) {
+[e :U _PID_Initialize ]
+[v _pid `*S1 ~T0 @X0 1 r1 ]
+[f ]
+[; ;pid.c: 168: pid->ITerm = pid->myOutput;
+"168
+[e = . *U _pid 10 . *U _pid 8 ]
+[; ;pid.c: 169: pid->lastInput = pid->myInput;
+"169
+[e = . *U _pid 11 . *U _pid 7 ]
+[; ;pid.c: 170: if (pid->ITerm > pid->outMax) {
+"170
+[e $ ! > . *U _pid 10 . *U _pid 14 28  ]
+{
+[; ;pid.c: 171: pid->ITerm = pid->outMax;
+"171
+[e = . *U _pid 10 . *U _pid 14 ]
+"172
+}
+[; ;pid.c: 172: } else if (pid->ITerm < pid->outMin) {
+[e $U 29  ]
+[e :U 28 ]
+[e $ ! < . *U _pid 10 . *U _pid 13 30  ]
+{
+[; ;pid.c: 173: pid->ITerm = pid->outMin;
+"173
+[e = . *U _pid 10 . *U _pid 13 ]
+"174
+}
+[e :U 30 ]
+"175
+[e :U 29 ]
+[; ;pid.c: 174: }
+[; ;pid.c: 175: }
+[e :UE 27 ]
+}
+"183
+[v _PID_SetControllerDirection `(v ~T0 @X0 1 ef2`*S1`E7 ]
+{
+[; ;pid.c: 183: void PID_SetControllerDirection(PidType* pid, PidDirectionType Direction) {
+[e :U _PID_SetControllerDirection ]
+[v _pid `*S1 ~T0 @X0 1 r1 ]
+[v _Direction `E7 ~T0 @X0 1 r2 ]
+[f ]
+[; ;pid.c: 184: if (pid->inAuto && Direction != pid->controllerDirection) {
+"184
+[e $ ! && != -> . *U _pid 15 `i -> -> -> 0 `i `uc `i != -> _Direction `i -> . *U _pid 6 `i 32  ]
+{
+[; ;pid.c: 185: pid->kp = (0 - pid->kp);
+"185
+[e = . *U _pid 3 - -> -> 0 `i `f . *U _pid 3 ]
+[; ;pid.c: 186: pid->ki = (0 - pid->ki);
+"186
+[e = . *U _pid 4 - -> -> 0 `i `f . *U _pid 4 ]
+[; ;pid.c: 187: pid->kd = (0 - pid->kd);
+"187
+[e = . *U _pid 5 - -> -> 0 `i `f . *U _pid 5 ]
+"188
+}
+[e :U 32 ]
+[; ;pid.c: 188: }
+[; ;pid.c: 189: pid->controllerDirection = Direction;
+"189
+[e = . *U _pid 6 _Direction ]
+[; ;pid.c: 190: }
+"190
+[e :UE 31 ]
+}
+"197
+[v _PID_GetKp `(f ~T0 @X0 1 ef1`*S1 ]
+{
+[; ;pid.c: 197: FloatType PID_GetKp(PidType* pid) {
+[e :U _PID_GetKp ]
+[v _pid `*S1 ~T0 @X0 1 r1 ]
+[f ]
+[; ;pid.c: 198: return pid->dispKp;
+"198
+[e ) . *U _pid 0 ]
+[e $UE 33  ]
+[; ;pid.c: 199: }
+"199
+[e :UE 33 ]
+}
+"200
+[v _PID_GetKi `(f ~T0 @X0 1 ef1`*S1 ]
+{
+[; ;pid.c: 200: FloatType PID_GetKi(PidType* pid) {
+[e :U _PID_GetKi ]
+[v _pid `*S1 ~T0 @X0 1 r1 ]
+[f ]
+[; ;pid.c: 201: return pid->dispKi;
+"201
+[e ) . *U _pid 1 ]
+[e $UE 34  ]
+[; ;pid.c: 202: }
+"202
+[e :UE 34 ]
+}
+"203
+[v _PID_GetKd `(f ~T0 @X0 1 ef1`*S1 ]
+{
+[; ;pid.c: 203: FloatType PID_GetKd(PidType* pid) {
+[e :U _PID_GetKd ]
+[v _pid `*S1 ~T0 @X0 1 r1 ]
+[f ]
+[; ;pid.c: 204: return pid->dispKd;
+"204
+[e ) . *U _pid 2 ]
+[e $UE 35  ]
+[; ;pid.c: 205: }
+"205
+[e :UE 35 ]
+}
+"206
+[v _PID_GetMode `(E3 ~T0 @X0 1 ef1`*S1 ]
+{
+[; ;pid.c: 206: PidModeType PID_GetMode(PidType* pid) {
+[e :U _PID_GetMode ]
+[v _pid `*S1 ~T0 @X0 1 r1 ]
+[f ]
+[; ;pid.c: 207: return pid->inAuto ? PID_Mode_Automatic : PID_Mode_Manual;
+"207
+[e ) -> ? != -> . *U _pid 15 `i -> -> -> 0 `i `uc `i : -> . `E3 0 `i -> . `E3 1 `i `E3 ]
+[e $UE 36  ]
+[; ;pid.c: 208: }
+"208
+[e :UE 36 ]
+}
+"209
+[v _PID_GetDirection `(E7 ~T0 @X0 1 ef1`*S1 ]
+{
+[; ;pid.c: 209: PidDirectionType PID_GetDirection(PidType* pid) {
+[e :U _PID_GetDirection ]
+[v _pid `*S1 ~T0 @X0 1 r1 ]
+[f ]
+[; ;pid.c: 210: return pid->controllerDirection;
+"210
+[e ) . *U _pid 6 ]
+[e $UE 37  ]
+[; ;pid.c: 211: }
+"211
+[e :UE 37 ]
+}

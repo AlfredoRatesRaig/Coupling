@@ -16,7 +16,7 @@ void PID_Initialize(PidType* pid);
 void PID_init(PidType* pid, FloatType Kp, FloatType Ki, FloatType Kd,
     PidDirectionType ControllerDirection) {
   pid->myInput = 0;
-  pid->myOutput = 0; //Esto es un comentario
+  pid->myOutput = 0;
   pid->mySetpoint = 0;
   pid->ITerm = 0;
   pid->lastInput = 0;
