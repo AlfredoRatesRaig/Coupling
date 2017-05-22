@@ -9,8 +9,14 @@
 /*
  POR HACER:
  * Revisar código
+ * Config y clock!!
+ * ver como setear los puertos
  * Revisar como mandar 1s y 0s por los puertos
+ * revisar como mandar un byte y recibir un byte por los puertos
+ * revisar si se puede hacer todo el trabajo con bytes
  * Timer 
+ * revisar main de asembler y tirarlo para aca
+ * hacer las funciones para: encontrar setpoint, comunicacion para graficar*, forma de setear las constantes!
  */
 
 /*
@@ -24,6 +30,8 @@
  * Se llama a PID con Input Y (o X)
  * Se recibe el Output del PID
  * Se envía el Output por PUERTO D
+ * Este còdigo esta en github
+ * 
  */
 
 #include <p18f4550.h>
