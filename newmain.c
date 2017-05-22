@@ -30,13 +30,13 @@
  * Se llama a PID con Input Y (o X)
  * Se recibe el Output del PID
  * Se envía el Output por PUERTO D
- * Este còdigo esta en github
- * 
  */
 
 #include <p18f4550.h>
 #include <xc.h>
 #include "pid.h"
+#include "Config.h"
+
 float Output;
 int PID_Out_Min = 5;
 int PID_Out_Max = 10;
@@ -44,8 +44,8 @@ int Setpoint = 100;
 char Input = 0;
 
 void main(void) {
-    //TRISB = 0xFF; //está bien?
-    //Input = PORTB; //está bien?
+    TRISB = 0xFF; //está bien?
+    Input = PORTB; //está bien?
     PidType PID;
     PID_init(&PID, 1, 0.05, 0.25, PID_Direction_Direct);
     PID_SetMode(&PID, PID_Mode_Automatic);
@@ -54,6 +54,6 @@ void main(void) {
     PID.myInput = Input;
     PID_Compute(&PID);    
     Output = PID.myOutput;
-    //PORTD = Output; //está bien?
+    PORTD = Input; //está bien?
     return;
 }

@@ -4883,6 +4883,69 @@ FloatType PID_GetKd(PidType* pid);
 PidModeType PID_GetMode(PidType* pid);
 PidDirectionType PID_GetDirection(PidType* pid);
 
+
+# 10 "Config.h"
+#pragma config PLLDIV = 1
+#pragma config CPUDIV = OSC1_PLL2
+#pragma config USBDIV = 1
+
+
+#pragma config FOSC = EC_EC
+#pragma config FCMEN = OFF
+#pragma config IESO = OFF
+
+
+#pragma config PWRT = OFF
+#pragma config BOR = ON
+#pragma config BORV = 3
+#pragma config VREGEN = OFF
+
+
+#pragma config WDT = ON
+#pragma config WDTPS = 32768
+
+
+#pragma config CCP2MX = ON
+#pragma config PBADEN = ON
+#pragma config LPT1OSC = OFF
+#pragma config MCLRE = ON
+
+
+#pragma config STVREN = ON
+#pragma config LVP = ON
+#pragma config ICPRT = OFF
+#pragma config XINST = OFF
+
+
+#pragma config CP0 = OFF
+#pragma config CP1 = OFF
+#pragma config CP2 = OFF
+#pragma config CP3 = OFF
+
+
+#pragma config CPB = OFF
+#pragma config CPD = OFF
+
+
+#pragma config WRT0 = OFF
+#pragma config WRT1 = OFF
+#pragma config WRT2 = OFF
+#pragma config WRT3 = OFF
+
+
+#pragma config WRTC = OFF
+#pragma config WRTB = OFF
+#pragma config WRTD = OFF
+
+
+#pragma config EBTR0 = OFF
+#pragma config EBTR1 = OFF
+#pragma config EBTR2 = OFF
+#pragma config EBTR3 = OFF
+
+
+#pragma config EBTRB = OFF
+
 # 40 "newmain.c"
 float Output;
 int PID_Out_Min = 5;
@@ -4891,8 +4954,8 @@ int Setpoint = 100;
 char Input = 0;
 
 void main(void) {
-
-
+TRISB = 0xFF;
+Input = PORTB;
 PidType PID;
 PID_init(&PID, 1, 0.05, 0.25, PID_Direction_Direct);
 PID_SetMode(&PID, PID_Mode_Automatic);
@@ -4901,6 +4964,6 @@ PID.mySetpoint = Setpoint;
 PID.myInput = Input;
 PID_Compute(&PID);
 Output = PID.myOutput;
-
+PORTD = Input;
 return;
 }

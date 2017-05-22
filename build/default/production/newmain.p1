@@ -1,5 +1,9 @@
 Version 3.2 HI-TECH Software Intermediate Code
 [p mainexit ]
+"3623 C:\Program Files (x86)\Microchip\xc8\v1.42\include\pic18f4550.h
+[v _TRISB `Vuc ~T0 @X0 0 e@3987 ]
+"2451
+[v _PORTB `Vuc ~T0 @X0 0 e@3969 ]
 "49 newmain.c
 [c E3796 0 1 .. ]
 [n E3796 . PID_Direction_Direct PID_Direction_Reverse  ]
@@ -17,6 +21,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _PID_SetOutputLimits `(v ~T0 @X0 0 ef3`*S362`f`f ]
 "62
 [v _PID_Compute `(uc ~T0 @X0 0 ef1`*S362 ]
+"2703 C:\Program Files (x86)\Microchip\xc8\v1.42\include\pic18f4550.h
+[v _PORTD `Vuc ~T0 @X0 0 e@3971 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -3571,6 +3577,82 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pid.h: 93: FloatType PID_GetKd(PidType* pid);
 [; ;pid.h: 94: PidModeType PID_GetMode(PidType* pid);
 [; ;pid.h: 95: PidDirectionType PID_GetDirection(PidType* pid);
+"10 Config.h
+[p x PLLDIV=1 ]
+"11
+[p x CPUDIV=OSC1_PLL2 ]
+"12
+[p x USBDIV=1 ]
+"15
+[p x FOSC=EC_EC ]
+"16
+[p x FCMEN=OFF ]
+"17
+[p x IESO=OFF ]
+"20
+[p x PWRT=OFF ]
+"21
+[p x BOR=ON ]
+"22
+[p x BORV=3 ]
+"23
+[p x VREGEN=OFF ]
+"26
+[p x WDT=ON ]
+"27
+[p x WDTPS=32768 ]
+"30
+[p x CCP2MX=ON ]
+"31
+[p x PBADEN=ON ]
+"32
+[p x LPT1OSC=OFF ]
+"33
+[p x MCLRE=ON ]
+"36
+[p x STVREN=ON ]
+"37
+[p x LVP=ON ]
+"38
+[p x ICPRT=OFF ]
+"39
+[p x XINST=OFF ]
+"42
+[p x CP0=OFF ]
+"43
+[p x CP1=OFF ]
+"44
+[p x CP2=OFF ]
+"45
+[p x CP3=OFF ]
+"48
+[p x CPB=OFF ]
+"49
+[p x CPD=OFF ]
+"52
+[p x WRT0=OFF ]
+"53
+[p x WRT1=OFF ]
+"54
+[p x WRT2=OFF ]
+"55
+[p x WRT3=OFF ]
+"58
+[p x WRTC=OFF ]
+"59
+[p x WRTB=OFF ]
+"60
+[p x WRTD=OFF ]
+"63
+[p x EBTR0=OFF ]
+"64
+[p x EBTR1=OFF ]
+"65
+[p x EBTR2=OFF ]
+"66
+[p x EBTR3=OFF ]
+"69
+[p x EBTRB=OFF ]
 "40 newmain.c
 [v _Output `f ~T0 @X0 1 e ]
 [; ;newmain.c: 40: float Output;
@@ -3605,6 +3687,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;newmain.c: 46: void main(void) {
 [e :U _main ]
 [f ]
+[; ;newmain.c: 47: TRISB = 0xFF;
+"47
+[e = _TRISB -> -> 255 `i `uc ]
+[; ;newmain.c: 48: Input = PORTB;
+"48
+[e = _Input _PORTB ]
 "49
 [v _PID `S362 ~T0 @X0 1 a ]
 [; ;newmain.c: 49: PidType PID;
@@ -3629,6 +3717,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;newmain.c: 56: Output = PID.myOutput;
 "56
 [e = _Output . _PID 8 ]
+[; ;newmain.c: 57: PORTD = Input;
+"57
+[e = _PORTD _Input ]
 [; ;newmain.c: 58: return;
 "58
 [e $UE 363  ]

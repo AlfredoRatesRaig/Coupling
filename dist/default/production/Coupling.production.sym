@@ -1,35 +1,40 @@
+__CFG_XINST$OFF 0 0 ABS 0
 PID_Compute@output 35 0 COMRAM 1
 ___lbtoft@c C 0 COMRAM 1
 ___lltoft@c 9 0 COMRAM 1
 ___awtoft@c 9 0 COMRAM 1
-__end_of___ftneg 6FD2 0 CODE 0
+__end_of___ftneg 6FCA 0 CODE 0
 PID_SetTunings@pid 21 0 COMRAM 1
 __S0 30000E 0 ABS 0
 __S1 97 0 ABS 0
 __S2 0 0 ABS 0
 __Hintentry 0 0 ABS 0
+__CFG_PWRT$OFF 0 0 ABS 0
 __Lintentry 0 0 ABS 0
 ___ftadd@f1 1B 0 COMRAM 1
 ___ftneg@f1 18 0 COMRAM 1
 ___ftadd@f2 1E 0 COMRAM 1
-_main 7238 0 CODE 0
+_main 722E 0 CODE 0
 ___sp 0 0 STACK 2
 start 0 0 CODE 0
 ?___ftadd 1B 0 COMRAM 1
 ___ftmul@f1 9 0 COMRAM 1
 ___ftdiv@f1 12 0 COMRAM 1
+_TRISB F93 0 ABS 0
+_PORTB F81 0 ABS 0
 __Hirdata 0 0 CODE 0
 __Lirdata 0 0 CODE 0
 __HRAM 0 0 ABS 0
+_PORTD F83 0 ABS 0
 __LRAM 1 0 ABS 0
 __end_of_PID_SetOutputLimits 7B20 0 CODE 0
 ___ftmul@f2 C 0 COMRAM 1
 ___ftdiv@f2 15 0 COMRAM 1
+__CFG_WDTPS$32768 0 0 ABS 0
 __Hconfig 30000E 0 CONFIG 0
-_PID_Compute$943 2C 0 COMRAM 1
 __Lconfig 300000 0 CONFIG 0
 ?___ftneg 18 0 COMRAM 1
-___ftpack 718A 0 CODE 0
+___ftpack 7180 0 CODE 0
 ___ftdiv@f3 1C 0 COMRAM 1
 __Hbigram 0 0 ABS 0
 __Lbigram 0 0 ABS 0
@@ -42,6 +47,7 @@ __Lcomram 0 0 ABS 0
 __Hsfr 0 0 ABS 0
 __Lsfr 0 0 ABS 0
 __Hbss 0 0 RAM 1
+__CFG_STVREN$ON 0 0 ABS 0
 __Lbss 0 0 RAM 1
 ___ftge@ff1 1 0 COMRAM 1
 ___param_bank 0 0 ABS 0
@@ -56,19 +62,20 @@ _PID_Out_Max 8F 0 BANK0 1
 PID_SetControllerDirection@pid 1B 0 COMRAM 1
 ___ftge@ff2 4 0 COMRAM 1
 PID_SetMode@pid C 0 COMRAM 1
+_PID_Compute$946 2C 0 COMRAM 1
 __Heeprom_data 0 0 EEDATA 0
 __Leeprom_data 0 0 EEDATA 0
 _PID_init 76B2 0 CODE 0
 ?___ftmul 9 0 COMRAM 1
 __Hintsave_regs 0 0 BIGRAM 1
 __Lintsave_regs 0 0 BIGRAM 1
-___lbtoft 6FD2 0 CODE 0
+___lbtoft 6FCA 0 CODE 0
 __Hbigbss 0 0 BIGRAM 1
 __Lbigbss 0 0 BIGRAM 1
 ?___ftdiv 12 0 COMRAM 1
 __Hintret 0 0 ABS 0
 __Lintret 0 0 ABS 0
-___lltoft 709E 0 CODE 0
+___lltoft 7094 0 CODE 0
 __Hramtop 800 0 RAM 0
 __Lramtop 800 0 RAM 0
 __Hstruct 0 0 COMRAM 1
@@ -76,7 +83,7 @@ __Lstruct 0 0 COMRAM 1
 __Hbigdata 0 0 BIGRAM 1
 __Lbigdata 0 0 BIGRAM 1
 __Hmediumconst 0 0 MEDIUMCONST 0
-___awtoft 7026 0 CODE 0
+___awtoft 701C 0 CODE 0
 __Lmediumconst 0 0 MEDIUMCONST 0
 __Hfarbss 0 0 FARRAM 0
 __Lfarbss 0 0 FARRAM 0
@@ -87,25 +94,31 @@ __Lfardata 0 0 FARRAM 0
 __Habs1 0 0 ABS 0
 __Labs1 0 0 ABS 0
 _Setpoint 8D 0 BANK0 1
+__CFG_EBTR0$OFF 0 0 ABS 0
 ___ftmul@f3_as_product 13 0 COMRAM 1
 __HnvFARRAM 0 0 FARRAM 0
 __LnvFARRAM 0 0 FARRAM 0
+__CFG_EBTR1$OFF 0 0 ABS 0
 PID_SetOutputLimits@pid D 0 COMRAM 1
-__end_of___ftpack 7238 0 CODE 0
+__end_of___ftpack 722E 0 CODE 0
 PID_SetOutputLimits@Min F 0 COMRAM 1
 ?___ftpack 1 0 COMRAM 1
 _PID_Compute 7CE8 0 CODE 0
 PID_SetOutputLimits@Max 12 0 COMRAM 1
 PID_Compute@error 2F 0 COMRAM 1
 PID_init@ControllerDirection 3B 0 COMRAM 1
+__CFG_EBTR2$OFF 0 0 ABS 0
 __size_of___ftpack 0 0 ABS 0
+__CFG_FOSC$EC_EC 0 0 ABS 0
 ___ftadd@sign 24 0 COMRAM 1
 __Hdata 0 0 ABS 0
 __Ldata 0 0 ABS 0
-___ftge 70FA 0 CODE 0
+__CFG_EBTR3$OFF 0 0 ABS 0
+___ftge 70F0 0 CODE 0
 stackhi 7FF 0 ABS 0
 __HcstackBANK0 0 0 ABS 0
 __LcstackBANK0 0 0 ABS 0
+__CFG_CPUDIV$OSC1_PLL2 0 0 ABS 0
 __pcstackBANK0 60 0 BANK0 1
 __size_of_PID_SetMode 0 0 ABS 0
 __Htemp 0 0 COMRAM 1
@@ -113,6 +126,7 @@ __Ltemp 0 0 COMRAM 1
 stacklo 97 0 ABS 0
 __Hrbit 0 0 COMRAM 1
 __Lrbit 0 0 COMRAM 1
+__CFG_BOR$ON 0 0 ABS 0
 __Hinit 4 0 CODE 0
 __Linit 0 0 CODE 0
 __Hintcodelo 0 0 CODE 0
@@ -120,21 +134,30 @@ __Lintcodelo 0 0 CODE 0
 __Hrbss 0 0 COMRAM 1
 __end_of_main 7300 0 CODE 0
 __Lrbss 0 0 COMRAM 1
+__CFG_WDT$ON 0 0 ABS 0
 __Htext 0 0 ABS 0
 __Ltext 0 0 ABS 0
+__CFG_CCP2MX$ON 0 0 ABS 0
 _Output 93 0 BANK0 1
 __HdataBANK0 0 0 ABS 0
 __LdataBANK0 0 0 ABS 0
+__CFG_LVP$ON 0 0 ABS 0
 __pdataBANK0 8D 0 BANK0 1
 __size_of___ftneg 0 0 ABS 0
 ___ftmul@sign 17 0 COMRAM 1
-end_of_initialization 7020 0 CODE 0
+end_of_initialization 7016 0 CODE 0
 __end_of_PID_Compute 8000 0 CODE 0
 ___ftdiv@sign 20 0 COMRAM 1
+__CFG_USBDIV$1 0 0 ABS 0
+__HnvBANK0 0 0 ABS 0
+__LnvBANK0 0 0 ABS 0
+__pnvBANK0 96 0 BANK0 1
+__CFG_VREGEN$OFF 0 0 ABS 0
 PID_Compute@input 32 0 COMRAM 1
 __size_of___awtoft 0 0 ABS 0
+__CFG_PLLDIV$1 0 0 ABS 0
 __end_of___ftadd 7968 0 CODE 0
-__end_of___lltoft 70FA 0 CODE 0
+__end_of___lltoft 70F0 0 CODE 0
 __size_of_PID_SetControllerDirection 0 0 ABS 0
 ?___lbtoft 9 0 COMRAM 1
 ?___lltoft 9 0 COMRAM 1
@@ -170,23 +193,23 @@ __Htext0 0 0 ABS 0
 __Ltext0 0 0 ABS 0
 __Htext1 0 0 ABS 0
 __Ltext1 0 0 ABS 0
-__ptext0 7238 0 CODE 0
+__ptext0 722E 0 CODE 0
 __Htext2 0 0 ABS 0
 __Ltext2 0 0 ABS 0
-__ptext1 6FD2 0 CODE 0
+__ptext1 6FCA 0 CODE 0
 __Htext3 0 0 ABS 0
 __Ltext3 0 0 ABS 0
-__ptext2 7026 0 CODE 0
+__ptext2 701C 0 CODE 0
 __Htext4 0 0 ABS 0
 __Ltext4 0 0 ABS 0
 __ptext3 76B2 0 CODE 0
-__end_of_PID_SetMode 709E 0 CODE 0
+__end_of_PID_SetMode 7094 0 CODE 0
 __Htext5 0 0 ABS 0
 __Ltext5 0 0 ABS 0
 __ptext4 7B20 0 CODE 0
 __Htext6 0 0 ABS 0
 __Ltext6 0 0 ABS 0
-__ptext5 709E 0 CODE 0
+__ptext5 7094 0 CODE 0
 __Htext7 0 0 ABS 0
 __Ltext7 0 0 ABS 0
 __ptext6 73D4 0 CODE 0
@@ -196,14 +219,14 @@ __ptext7 7968 0 CODE 0
 __Htext9 0 0 ABS 0
 __Ltext9 0 0 ABS 0
 __ptext8 7300 0 CODE 0
-__ptext9 705E 0 CODE 0
+__ptext9 7054 0 CODE 0
 PID_Compute@pid 27 0 COMRAM 1
 __Hclrtext 0 0 ABS 0
 __Lclrtext 0 0 ABS 0
-__end_of__initialization 7020 0 CODE 0
+__end_of__initialization 7016 0 CODE 0
 ___rparam_used 1 0 ABS 0
 __end_of_PID_Initialize 76B2 0 CODE 0
-__end_of___lbtoft 6FF6 0 CODE 0
+__end_of___lbtoft 6FEE 0 CODE 0
 _PID_SetControllerDirection 7300 0 CODE 0
 ___ftadd 77BC 0 CODE 0
 __Hidata 0 0 CODE 0
@@ -218,7 +241,7 @@ PID_SetTunings@Kd 29 0 COMRAM 1
 PID_SetTunings@Ki 26 0 COMRAM 1
 __Lstack 0 0 STACK 2
 PID_SetTunings@Kp 23 0 COMRAM 1
-___ftneg 6FAE 0 CODE 0
+___ftneg 6FA6 0 CODE 0
 __Hparam 0 0 COMRAM 1
 __Lparam 0 0 COMRAM 1
 __Hspace_0 30000E 0 ABS 0
@@ -242,7 +265,8 @@ __Hcinit 0 0 ABS 0
 ___ftmul 74BA 0 CODE 0
 __Lcinit 0 0 ABS 0
 PID_SetTunings@SampleTimeInSec 2D 0 COMRAM 1
-__pcinit 6FF6 0 CODE 0
+__pcinit 6FEE 0 CODE 0
+__CFG_EBTRB$OFF 0 0 ABS 0
 ___ftdiv 73D4 0 CODE 0
 __ramtop 800 0 RAM 0
 __mediumconst 0 0 MEDIUMCONST 0
@@ -253,15 +277,20 @@ __Lconst 0 0 CONST 0
 __HidataBANK0 0 0 ABS 0
 __size_of___ftdiv 0 0 ABS 0
 __LidataBANK0 0 0 ABS 0
-__pidataBANK0 6FA8 0 CODE 0
+__pidataBANK0 6FA0 0 CODE 0
+__CFG_WRT0$OFF 0 0 ABS 0
 ___awtoft@sign C 0 COMRAM 1
 ___ftpack@arg 1 0 COMRAM 1
-_PID_SetMode 705E 0 CODE 0
+__CFG_WRT1$OFF 0 0 ABS 0
+_PID_SetMode 7054 0 CODE 0
 ___ftadd@exp2 25 0 COMRAM 1
 __HbssBANK0 0 0 ABS 0
 __LbssBANK0 0 0 ABS 0
+__CFG_WRT2$OFF 0 0 ABS 0
 __size_of_PID_Compute 0 0 ABS 0
 __pbssBANK0 93 0 BANK0 1
+__CFG_WRT3$OFF 0 0 ABS 0
+__CFG_FCMEN$OFF 0 0 ABS 0
 PID_SetMode@Mode E 0 COMRAM 1
 __size_of___lbtoft 0 0 ABS 0
 __Htext10 0 0 ABS 0
@@ -273,14 +302,14 @@ __Ltext11 0 0 ABS 0
 __ptext11 7CE8 0 CODE 0
 __Htext12 0 0 ABS 0
 __Ltext12 0 0 ABS 0
-__ptext12 6FAE 0 CODE 0
+__ptext12 6FA6 0 CODE 0
 __end_of_PID_SetTunings 7CE8 0 CODE 0
 __Htext13 0 0 ABS 0
 __Ltext13 0 0 ABS 0
 __ptext13 74BA 0 CODE 0
 __Htext14 0 0 ABS 0
 __Ltext14 0 0 ABS 0
-__ptext14 70FA 0 CODE 0
+__ptext14 70F0 0 CODE 0
 __Htext15 0 0 ABS 0
 __Ltext15 0 0 ABS 0
 __ptext15 77BC 0 CODE 0
@@ -288,33 +317,48 @@ ___inthi_sp 0 0 STACK 2
 __Htext16 0 0 ABS 0
 __Ltext16 0 0 ABS 0
 __end_of_PID_init 77BC 0 CODE 0
-__ptext16 718A 0 CODE 0
+__ptext16 7180 0 CODE 0
+__CFG_BORV$3 0 0 ABS 0
 ___intlo_sp 0 0 STACK 2
 ___ftpack@exp 4 0 COMRAM 1
 _PID_Initialize 75AE 0 CODE 0
 __end_of___ftmul 75AE 0 CODE 0
+__CFG_CP0$OFF 0 0 ABS 0
 __smallconst 0 0 SMALLCONST 0
 __end_of_PID_SetControllerDirection 73D4 0 CODE 0
+__CFG_CP1$OFF 0 0 ABS 0
 __Hreset_vec 0 0 CODE 0
 __Lreset_vec 0 0 CODE 0
+__CFG_CP2$OFF 0 0 ABS 0
+__CFG_CP3$OFF 0 0 ABS 0
 __size_of_PID_SetTunings 0 0 ABS 0
 __accesstop 60 0 ABS 0
 __Hintcode_body 0 0 ABS 0
 __Lintcode_body 0 0 ABS 0
+__CFG_PBADEN$ON 0 0 ABS 0
 intlevel0 0 0 CODE 0
 intlevel1 0 0 CODE 0
+__CFG_WRTB$OFF 0 0 ABS 0
 intlevel2 0 0 CODE 0
-__end_of___awtoft 705E 0 CODE 0
+__end_of___awtoft 7054 0 CODE 0
 ___lltoft@exp 11 0 COMRAM 1
 intlevel3 0 0 CODE 0
+__CFG_WRTC$OFF 0 0 ABS 0
+__CFG_WRTD$OFF 0 0 ABS 0
 _PID_SetTunings 7B20 0 CODE 0
+__CFG_CPB$OFF 0 0 ABS 0
 PID_init@Kd 38 0 COMRAM 1
-start_initialization 6FF6 0 CODE 0
+__CFG_CPD$OFF 0 0 ABS 0
+start_initialization 6FEE 0 CODE 0
 _PID_Out_Min 91 0 BANK0 1
 __size_of___ftge 0 0 ABS 0
-__initialization 6FF6 0 CODE 0
-__end_of___ftge 718A 0 CODE 0
+__CFG_IESO$OFF 0 0 ABS 0
+__CFG_MCLRE$ON 0 0 ABS 0
+__initialization 6FEE 0 CODE 0
+__end_of___ftge 7180 0 CODE 0
 PID_Initialize@pid A 0 COMRAM 1
+__CFG_LPT1OSC$OFF 0 0 ABS 0
+__CFG_ICPRT$OFF 0 0 ABS 0
 __activetblptr 0 0 ABS 0
 __size_of___ftmul 0 0 ABS 0
 _PID_SetOutputLimits 7968 0 CODE 0
@@ -336,65 +380,67 @@ text10 75AE 76B1 CODE 75AE 0
 text13 74BA 75AD CODE 74BA 0
 text6 73D4 74B9 CODE 73D4 0
 text8 7300 73D3 CODE 7300 0
-text0 7238 72FF CODE 7238 0
-text16 718A 7237 CODE 718A 0
-text14 70FA 7189 CODE 70FA 0
-text5 709E 70F9 CODE 709E 0
-text9 705E 709D CODE 705E 0
-text2 7026 705D CODE 7026 0
-cinit 6FF6 7025 CODE 6FF6 0
-text1 6FD2 6FF5 CODE 6FD2 0
-text12 6FAE 6FD1 CODE 6FAE 0
-idataBANK0 6FA8 6FAD CODE 6FA8 0
+text0 722E 72FF CODE 722E 0
+text16 7180 722D CODE 7180 0
+text14 70F0 717F CODE 70F0 0
+text5 7094 70EF CODE 7094 0
+text9 7054 7093 CODE 7054 0
+text2 701C 7053 CODE 701C 0
+cinit 6FEE 701B CODE 6FEE 0
+text1 6FCA 6FED CODE 6FCA 0
+text12 6FA6 6FC9 CODE 6FA6 0
+idataBANK0 6FA0 6FA5 CODE 6FA0 0
 %locals
 dist/default/production\Coupling.production.obj
 C:\Program Files (x86)\Microchip\xc8\v1.42\include\pic18f4550.h
-C:\Users\Astrolab\AppData\Local\Temp\s7js.
-439 6FF6 0 CODE 0
-441 6FF6 0 CODE 0
-444 6FF6 0 CODE 0
-480 6FF6 0 CODE 0
-481 6FF8 0 CODE 0
-482 6FFA 0 CODE 0
-483 6FFC 0 CODE 0
-484 6FFE 0 CODE 0
-485 7000 0 CODE 0
-486 7002 0 CODE 0
-487 7006 0 CODE 0
-488 700A 0 CODE 0
-489 700A 0 CODE 0
-490 700C 0 CODE 0
-491 7010 0 CODE 0
-492 7012 0 CODE 0
-493 7014 0 CODE 0
-497 7016 0 CODE 0
-498 7018 0 CODE 0
-499 701A 0 CODE 0
-500 701C 0 CODE 0
-501 701E 0 CODE 0
-507 7020 0 CODE 0
-509 7020 0 CODE 0
-510 7022 0 CODE 0
+C:\Users\Astrolab\AppData\Local\Temp\shi8.
+527 6FEE 0 CODE 0
+529 6FEE 0 CODE 0
+532 6FEE 0 CODE 0
+565 6FEE 0 CODE 0
+566 6FF0 0 CODE 0
+567 6FF2 0 CODE 0
+568 6FF4 0 CODE 0
+569 6FF6 0 CODE 0
+570 6FF8 0 CODE 0
+571 6FFA 0 CODE 0
+572 6FFE 0 CODE 0
+573 7002 0 CODE 0
+574 7002 0 CODE 0
+575 7004 0 CODE 0
+576 7008 0 CODE 0
+577 700A 0 CODE 0
+578 700C 0 CODE 0
+582 700E 0 CODE 0
+583 7010 0 CODE 0
+584 7012 0 CODE 0
+585 7014 0 CODE 0
+591 7016 0 CODE 0
+593 7016 0 CODE 0
+594 7018 0 CODE 0
 newmain.c
-46 7238 0 CODE 0
-50 7238 0 CODE 0
-51 726C 0 CODE 0
-52 727C 0 CODE 0
-53 72B8 0 CODE 0
-54 72D0 0 CODE 0
-55 72E4 0 CODE 0
-56 72F0 0 CODE 0
+46 722E 0 CODE 0
+47 722E 0 CODE 0
+48 7230 0 CODE 0
+50 7234 0 CODE 0
+51 7268 0 CODE 0
+52 7278 0 CODE 0
+53 72B4 0 CODE 0
+54 72CC 0 CODE 0
+55 72E0 0 CODE 0
+56 72EC 0 CODE 0
+57 72F8 0 CODE 0
 59 72FC 0 CODE 0
 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\lbtoft.c
-27 6FD2 0 CODE 0
-29 6FD4 0 CODE 0
+27 6FCA 0 CODE 0
+29 6FCC 0 CODE 0
 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\awtoft.c
-32 7026 0 CODE 0
-36 7026 0 CODE 0
-37 702A 0 CODE 0
-38 702E 0 CODE 0
-39 7036 0 CODE 0
-41 703A 0 CODE 0
+32 701C 0 CODE 0
+36 701C 0 CODE 0
+37 7020 0 CODE 0
+38 7024 0 CODE 0
+39 702C 0 CODE 0
+41 7030 0 CODE 0
 pid.c
 16 76B2 0 CODE 0
 18 76B2 0 CODE 0
@@ -423,13 +469,13 @@ pid.c
 101 7C7E 0 CODE 0
 102 7CB2 0 CODE 0
 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\lltoft.c
-35 709E 0 CODE 0
-38 709E 0 CODE 0
-41 70A2 0 CODE 0
-42 70A4 0 CODE 0
-43 70AE 0 CODE 0
-41 70B0 0 CODE 0
-45 70D4 0 CODE 0
+35 7094 0 CODE 0
+38 7094 0 CODE 0
+41 7098 0 CODE 0
+42 709A 0 CODE 0
+43 70A4 0 CODE 0
+41 70A6 0 CODE 0
+45 70CA 0 CODE 0
 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\ftdiv.c
 54 73D4 0 CODE 0
 63 73D4 0 CODE 0
@@ -478,12 +524,12 @@ pid.c
 189 73C2 0 CODE 0
 190 73D2 0 CODE 0
 pid.c
-153 705E 0 CODE 0
-155 705E 0 CODE 0
-156 706C 0 CODE 0
-158 7080 0 CODE 0
-160 708C 0 CODE 0
-161 709C 0 CODE 0
+153 7054 0 CODE 0
+155 7054 0 CODE 0
+156 7062 0 CODE 0
+158 7076 0 CODE 0
+160 7082 0 CODE 0
+161 7092 0 CODE 0
 pid.c
 167 75AE 0 CODE 0
 168 75AE 0 CODE 0
@@ -512,11 +558,11 @@ pid.c
 67 7FCE 0 CODE 0
 70 7FE6 0 CODE 0
 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\ftneg.c
-15 6FAE 0 CODE 0
-17 6FAE 0 CODE 0
-18 6FB8 0 CODE 0
-19 6FC4 0 CODE 0
-20 6FD0 0 CODE 0
+15 6FA6 0 CODE 0
+17 6FA6 0 CODE 0
+18 6FB0 0 CODE 0
+19 6FBC 0 CODE 0
+20 6FC8 0 CODE 0
 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\ftmul.c
 62 74BA 0 CODE 0
 67 74BA 0 CODE 0
@@ -545,14 +591,14 @@ C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\ftmul.c
 149 7584 0 CODE 0
 156 7588 0 CODE 0
 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\ftge.c
-4 70FA 0 CODE 0
-6 70FA 0 CODE 0
-7 70FE 0 CODE 0
-8 712A 0 CODE 0
-9 712E 0 CODE 0
-10 715A 0 CODE 0
-11 7166 0 CODE 0
-12 7172 0 CODE 0
+4 70F0 0 CODE 0
+6 70F0 0 CODE 0
+7 70F4 0 CODE 0
+8 7120 0 CODE 0
+9 7124 0 CODE 0
+10 7150 0 CODE 0
+11 715C 0 CODE 0
+12 7168 0 CODE 0
 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\ftadd.c
 86 77BC 0 CODE 0
 90 77BC 0 CODE 0
@@ -599,23 +645,23 @@ C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\ftadd.c
 144 793E 0 CODE 0
 146 7942 0 CODE 0
 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\float.c
-62 718A 0 CODE 0
-64 718A 0 CODE 0
-65 719A 0 CODE 0
-67 71A8 0 CODE 0
-68 71AA 0 CODE 0
-66 71B2 0 CODE 0
-71 71D0 0 CODE 0
-72 71D2 0 CODE 0
-73 71DE 0 CODE 0
-70 71E6 0 CODE 0
-76 7204 0 CODE 0
-77 7206 0 CODE 0
-75 720E 0 CODE 0
-79 7218 0 CODE 0
-80 721A 0 CODE 0
-81 721C 0 CODE 0
-82 7220 0 CODE 0
-83 7224 0 CODE 0
-84 7228 0 CODE 0
-85 722A 0 CODE 0
+62 7180 0 CODE 0
+64 7180 0 CODE 0
+65 7190 0 CODE 0
+67 719E 0 CODE 0
+68 71A0 0 CODE 0
+66 71A8 0 CODE 0
+71 71C6 0 CODE 0
+72 71C8 0 CODE 0
+73 71D4 0 CODE 0
+70 71DC 0 CODE 0
+76 71FA 0 CODE 0
+77 71FC 0 CODE 0
+75 7204 0 CODE 0
+79 720E 0 CODE 0
+80 7210 0 CODE 0
+81 7212 0 CODE 0
+82 7216 0 CODE 0
+83 721A 0 CODE 0
+84 721E 0 CODE 0
+85 7220 0 CODE 0
