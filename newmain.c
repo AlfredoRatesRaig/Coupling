@@ -24,6 +24,8 @@
  * Se llama a PID con Input Y (o X)
  * Se recibe el Output del PID
  * Se envía el Output por PUERTO D
+ * Este còdigo esta en github
+ * 
  */
 
 #include <p18f4550.h>
