@@ -36,24 +36,27 @@
 #include <xc.h>
 #include "pid.h"
 #include "Config.h"
-
+#define _XTAL_FREQ 32000000
 float Output;
 int PID_Out_Min = 5;
 int PID_Out_Max = 10;
 int Setpoint = 100;
-char Input = 0;
+float Input = 0;
 
 void main(void) {
     TRISB = 0xFF; //está bien?
-    Input = PORTB; //está bien?
-    PidType PID;
-    PID_init(&PID, 1, 0.05, 0.25, PID_Direction_Direct);
-    PID_SetMode(&PID, PID_Mode_Automatic);
-    PID_SetOutputLimits(&PID, PID_Out_Min, PID_Out_Max);
-    PID.mySetpoint = Setpoint;    
-    PID.myInput = Input;
-    PID_Compute(&PID);    
-    Output = PID.myOutput;
-    PORTD = Input; //está bien?
+    TRISD = 0x00;
+    while(true){
+        Input = PORTB; //está bien?
+        PidType PID;
+        PID_init(&PID, 1, 0.05, 0.25, PID_Direction_Direct);
+        PID_SetMode(&PID, PID_Mode_Automatic);
+        PID_SetOutputLimits(&PID, PID_Out_Min, PID_Out_Max);
+        PID.mySetpoint = Setpoint;    
+        PID.myInput = Input;
+        PID_Compute(&PID);    
+        Output = PID.myOutput;
+        PORTD = Output; //está bien?
+    }
     return;
 }
