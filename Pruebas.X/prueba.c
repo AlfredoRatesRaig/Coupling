@@ -5,31 +5,57 @@
  * Created on 29 de mayo de 2017, 10:28
  */
 
-
-#include<p18f4550.h>
+#include<p18f4550.h>                //Librerías
 #include <xc.h>
 #include "CONFIG.h"
-#define _XTAL_FREQ 32000000
-float Input;
+#define _XTAL_FREQ 32000000         //Cristal: 20MHz ; Clock: 32MHz
+
+unsigned char Input1;               //Declaración de variables
+unsigned char Input2;
+
 int main() 
 { 
-    TRISD3=0;
-    //TRISB = 0xFF; //está bien?
-    //TRISD3 = 0;
-    //TRISD2 = 1;
+    TRISB = 0xFF;                   //Declaración de puertos
+    TRISD = 0x00;
+    TRISC = 0x00;
+    TRISCbits.RC6 = 1;
+    
+    PORTCbits.RC0 = 1;                        //Condiciones Iniciales
+    PORTCbits.RC1 = 1;
+    PORTCbits.RC2 = 1;
+    PORTCbits.RC7 = 0;
+    
     while(1) 
     {
-    RD3=1;                     //make RD3 pin High to glow LED 
-    //for (int i=0; i<=400; i++) // 2.5 second delay
-    __delay_ms(5000);           
-    
-    RD3=0;                     // make RD3 pin Low to Off LED 
-    //for (int i=0; i<=400; i++)  // 1 second delay
-    __delay_ms(5000);
-    //Input = RD2; //está bien?
-    //Input = Input*3;
-    //Input = Input/3;
-    //RD3=Input;
-    } 
+        PORTCbits.RC0 = 0;                    //Mux en 00
+        PORTCbits.RC1 = 0;
+        
+        PORTCbits.RC2 = 1;                    //Subo RD
+        __delay_us(25); 
+        PORTCbits.RC2 = 0;                    //Bajo RD
+        while(PORTCbits.RC6 == 1){}           //Espero Flag
+        
+        Input1 = PORTB;             //Lectura y escritura
+        PORTD = Input1;
+        
+        __delay_ms(4000); 
+        
+        PORTCbits.RC0 = 1;                    //Mux en 11
+        PORTCbits.RC1 = 1;
+        
+        PORTCbits.RC2 = 1;                    //Subo RD
+        __delay_us(25); 
+        PORTCbits.RC2 = 0;                    //Bajo RD
+        while(PORTCbits.RC6 == 1)
+        {
+        
+        }           //Espero Flag
+        
+        Input2 = PORTB;             //Lectura y escritura
+        PORTD = Input2;
+        
+        __delay_ms(4000); 
+
+    }
 return 0;
 }

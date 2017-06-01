@@ -4827,7 +4827,7 @@ extern __nonreentrant void _delay3(unsigned char);
 #pragma config WDTPS = 32768
 
 
-#pragma config CCP2MX = ON
+#pragma config CCP2MX = OFF
 #pragma config PBADEN = ON
 #pragma config LPT1OSC = OFF
 #pragma config MCLRE = OFF
@@ -4869,25 +4869,51 @@ extern __nonreentrant void _delay3(unsigned char);
 #pragma config EBTRB = OFF
 
 # 13 "prueba.c"
-float Input;
+unsigned char Input1;
+unsigned char Input2;
+
 int main()
 {
-TRISD3=0;
+TRISB = 0xFF;
+TRISD = 0x00;
+TRISC = 0x00;
+TRISCbits.RC6 = 1;
 
-
+PORTCbits.RC0 = 1;
+PORTCbits.RC1 = 1;
+PORTCbits.RC2 = 1;
+PORTCbits.RC7 = 0;
 
 while(1)
 {
-RD3=1;
+PORTCbits.RC0 = 0;
+PORTCbits.RC1 = 0;
 
-_delay((unsigned long)((5000)*(32000000/4000.0)));
+PORTCbits.RC2 = 1;
+_delay((unsigned long)((25)*(32000000/4000000.0)));
+PORTCbits.RC2 = 0;
+while(PORTCbits.RC6 == 1){}
 
-RD3=0;
+Input1 = PORTB;
+PORTD = Input1;
 
-_delay((unsigned long)((5000)*(32000000/4000.0)));
+_delay((unsigned long)((4000)*(32000000/4000.0)));
 
+PORTCbits.RC0 = 1;
+PORTCbits.RC1 = 1;
 
+PORTCbits.RC2 = 1;
+_delay((unsigned long)((25)*(32000000/4000000.0)));
+PORTCbits.RC2 = 0;
+while(PORTCbits.RC6 == 1)
+{
 
+}
+
+Input2 = PORTB;
+PORTD = Input2;
+
+_delay((unsigned long)((4000)*(32000000/4000.0)));
 
 }
 return 0;
