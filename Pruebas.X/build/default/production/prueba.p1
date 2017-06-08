@@ -6,17 +6,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _TRISD `Vuc ~T0 @X0 0 e@3989 ]
 "3845
 [v _TRISC `Vuc ~T0 @X0 0 e@3988 ]
-"3856
-[s S149 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S149 . TRISC0 TRISC1 TRISC2 . TRISC6 TRISC7 ]
-"3864
-[s S150 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S150 . RC0 RC1 RC2 . RC6 RC7 ]
-"3855
-[u S148 `S149 1 `S150 1 ]
-[n S148 . . . ]
-"3873
-[v _TRISCbits `VS148 ~T0 @X0 0 e@3988 ]
+"10181
+[v _TMR1CS `Vb ~T0 @X0 0 e@32361 ]
+"10199
+[v _TMR3CS `Vb ~T0 @X0 0 e@32137 ]
 "2567
 [s S106 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S106 . RC0 RC1 RC2 . RC4 RC5 RC6 RC7 ]
@@ -3652,15 +3645,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;prueba.c: 19: TRISD = 0x00;
 "19
 [e = _TRISD -> -> 0 `i `uc ]
-[; ;prueba.c: 20: TRISC = 0x00;
+[; ;prueba.c: 20: TRISC = 0b01000000;
 "20
-[e = _TRISC -> -> 0 `i `uc ]
-[; ;prueba.c: 21: TRISCbits.RC6 = 1;
+[e = _TRISC -> -> 64 `i `uc ]
+[; ;prueba.c: 21: TMR1CS = 0;
 "21
-[e = . . _TRISCbits 1 4 -> -> 1 `i `uc ]
-[; ;prueba.c: 23: PORTCbits.RC0 = 1;
-"23
-[e = . . _PORTCbits 0 0 -> -> 1 `i `uc ]
+[e = _TMR1CS -> -> 0 `i `b ]
+[; ;prueba.c: 22: TMR3CS = 0;
+"22
+[e = _TMR3CS -> -> 0 `i `b ]
 [; ;prueba.c: 24: PORTCbits.RC1 = 1;
 "24
 [e = . . _PORTCbits 0 1 -> -> 1 `i `uc ]
@@ -3670,95 +3663,72 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;prueba.c: 26: PORTCbits.RC7 = 0;
 "26
 [e = . . _PORTCbits 0 7 -> -> 0 `i `uc ]
-[; ;prueba.c: 28: while(1)
+[; ;prueba.c: 27: Input1 = 0xFF;
+"27
+[e = _Input1 -> -> 255 `i `uc ]
+[; ;prueba.c: 28: Input2 = 0x00;
 "28
-[e :U 364 ]
-[; ;prueba.c: 29: {
+[e = _Input2 -> -> 0 `i `uc ]
+[; ;prueba.c: 29: while(1)
 "29
-{
-[; ;prueba.c: 30: PORTCbits.RC0 = 0;
+[e :U 364 ]
+[; ;prueba.c: 30: {
 "30
-[e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
-[; ;prueba.c: 31: PORTCbits.RC1 = 0;
-"31
+{
+[; ;prueba.c: 32: PORTCbits.RC1 = 0;
+"32
 [e = . . _PORTCbits 0 1 -> -> 0 `i `uc ]
-[; ;prueba.c: 33: PORTCbits.RC2 = 1;
-"33
-[e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
-[; ;prueba.c: 34: _delay((unsigned long)((25)*(32000000/4000000.0)));
+[; ;prueba.c: 34: PORTCbits.RC2 = 1;
 "34
-[e ( __delay (1 -> * -> -> 25 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
-[; ;prueba.c: 35: PORTCbits.RC2 = 0;
-"35
-[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
-[; ;prueba.c: 36: while(PORTCbits.RC6 == 1){}
-"36
-[e $U 366  ]
-[e :U 367 ]
-{
-}
-[e :U 366 ]
-[e $ == -> . . _PORTCbits 0 6 `i -> 1 `i 367  ]
-[e :U 368 ]
-[; ;prueba.c: 38: Input1 = PORTB;
-"38
-[e = _Input1 _PORTB ]
-[; ;prueba.c: 39: PORTD = Input1;
-"39
-[e = _PORTD _Input1 ]
-[; ;prueba.c: 41: _delay((unsigned long)((4000)*(32000000/4000.0)));
-"41
-[e ( __delay (1 -> * -> -> 4000 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;prueba.c: 43: PORTCbits.RC0 = 1;
-"43
-[e = . . _PORTCbits 0 0 -> -> 1 `i `uc ]
-[; ;prueba.c: 44: PORTCbits.RC1 = 1;
-"44
-[e = . . _PORTCbits 0 1 -> -> 1 `i `uc ]
-[; ;prueba.c: 46: PORTCbits.RC2 = 1;
-"46
 [e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
-[; ;prueba.c: 47: _delay((unsigned long)((25)*(32000000/4000000.0)));
-"47
+[; ;prueba.c: 35: _delay((unsigned long)((25)*(32000000/4000000.0)));
+"35
 [e ( __delay (1 -> * -> -> 25 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
-[; ;prueba.c: 48: PORTCbits.RC2 = 0;
-"48
+[; ;prueba.c: 36: PORTCbits.RC2 = 0;
+"36
 [e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
-[; ;prueba.c: 49: while(PORTCbits.RC6 == 1)
-"49
-[e $U 369  ]
-[e :U 370 ]
-[; ;prueba.c: 50: {
-"50
-{
-"52
-}
-[e :U 369 ]
-"49
-[e $ == -> . . _PORTCbits 0 6 `i -> 1 `i 370  ]
-[e :U 371 ]
-[; ;prueba.c: 52: }
-[; ;prueba.c: 54: Input2 = PORTB;
-"54
-[e = _Input2 _PORTB ]
-[; ;prueba.c: 55: PORTD = Input2;
-"55
-[e = _PORTD _Input2 ]
-[; ;prueba.c: 57: _delay((unsigned long)((4000)*(32000000/4000.0)));
-"57
+[; ;prueba.c: 37: Input1 = PORTB;
+"37
+[e = _Input1 _PORTB ]
+[; ;prueba.c: 38: PORTD = Input1;
+"38
+[e = _PORTD _Input1 ]
+[; ;prueba.c: 39: _delay((unsigned long)((4000)*(32000000/4000.0)));
+"39
 [e ( __delay (1 -> * -> -> 4000 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-"59
+[; ;prueba.c: 41: PORTCbits.RC1 = 1;
+"41
+[e = . . _PORTCbits 0 1 -> -> 1 `i `uc ]
+[; ;prueba.c: 43: PORTCbits.RC2 = 1;
+"43
+[e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
+[; ;prueba.c: 44: _delay((unsigned long)((25)*(32000000/4000000.0)));
+"44
+[e ( __delay (1 -> * -> -> 25 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
+[; ;prueba.c: 45: PORTCbits.RC2 = 0;
+"45
+[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
+[; ;prueba.c: 46: Input2 = PORTB;
+"46
+[e = _Input2 _PORTB ]
+[; ;prueba.c: 47: PORTD = Input2;
+"47
+[e = _PORTD _Input2 ]
+[; ;prueba.c: 48: _delay((unsigned long)((4000)*(32000000/4000.0)));
+"48
+[e ( __delay (1 -> * -> -> 4000 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+"49
 }
 [e :U 363 ]
-"28
+"29
 [e $U 364  ]
 [e :U 365 ]
-[; ;prueba.c: 59: }
-[; ;prueba.c: 60: return 0;
-"60
+[; ;prueba.c: 49: }
+[; ;prueba.c: 50: return 0;
+"50
 [e ) -> 0 `i ]
 [e $UE 362  ]
-[; ;prueba.c: 61: }
-"61
+[; ;prueba.c: 51: }
+"51
 [e :UE 362 ]
 }
