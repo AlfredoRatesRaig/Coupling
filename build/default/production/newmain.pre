@@ -4884,35 +4884,35 @@ PidModeType PID_GetMode(PidType* pid);
 PidDirectionType PID_GetDirection(PidType* pid);
 
 
-# 10 "Config.h"
-#pragma config PLLDIV = 1
-#pragma config CPUDIV = OSC1_PLL2
+# 6 "Config.h"
+#pragma config PLLDIV = 5
+#pragma config CPUDIV = OSC2_PLL3
 #pragma config USBDIV = 1
 
 
-#pragma config FOSC = EC_EC
+#pragma config FOSC = HSPLL_HS
 #pragma config FCMEN = OFF
 #pragma config IESO = OFF
 
 
 #pragma config PWRT = OFF
-#pragma config BOR = ON
+#pragma config BOR = OFF
 #pragma config BORV = 3
 #pragma config VREGEN = OFF
 
 
-#pragma config WDT = ON
+#pragma config WDT = OFF
 #pragma config WDTPS = 32768
 
 
-#pragma config CCP2MX = ON
-#pragma config PBADEN = ON
+#pragma config CCP2MX = OFF
+#pragma config PBADEN = OFF
 #pragma config LPT1OSC = OFF
-#pragma config MCLRE = ON
+#pragma config MCLRE = OFF
 
 
-#pragma config STVREN = ON
-#pragma config LVP = ON
+#pragma config STVREN = OFF
+#pragma config LVP = OFF
 #pragma config ICPRT = OFF
 #pragma config XINST = OFF
 
@@ -4948,22 +4948,77 @@ PidDirectionType PID_GetDirection(PidType* pid);
 
 # 40 "newmain.c"
 float Output;
-int PID_Out_Min = 5;
+int PID_Out_Min = 0;
 int PID_Out_Max = 10;
-int Setpoint = 100;
-char Input = 0;
+int Setpoint = 0;
+float Input = 0;
+float A;
+float B;
+float C;
+float D;
+
 
 void main(void) {
 TRISB = 0xFF;
-Input = PORTB;
+TRISD = 0x00;
+TRISC = 0b01000000;
+TMR1CS = 0;
+TMR3CS = 0;
+PORTCbits.RC0 = 0;
+PORTCbits.RC1 = 0;
+PORTCbits.RC2 = 1;
+PORTCbits.RC7 = 0;
+while(1){
+PORTCbits.RC0 = 0;
+PORTCbits.RC1 = 0;
+
+PORTCbits.RC2 = 1;
+_delay((unsigned long)((25)*(32000000/4000000.0)));
+PORTCbits.RC2 = 0;
+A = PORTB;
+
+
+
+PORTCbits.RC0 = 1;
+PORTCbits.RC1 = 0;
+
+PORTCbits.RC2 = 1;
+_delay((unsigned long)((25)*(32000000/4000000.0)));
+PORTCbits.RC2 = 0;
+B = PORTB;
+
+
+
+PORTCbits.RC0 = 0;
+PORTCbits.RC1 = 1;
+
+PORTCbits.RC2 = 1;
+_delay((unsigned long)((25)*(32000000/4000000.0)));
+PORTCbits.RC2 = 0;
+C = PORTB;
+
+
+
+PORTCbits.RC0 = 1;
+PORTCbits.RC1 = 1;
+
+PORTCbits.RC2 = 1;
+_delay((unsigned long)((25)*(32000000/4000000.0)));
+PORTCbits.RC2 = 0;
+D = PORTB;
+
+
+PORTCbits.RC7 = 0;
+Input = (A+B)-(C+D);
 PidType PID;
-PID_init(&PID, 1, 0.05, 0.25, PID_Direction_Direct);
+PID_init(&PID, 0.2, 0, 0, PID_Direction_Reverse);
 PID_SetMode(&PID, PID_Mode_Automatic);
 PID_SetOutputLimits(&PID, PID_Out_Min, PID_Out_Max);
 PID.mySetpoint = Setpoint;
 PID.myInput = Input;
 PID_Compute(&PID);
 Output = PID.myOutput;
-PORTD = Input;
+PORTD = Output;
+}
 return;
 }

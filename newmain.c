@@ -38,18 +38,70 @@
 #include "Config.h"
 #define _XTAL_FREQ 32000000
 float Output;
-int PID_Out_Min = 5;
+int PID_Out_Min = 0;
 int PID_Out_Max = 10;
-int Setpoint = 100;
+int Setpoint = 0;
 float Input = 0;
+float A;
+float B;
+float C;
+float D;
+
 
 void main(void) {
     TRISB = 0xFF; //está bien?
     TRISD = 0x00;
+    TRISC = 0b01000000;
+    TMR1CS = 0;
+    TMR3CS = 0;
+    PORTCbits.RC0 = 0;                        //Condiciones Iniciales
+    PORTCbits.RC1 = 0;
+    PORTCbits.RC2 = 1;
+    PORTCbits.RC7 = 0;
     while(true){
-        Input = PORTB; //está bien?
+        PORTCbits.RC0 = 0;                    //Mux en 00
+        PORTCbits.RC1 = 0;
+        
+        PORTCbits.RC2 = 1;                    //Subo RD
+        __delay_us(25);
+        PORTCbits.RC2 = 0;                    //Subo RD
+        A = PORTB;             //Lectura
+        
+        //__delay_ms(4000); 
+        
+        PORTCbits.RC0 = 1;                    //Mux en 01
+        PORTCbits.RC1 = 0;
+        
+        PORTCbits.RC2 = 1;                    //Subo RD
+        __delay_us(25);
+        PORTCbits.RC2 = 0;                    //Subo RD
+        B = PORTB;             //Lectura
+        
+        //__delay_ms(4000); 
+        
+        PORTCbits.RC0 = 0;                    //Mux en 10
+        PORTCbits.RC1 = 1;
+        
+        PORTCbits.RC2 = 1;                    //Subo RD
+        __delay_us(25);
+        PORTCbits.RC2 = 0;                    //Subo RD
+        C = PORTB;             //Lectura
+        
+        //__delay_ms(4000); 
+        
+        PORTCbits.RC0 = 1;                    //Mux en 11
+        PORTCbits.RC1 = 1;
+        
+        PORTCbits.RC2 = 1;                    //Subo RD
+        __delay_us(25);
+        PORTCbits.RC2 = 0;                    //Subo RD
+        D = PORTB;             //Lectura
+        
+        //__delay_ms(4000); 
+        PORTCbits.RC7 = 0;
+        Input = (A+B)-(C+D); //está bien?
         PidType PID;
-        PID_init(&PID, 1, 0.05, 0.25, PID_Direction_Direct);
+        PID_init(&PID, 0.2, 0, 0, PID_Direction_Reverse);
         PID_SetMode(&PID, PID_Mode_Automatic);
         PID_SetOutputLimits(&PID, PID_Out_Min, PID_Out_Max);
         PID.mySetpoint = Setpoint;    

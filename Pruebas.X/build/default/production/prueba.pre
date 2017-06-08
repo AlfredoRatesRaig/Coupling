@@ -4809,7 +4809,7 @@ extern __nonreentrant void _delay3(unsigned char);
 # 7 "CONFIG.h"
 #pragma config PLLDIV = 5
 #pragma config CPUDIV = OSC2_PLL3
-#pragma config USBDIV = 2
+#pragma config USBDIV = 1
 
 
 #pragma config FOSC = HSPLL_HS
@@ -4818,23 +4818,23 @@ extern __nonreentrant void _delay3(unsigned char);
 
 
 #pragma config PWRT = OFF
-#pragma config BOR = ON
+#pragma config BOR = OFF
 #pragma config BORV = 3
 #pragma config VREGEN = OFF
 
 
-#pragma config WDT = ON
+#pragma config WDT = OFF
 #pragma config WDTPS = 32768
 
 
 #pragma config CCP2MX = OFF
-#pragma config PBADEN = ON
+#pragma config PBADEN = OFF
 #pragma config LPT1OSC = OFF
 #pragma config MCLRE = OFF
 
 
-#pragma config STVREN = ON
-#pragma config LVP = ON
+#pragma config STVREN = OFF
+#pragma config LVP = OFF
 #pragma config ICPRT = OFF
 #pragma config XINST = OFF
 
@@ -4869,8 +4869,10 @@ extern __nonreentrant void _delay3(unsigned char);
 #pragma config EBTRB = OFF
 
 # 13 "prueba.c"
-unsigned char Input1;
-unsigned char Input2;
+float Input1;
+float Input2;
+float Input3;
+float Input4;
 
 int main()
 {
@@ -4879,32 +4881,59 @@ TRISD = 0x00;
 TRISC = 0b01000000;
 TMR1CS = 0;
 TMR3CS = 0;
-
-PORTCbits.RC1 = 1;
+PORTCbits.RC0 = 0;
+PORTCbits.RC1 = 0;
 PORTCbits.RC2 = 1;
 PORTCbits.RC7 = 0;
-Input1 = 0xFF;
-Input2 = 0x00;
+
+
 while(1)
 {
-
+PORTCbits.RC0 = 0;
 PORTCbits.RC1 = 0;
+PORTCbits.RC7 = 0;
 
 PORTCbits.RC2 = 1;
-_delay((unsigned long)((25)*(32000000/4000000.0)));
+_delay((unsigned long)((5)*(32000000/4000000.0)));
 PORTCbits.RC2 = 0;
 Input1 = PORTB;
 PORTD = Input1;
-_delay((unsigned long)((4000)*(32000000/4000.0)));
 
-PORTCbits.RC1 = 1;
+
+PORTCbits.RC0 = 1;
+PORTCbits.RC1 = 0;
+PORTCbits.RC7 = 0;
 
 PORTCbits.RC2 = 1;
-_delay((unsigned long)((25)*(32000000/4000000.0)));
+_delay((unsigned long)((5)*(32000000/4000000.0)));
 PORTCbits.RC2 = 0;
 Input2 = PORTB;
 PORTD = Input2;
-_delay((unsigned long)((4000)*(32000000/4000.0)));
+
+
+PORTCbits.RC0 = 0;
+PORTCbits.RC1 = 1;
+PORTCbits.RC7 = 1;
+
+PORTCbits.RC2 = 1;
+_delay((unsigned long)((5)*(32000000/4000000.0)));
+PORTCbits.RC2 = 0;
+Input3 = PORTB;
+PORTD = Input3;
+
+
+PORTCbits.RC0 = 1;
+PORTCbits.RC1 = 1;
+PORTCbits.RC7 = 1;
+
+PORTCbits.RC2 = 1;
+_delay((unsigned long)((5)*(32000000/4000000.0)));
+PORTCbits.RC2 = 0;
+Input4 = PORTB;
+PORTD = Input4;
+
+
 }
 return 0;
 }
+

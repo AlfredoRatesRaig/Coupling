@@ -10,8 +10,10 @@
 #include "CONFIG.h"
 #define _XTAL_FREQ 32000000         //Cristal: 20MHz ; Clock: 32MHz
 
-unsigned char Input1;               //Declaración de variables
-unsigned char Input2;
+float Input1;               //Declaración de variables
+float Input2;
+float Input3;
+float Input4;
 
 int main() 
 { 
@@ -20,32 +22,59 @@ int main()
     TRISC = 0b01000000;
     TMR1CS = 0;
     TMR3CS = 0;
-    //PORTCbits.RC0 = 1;                        //Condiciones Iniciales
-    PORTCbits.RC1 = 1;
+    PORTCbits.RC0 = 0;                        //Condiciones Iniciales
+    PORTCbits.RC1 = 0;
     PORTCbits.RC2 = 1;
     PORTCbits.RC7 = 0;
-    Input1 = 0xFF;
-    Input2 = 0x00;
+    //nput1 = 0xFF;
+    //Input2 = 0x00;
     while(1) 
     {
-        //PORTCbits.RC0 = 0;                    //Mux en 00
+        PORTCbits.RC0 = 0;                    //Mux en 00
         PORTCbits.RC1 = 0;
+        PORTCbits.RC7 = 0;
         
         PORTCbits.RC2 = 1;                    //Subo RD
-        __delay_us(25);
-        PORTCbits.RC2 = 0;                    //Subo RD
+        __delay_us(5);
+        PORTCbits.RC2 = 0;
         Input1 = PORTB;             //Lectura y escritura
         PORTD = Input1;
-        __delay_ms(4000); 
-        //PORTCbits.RC0 = 1;                    //Mux en 11
-        PORTCbits.RC1 = 1;
+        //__delay_ms(4);
         
-        PORTCbits.RC2 = 1;                    //Bajo RD
-        __delay_us(25);
-        PORTCbits.RC2 = 0;   
+        PORTCbits.RC0 = 1;                    //Mux en 00
+        PORTCbits.RC1 = 0;
+        PORTCbits.RC7 = 0;
+        
+        PORTCbits.RC2 = 1;                    //Subo RD
+        __delay_us(5);
+        PORTCbits.RC2 = 0;
         Input2 = PORTB;             //Lectura y escritura
-        PORTD = Input2;//Bajo RD
-        __delay_ms(4000); 
+        PORTD = Input2;
+        //__delay_ms(4);
+        
+        PORTCbits.RC0 = 0;                    //Mux en 00
+        PORTCbits.RC1 = 1;
+        PORTCbits.RC7 = 1;
+        
+        PORTCbits.RC2 = 1;                    //Subo RD
+        __delay_us(5);
+        PORTCbits.RC2 = 0;
+        Input3 = PORTB;             //Lectura y escritura
+        PORTD = Input3;
+        //__delay_ms(4);
+        
+        PORTCbits.RC0 = 1;                    //Mux en 00
+        PORTCbits.RC1 = 1;
+        PORTCbits.RC7 = 1;
+        
+        PORTCbits.RC2 = 1;                    //Subo RD
+        __delay_us(5);
+        PORTCbits.RC2 = 0;
+        Input4 = PORTB;             //Lectura y escritura
+        PORTD = Input4;
+        //__delay_ms(4);
+
     }
 return 0;
 }
+    

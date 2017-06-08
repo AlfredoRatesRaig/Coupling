@@ -3,12 +3,12 @@
 [d edition pro ]
 [d chip 18F4550 ]
 [d frameptr 4065 ]
-"49 C:\Users\Astrolab\Coupling\newmain.c
+"103 C:\Users\Astrolab\Coupling\newmain.c
 [e E3796 . `uc
 PID_Direction_Direct 0
 PID_Direction_Reverse 1
 ]
-"51
+"105
 [e E3792 . `uc
 PID_Mode_Automatic 1
 PID_Mode_Manual 0
@@ -39,6 +39,8 @@ PID_Mode_Manual 0
 [v ___ftneg __ftneg `(f  1 e 3 0 ]
 "20 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\ftsub.c
 [v ___ftsub __ftsub `(f  1 e 3 0 ]
+"44 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\fttol.c
+[v ___fttol __fttol `(l  1 e 4 0 ]
 "27 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\lbtoft.c
 [v ___lbtoft __lbtoft `(f  1 e 3 0 ]
 "35 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\lltoft.c
@@ -53,7 +55,7 @@ PID_Mode_Manual 0
 [v ___flmul __flmul `(d  1 e 3 0 ]
 "15 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\Umul32.c
 [v ___lmul __lmul `(ul  1 e 4 0 ]
-"46 C:\Users\Astrolab\Coupling\newmain.c
+"51 C:\Users\Astrolab\Coupling\newmain.c
 [v _main main `(v  1 e 1 0 ]
 "16 C:\Users\Astrolab\Coupling\pid.c
 [v _PID_init PID_init `(v  1 e 1 0 ]
@@ -71,10 +73,51 @@ PID_Mode_Manual 0
 [v _PID_SetControllerDirection PID_SetControllerDirection `(v  1 e 1 0 ]
 "2451 C:\Program Files (x86)\Microchip\xc8\v1.42\include\pic18f4550.h
 [v _PORTB PORTB `VEuc  1 e 1 @3969 ]
+[s S26 . 1 `uc 1 RC0 1 0 :1:0 
+`uc 1 RC1 1 0 :1:1 
+`uc 1 RC2 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 RC4 1 0 :1:4 
+`uc 1 RC5 1 0 :1:5 
+`uc 1 RC6 1 0 :1:6 
+`uc 1 RC7 1 0 :1:7 
+]
+"2603
+[s S35 . 1 `uc 1 T1OSO 1 0 :1:0 
+`uc 1 T1OSI 1 0 :1:1 
+`uc 1 CCP1 1 0 :1:2 
+`uc 1 . 1 0 :3:3 
+`uc 1 TX 1 0 :1:6 
+`uc 1 RX 1 0 :1:7 
+]
+[s S42 . 1 `uc 1 T13CKI 1 0 :1:0 
+`uc 1 . 1 0 :1:1 
+`uc 1 P1A 1 0 :1:2 
+`uc 1 . 1 0 :3:3 
+`uc 1 CK 1 0 :1:6 
+`uc 1 DT 1 0 :1:7 
+]
+[s S49 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 CCP2 1 0 :1:1 
+`uc 1 PA1 1 0 :1:2 
+]
+[s S53 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 PA2 1 0 :1:1 
+]
+[u S56 . 1 `S26 1 . 1 0 `S35 1 . 1 0 `S42 1 . 1 0 `S49 1 . 1 0 `S53 1 . 1 0 ]
+[v _PORTCbits PORTCbits `VES56  1 e 1 @3970 ]
 "2703
 [v _PORTD PORTD `VEuc  1 e 1 @3971 ]
 "3623
 [v _TRISB TRISB `VEuc  1 e 1 @3987 ]
+"3845
+[v _TRISC TRISC `VEuc  1 e 1 @3988 ]
+"3999
+[v _TRISD TRISD `VEuc  1 e 1 @3989 ]
+"10181
+[v _TMR1CS TMR1CS `VEb  1 e 0 @32361 ]
+"10199
+[v _TMR3CS TMR3CS `VEb  1 e 0 @32137 ]
 "40 C:\Users\Astrolab\Coupling\newmain.c
 [v _Output Output `f  1 e 3 0 ]
 "41
@@ -84,14 +127,22 @@ PID_Mode_Manual 0
 "43
 [v _Setpoint Setpoint `i  1 e 2 0 ]
 "44
-[v _Input Input `uc  1 e 1 0 ]
+[v _Input Input `f  1 e 3 0 ]
+"45
+[v _A A `f  1 e 3 0 ]
 "46
+[v _B B `f  1 e 3 0 ]
+"47
+[v _C C `f  1 e 3 0 ]
+"48
+[v _D D `f  1 e 3 0 ]
+"51
 [v _main main `(v  1 e 1 0 ]
 {
-[s S26 . 45 `f 1 dispKp 3 0 `f 1 dispKi 3 3 `f 1 dispKd 3 6 `f 1 kp 3 9 `f 1 ki 3 12 `f 1 kd 3 15 `E3796 1 controllerDirection 1 18 `f 1 myInput 3 19 `f 1 myOutput 3 22 `f 1 mySetpoint 3 25 `f 1 ITerm 3 28 `f 1 lastInput 3 31 `ul 1 SampleTime 4 34 `f 1 outMin 3 38 `f 1 outMax 3 41 `uc 1 inAuto 1 44 ]
-"49
-[v main@PID PID `S26  1 a 45 0 ]
-"59
+[s S103 . 45 `f 1 dispKp 3 0 `f 1 dispKi 3 3 `f 1 dispKd 3 6 `f 1 kp 3 9 `f 1 ki 3 12 `f 1 kd 3 15 `E3796 1 controllerDirection 1 18 `f 1 myInput 3 19 `f 1 myOutput 3 22 `f 1 mySetpoint 3 25 `f 1 ITerm 3 28 `f 1 lastInput 3 31 `ul 1 SampleTime 4 34 `f 1 outMin 3 38 `f 1 outMax 3 41 `uc 1 inAuto 1 44 ]
+"103
+[v main@PID PID `S103  1 a 45 6 ]
+"114
 } 0
 "27 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\lbtoft.c
 [v ___lbtoft __lbtoft `(f  1 e 3 0 ]
@@ -101,6 +152,18 @@ PID_Mode_Manual 0
 "29
 [v ___lbtoft@c c `uc  1 a 1 11 ]
 "30
+} 0
+"44 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\fttol.c
+[v ___fttol __fttol `(l  1 e 4 0 ]
+{
+"47
+[v ___fttol@lval lval `ul  1 a 4 10 ]
+"46
+[v ___fttol@exp1 exp1 `uc  1 a 1 14 ]
+[v ___fttol@sign1 sign1 `uc  1 a 1 9 ]
+"44
+[v ___fttol@f1 f1 `f  1 p 3 0 ]
+"73
 } 0
 "32 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\awtoft.c
 [v ___awtoft __awtoft `(f  1 e 3 0 ]
@@ -114,26 +177,26 @@ PID_Mode_Manual 0
 "16 C:\Users\Astrolab\Coupling\pid.c
 [v _PID_init PID_init `(v  1 e 1 0 ]
 {
-[s S26 . 45 `f 1 dispKp 3 0 `f 1 dispKi 3 3 `f 1 dispKd 3 6 `f 1 kp 3 9 `f 1 ki 3 12 `f 1 kd 3 15 `E3796 1 controllerDirection 1 18 `f 1 myInput 3 19 `f 1 myOutput 3 22 `f 1 mySetpoint 3 25 `f 1 ITerm 3 28 `f 1 lastInput 3 31 `ul 1 SampleTime 4 34 `f 1 outMin 3 38 `f 1 outMax 3 41 `uc 1 inAuto 1 44 ]
-[v PID_init@pid pid `*.39S26  1 p 2 47 ]
-[v PID_init@Kp Kp `f  1 p 3 49 ]
-[v PID_init@Ki Ki `f  1 p 3 52 ]
-[v PID_init@Kd Kd `f  1 p 3 55 ]
+[s S103 . 45 `f 1 dispKp 3 0 `f 1 dispKi 3 3 `f 1 dispKd 3 6 `f 1 kp 3 9 `f 1 ki 3 12 `f 1 kd 3 15 `E3796 1 controllerDirection 1 18 `f 1 myInput 3 19 `f 1 myOutput 3 22 `f 1 mySetpoint 3 25 `f 1 ITerm 3 28 `f 1 lastInput 3 31 `ul 1 SampleTime 4 34 `f 1 outMin 3 38 `f 1 outMax 3 41 `uc 1 inAuto 1 44 ]
+[v PID_init@pid pid `*.39S103  1 p 2 53 ]
+[v PID_init@Kp Kp `f  1 p 3 55 ]
+[v PID_init@Ki Ki `f  1 p 3 58 ]
+[v PID_init@Kd Kd `f  1 p 3 61 ]
 "17
-[v PID_init@ControllerDirection ControllerDirection `E7  1 p 1 58 ]
+[v PID_init@ControllerDirection ControllerDirection `E7  1 p 1 64 ]
 "34
 } 0
 "85
 [v _PID_SetTunings PID_SetTunings `(v  1 e 1 0 ]
 {
 "94
-[v PID_SetTunings@SampleTimeInSec SampleTimeInSec `f  1 a 3 44 ]
-[s S26 . 45 `f 1 dispKp 3 0 `f 1 dispKi 3 3 `f 1 dispKd 3 6 `f 1 kp 3 9 `f 1 ki 3 12 `f 1 kd 3 15 `E3796 1 controllerDirection 1 18 `f 1 myInput 3 19 `f 1 myOutput 3 22 `f 1 mySetpoint 3 25 `f 1 ITerm 3 28 `f 1 lastInput 3 31 `ul 1 SampleTime 4 34 `f 1 outMin 3 38 `f 1 outMax 3 41 `uc 1 inAuto 1 44 ]
+[v PID_SetTunings@SampleTimeInSec SampleTimeInSec `f  1 a 3 50 ]
+[s S103 . 45 `f 1 dispKp 3 0 `f 1 dispKi 3 3 `f 1 dispKd 3 6 `f 1 kp 3 9 `f 1 ki 3 12 `f 1 kd 3 15 `E3796 1 controllerDirection 1 18 `f 1 myInput 3 19 `f 1 myOutput 3 22 `f 1 mySetpoint 3 25 `f 1 ITerm 3 28 `f 1 lastInput 3 31 `ul 1 SampleTime 4 34 `f 1 outMin 3 38 `f 1 outMax 3 41 `uc 1 inAuto 1 44 ]
 "85
-[v PID_SetTunings@pid pid `*.39S26  1 p 2 32 ]
-[v PID_SetTunings@Kp Kp `f  1 p 3 34 ]
-[v PID_SetTunings@Ki Ki `f  1 p 3 37 ]
-[v PID_SetTunings@Kd Kd `f  1 p 3 40 ]
+[v PID_SetTunings@pid pid `*.39S103  1 p 2 38 ]
+[v PID_SetTunings@Kp Kp `f  1 p 3 40 ]
+[v PID_SetTunings@Ki Ki `f  1 p 3 43 ]
+[v PID_SetTunings@Kd Kd `f  1 p 3 46 ]
 "104
 } 0
 "35 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\lltoft.c
@@ -162,8 +225,8 @@ PID_Mode_Manual 0
 "126 C:\Users\Astrolab\Coupling\pid.c
 [v _PID_SetOutputLimits PID_SetOutputLimits `(v  1 e 1 0 ]
 {
-[s S26 . 45 `f 1 dispKp 3 0 `f 1 dispKi 3 3 `f 1 dispKd 3 6 `f 1 kp 3 9 `f 1 ki 3 12 `f 1 kd 3 15 `E3796 1 controllerDirection 1 18 `f 1 myInput 3 19 `f 1 myOutput 3 22 `f 1 mySetpoint 3 25 `f 1 ITerm 3 28 `f 1 lastInput 3 31 `ul 1 SampleTime 4 34 `f 1 outMin 3 38 `f 1 outMax 3 41 `uc 1 inAuto 1 44 ]
-[v PID_SetOutputLimits@pid pid `*.39S26  1 p 2 12 ]
+[s S103 . 45 `f 1 dispKp 3 0 `f 1 dispKi 3 3 `f 1 dispKd 3 6 `f 1 kp 3 9 `f 1 ki 3 12 `f 1 kd 3 15 `E3796 1 controllerDirection 1 18 `f 1 myInput 3 19 `f 1 myOutput 3 22 `f 1 mySetpoint 3 25 `f 1 ITerm 3 28 `f 1 lastInput 3 31 `ul 1 SampleTime 4 34 `f 1 outMin 3 38 `f 1 outMax 3 41 `uc 1 inAuto 1 44 ]
+[v PID_SetOutputLimits@pid pid `*.39S103  1 p 2 12 ]
 [v PID_SetOutputLimits@Min Min `f  1 p 3 14 ]
 [v PID_SetOutputLimits@Max Max `f  1 p 3 17 ]
 "146
@@ -171,9 +234,9 @@ PID_Mode_Manual 0
 "183
 [v _PID_SetControllerDirection PID_SetControllerDirection `(v  1 e 1 0 ]
 {
-[s S26 . 45 `f 1 dispKp 3 0 `f 1 dispKi 3 3 `f 1 dispKd 3 6 `f 1 kp 3 9 `f 1 ki 3 12 `f 1 kd 3 15 `E3796 1 controllerDirection 1 18 `f 1 myInput 3 19 `f 1 myOutput 3 22 `f 1 mySetpoint 3 25 `f 1 ITerm 3 28 `f 1 lastInput 3 31 `ul 1 SampleTime 4 34 `f 1 outMin 3 38 `f 1 outMax 3 41 `uc 1 inAuto 1 44 ]
-[v PID_SetControllerDirection@pid pid `*.39S26  1 p 2 26 ]
-[v PID_SetControllerDirection@Direction Direction `E7  1 p 1 28 ]
+[s S103 . 45 `f 1 dispKp 3 0 `f 1 dispKi 3 3 `f 1 dispKd 3 6 `f 1 kp 3 9 `f 1 ki 3 12 `f 1 kd 3 15 `E3796 1 controllerDirection 1 18 `f 1 myInput 3 19 `f 1 myOutput 3 22 `f 1 mySetpoint 3 25 `f 1 ITerm 3 28 `f 1 lastInput 3 31 `ul 1 SampleTime 4 34 `f 1 outMin 3 38 `f 1 outMax 3 41 `uc 1 inAuto 1 44 ]
+[v PID_SetControllerDirection@pid pid `*.39S103  1 p 2 38 ]
+[v PID_SetControllerDirection@Direction Direction `E7  1 p 1 40 ]
 "190
 } 0
 "153
@@ -181,17 +244,17 @@ PID_Mode_Manual 0
 {
 "155
 [v PID_SetMode@newAuto newAuto `uc  1 a 1 15 ]
-[s S26 . 45 `f 1 dispKp 3 0 `f 1 dispKi 3 3 `f 1 dispKd 3 6 `f 1 kp 3 9 `f 1 ki 3 12 `f 1 kd 3 15 `E3796 1 controllerDirection 1 18 `f 1 myInput 3 19 `f 1 myOutput 3 22 `f 1 mySetpoint 3 25 `f 1 ITerm 3 28 `f 1 lastInput 3 31 `ul 1 SampleTime 4 34 `f 1 outMin 3 38 `f 1 outMax 3 41 `uc 1 inAuto 1 44 ]
+[s S103 . 45 `f 1 dispKp 3 0 `f 1 dispKi 3 3 `f 1 dispKd 3 6 `f 1 kp 3 9 `f 1 ki 3 12 `f 1 kd 3 15 `E3796 1 controllerDirection 1 18 `f 1 myInput 3 19 `f 1 myOutput 3 22 `f 1 mySetpoint 3 25 `f 1 ITerm 3 28 `f 1 lastInput 3 31 `ul 1 SampleTime 4 34 `f 1 outMin 3 38 `f 1 outMax 3 41 `uc 1 inAuto 1 44 ]
 "153
-[v PID_SetMode@pid pid `*.39S26  1 p 2 11 ]
+[v PID_SetMode@pid pid `*.39S103  1 p 2 11 ]
 [v PID_SetMode@Mode Mode `E3  1 p 1 13 ]
 "161
 } 0
 "167
 [v _PID_Initialize PID_Initialize `(v  1 e 1 0 ]
 {
-[s S26 . 45 `f 1 dispKp 3 0 `f 1 dispKi 3 3 `f 1 dispKd 3 6 `f 1 kp 3 9 `f 1 ki 3 12 `f 1 kd 3 15 `E3796 1 controllerDirection 1 18 `f 1 myInput 3 19 `f 1 myOutput 3 22 `f 1 mySetpoint 3 25 `f 1 ITerm 3 28 `f 1 lastInput 3 31 `ul 1 SampleTime 4 34 `f 1 outMin 3 38 `f 1 outMax 3 41 `uc 1 inAuto 1 44 ]
-[v PID_Initialize@pid pid `*.39S26  1 p 2 9 ]
+[s S103 . 45 `f 1 dispKp 3 0 `f 1 dispKi 3 3 `f 1 dispKd 3 6 `f 1 kp 3 9 `f 1 ki 3 12 `f 1 kd 3 15 `E3796 1 controllerDirection 1 18 `f 1 myInput 3 19 `f 1 myOutput 3 22 `f 1 mySetpoint 3 25 `f 1 ITerm 3 28 `f 1 lastInput 3 31 `ul 1 SampleTime 4 34 `f 1 outMin 3 38 `f 1 outMax 3 41 `uc 1 inAuto 1 44 ]
+[v PID_Initialize@pid pid `*.39S103  1 p 2 9 ]
 "175
 } 0
 "43
@@ -205,15 +268,15 @@ PID_Mode_Manual 0
 [v PID_Compute@error error `f  1 a 3 46 ]
 "58
 [v PID_Compute@dInput dInput `f  1 a 3 40 ]
-[s S26 . 45 `f 1 dispKp 3 0 `f 1 dispKi 3 3 `f 1 dispKd 3 6 `f 1 kp 3 9 `f 1 ki 3 12 `f 1 kd 3 15 `E3796 1 controllerDirection 1 18 `f 1 myInput 3 19 `f 1 myOutput 3 22 `f 1 mySetpoint 3 25 `f 1 ITerm 3 28 `f 1 lastInput 3 31 `ul 1 SampleTime 4 34 `f 1 outMin 3 38 `f 1 outMax 3 41 `uc 1 inAuto 1 44 ]
+[s S103 . 45 `f 1 dispKp 3 0 `f 1 dispKi 3 3 `f 1 dispKd 3 6 `f 1 kp 3 9 `f 1 ki 3 12 `f 1 kd 3 15 `E3796 1 controllerDirection 1 18 `f 1 myInput 3 19 `f 1 myOutput 3 22 `f 1 mySetpoint 3 25 `f 1 ITerm 3 28 `f 1 lastInput 3 31 `ul 1 SampleTime 4 34 `f 1 outMin 3 38 `f 1 outMax 3 41 `uc 1 inAuto 1 44 ]
 "43
-[v PID_Compute@pid pid `*.39S26  1 p 2 38 ]
+[v PID_Compute@pid pid `*.39S103  1 p 2 38 ]
 "76
 } 0
 "15 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\ftneg.c
 [v ___ftneg __ftneg `(f  1 e 3 0 ]
 {
-[v ___ftneg@f1 f1 `f  1 p 3 23 ]
+[v ___ftneg@f1 f1 `f  1 p 3 35 ]
 "20
 } 0
 "62 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\ftmul.c
@@ -241,12 +304,12 @@ PID_Mode_Manual 0
 [v ___ftadd __ftadd `(f  1 e 3 0 ]
 {
 "88
-[v ___ftadd@exp1 exp1 `uc  1 a 1 37 ]
-[v ___ftadd@exp2 exp2 `uc  1 a 1 36 ]
-[v ___ftadd@sign sign `uc  1 a 1 35 ]
+[v ___ftadd@exp1 exp1 `uc  1 a 1 34 ]
+[v ___ftadd@exp2 exp2 `uc  1 a 1 33 ]
+[v ___ftadd@sign sign `uc  1 a 1 32 ]
 "86
-[v ___ftadd@f1 f1 `f  1 p 3 26 ]
-[v ___ftadd@f2 f2 `f  1 p 3 29 ]
+[v ___ftadd@f1 f1 `f  1 p 3 23 ]
+[v ___ftadd@f2 f2 `f  1 p 3 26 ]
 "148
 } 0
 "62 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\float.c
