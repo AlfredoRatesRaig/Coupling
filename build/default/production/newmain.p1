@@ -36,7 +36,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p i __delay ]
 "2451 C:\Program Files (x86)\Microchip\xc8\v1.42\include\pic18f4550.h
 [v _PORTB `Vuc ~T0 @X0 0 e@3969 ]
-"103 newmain.c
+"104 newmain.c
 [c E3796 0 1 .. ]
 [n E3796 . PID_Direction_Direct PID_Direction_Reverse  ]
 "21 pid.h
@@ -44,13 +44,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S362 . dispKp dispKi dispKd kp ki kd controllerDirection myInput myOutput mySetpoint ITerm lastInput SampleTime outMin outMax inAuto ]
 "49
 [v _PID_init `(v ~T0 @X0 0 ef5`*S362`f`f`f`E3796 ]
-"105 newmain.c
+"106 newmain.c
 [c E3792 1 0 .. ]
 [n E3792 . PID_Mode_Automatic PID_Mode_Manual  ]
 "56 pid.h
 [v _PID_SetMode `(v ~T0 @X0 0 ef2`*S362`E3792 ]
-"67
-[v _PID_SetOutputLimits `(v ~T0 @X0 0 ef3`*S362`f`f ]
 "62
 [v _PID_Compute `(uc ~T0 @X0 0 ef1`*S362 ]
 "2703 C:\Program Files (x86)\Microchip\xc8\v1.42\include\pic18f4550.h
@@ -3837,47 +3835,44 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;newmain.c: 101: PORTCbits.RC7 = 0;
 "101
 [e = . . _PORTCbits 0 7 -> -> 0 `i `uc ]
-[; ;newmain.c: 102: Input = (A+B)-(C+D);
-"102
-[e = _Input - + _A _B + _C _D ]
+[; ;newmain.c: 103: Input = A;
 "103
-[v _PID `S362 ~T0 @X0 1 a ]
-[; ;newmain.c: 103: PidType PID;
-[; ;newmain.c: 104: PID_init(&PID, 0.2, 0, 0, PID_Direction_Reverse);
+[e = _Input _A ]
 "104
-[e ( _PID_init (4 , , , , &U _PID -> .0.2 `f -> -> 0 `i `f -> -> 0 `i `f . `E3796 1 ]
-[; ;newmain.c: 105: PID_SetMode(&PID, PID_Mode_Automatic);
+[v _PID `S362 ~T0 @X0 1 a ]
+[; ;newmain.c: 104: PidType PID;
+[; ;newmain.c: 105: PID_init(&PID, 1, 0, 0, PID_Direction_Reverse);
 "105
-[e ( _PID_SetMode (2 , &U _PID . `E3792 0 ]
-[; ;newmain.c: 106: PID_SetOutputLimits(&PID, PID_Out_Min, PID_Out_Max);
+[e ( _PID_init (4 , , , , &U _PID -> -> 1 `i `f -> -> 0 `i `f -> -> 0 `i `f . `E3796 1 ]
+[; ;newmain.c: 106: PID_SetMode(&PID, PID_Mode_Automatic);
 "106
-[e ( _PID_SetOutputLimits (3 , , &U _PID -> _PID_Out_Min `f -> _PID_Out_Max `f ]
-[; ;newmain.c: 107: PID.mySetpoint = Setpoint;
-"107
-[e = . _PID 9 -> _Setpoint `f ]
-[; ;newmain.c: 108: PID.myInput = Input;
+[e ( _PID_SetMode (2 , &U _PID . `E3792 0 ]
+[; ;newmain.c: 108: PID.mySetpoint = Setpoint;
 "108
-[e = . _PID 7 _Input ]
-[; ;newmain.c: 109: PID_Compute(&PID);
+[e = . _PID 9 -> _Setpoint `f ]
+[; ;newmain.c: 109: PID.myInput = Input;
 "109
-[e ( _PID_Compute (1 &U _PID ]
-[; ;newmain.c: 110: Output = PID.myOutput;
+[e = . _PID 7 _Input ]
+[; ;newmain.c: 110: PID_Compute(&PID);
 "110
-[e = _Output . _PID 8 ]
-[; ;newmain.c: 111: PORTD = Output;
+[e ( _PID_Compute (1 &U _PID ]
+[; ;newmain.c: 111: Output = PID.myOutput;
 "111
-[e = _PORTD -> _Output `uc ]
-"112
+[e = _Output . _PID 8 ]
+[; ;newmain.c: 113: PORTD = A;
+"113
+[e = _PORTD -> _A `uc ]
+"114
 }
 [e :U 364 ]
 "61
 [e $U 365  ]
 [e :U 366 ]
-[; ;newmain.c: 112: }
-[; ;newmain.c: 113: return;
-"113
-[e $UE 363  ]
 [; ;newmain.c: 114: }
-"114
+[; ;newmain.c: 115: return;
+"115
+[e $UE 363  ]
+[; ;newmain.c: 116: }
+"116
 [e :UE 363 ]
 }

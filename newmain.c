@@ -99,16 +99,18 @@ void main(void) {
         
         //__delay_ms(4000); 
         PORTCbits.RC7 = 0;
-        Input = (A+B)-(C+D); //está bien?
+        //Input = (A+B)-(C+D); //está bien?
+        Input = A;
         PidType PID;
-        PID_init(&PID, 0.2, 0, 0, PID_Direction_Reverse);
+        PID_init(&PID, 1, 0, 0, PID_Direction_Reverse);
         PID_SetMode(&PID, PID_Mode_Automatic);
-        PID_SetOutputLimits(&PID, PID_Out_Min, PID_Out_Max);
+        //PID_SetOutputLimits(&PID, PID_Out_Min, PID_Out_Max);
         PID.mySetpoint = Setpoint;    
         PID.myInput = Input;
         PID_Compute(&PID);    
         Output = PID.myOutput;
-        PORTD = Output; //está bien?
+        //PORTD = Output; //está bien?
+        PORTD = Input;
     }
     return;
 }
