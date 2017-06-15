@@ -4895,7 +4895,7 @@ PidDirectionType PID_GetDirection(PidType* pid);
 #pragma config IESO = OFF
 
 
-#pragma config PWRT = ON
+#pragma config PWRT = OFF
 #pragma config BOR = OFF
 #pragma config BORV = 3
 #pragma config VREGEN = OFF
@@ -4976,7 +4976,6 @@ PORTCbits.RC1 = 0;
 PORTCbits.RC2 = 1;
 _delay((unsigned long)((25)*(32000000/4000000.0)));
 PORTCbits.RC2 = 0;
-_delay((unsigned long)((50)*(32000000/4000000.0)));
 A = PORTB;
 
 _delay((unsigned long)((40)*(32000000/4000.0)));
@@ -4987,7 +4986,6 @@ PORTCbits.RC1 = 0;
 PORTCbits.RC2 = 1;
 _delay((unsigned long)((25)*(32000000/4000000.0)));
 PORTCbits.RC2 = 0;
-_delay((unsigned long)((50)*(32000000/4000000.0)));
 B = PORTB;
 
 _delay((unsigned long)((40)*(32000000/4000.0)));
@@ -4998,7 +4996,6 @@ PORTCbits.RC1 = 1;
 PORTCbits.RC2 = 1;
 _delay((unsigned long)((25)*(32000000/4000000.0)));
 PORTCbits.RC2 = 0;
-_delay((unsigned long)((50)*(32000000/4000000.0)));
 C = PORTB;
 
 _delay((unsigned long)((40)*(32000000/4000.0)));
@@ -5009,11 +5006,10 @@ PORTCbits.RC1 = 1;
 PORTCbits.RC2 = 1;
 _delay((unsigned long)((25)*(32000000/4000000.0)));
 PORTCbits.RC2 = 0;
-_delay((unsigned long)((50)*(32000000/4000000.0)));
 D = PORTB;
 
 _delay((unsigned long)((40)*(32000000/4000.0)));
-Input = (A+B)-(C+D);
+Input = A-(C+D);
 PidType PID;
 PID_init(&PID, 1, 0, 0, PID_Direction_Reverse);
 PID_SetMode(&PID, PID_Mode_Automatic);

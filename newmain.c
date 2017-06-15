@@ -38,15 +38,16 @@
 #include "Config.h"
 #define _XTAL_FREQ 32000000
 float Output;
-int PID_Out_Min = 0;
-int PID_Out_Max = 10;
+int PID_Out_Min = -10000;
+int PID_Out_Max = 10000;
 int Setpoint = 0;
 float Input = 0;
 float A;
 float B;
 float C;
 float D;
-
+int sign;
+unsigned char output;
 
 void main(void) {
     TRISB = 0xFF; //está bien?
@@ -65,9 +66,10 @@ void main(void) {
         PORTCbits.RC2 = 1;                    //Subo RD
         __delay_us(25);
         PORTCbits.RC2 = 0;                    //Subo RD
+        __delay_us(50);
         A = PORTB;             //Lectura
         
-        //__delay_ms(4000); 
+        __delay_ms(40); 
         
         PORTCbits.RC0 = 1;                    //Mux en 01
         PORTCbits.RC1 = 0;
@@ -75,9 +77,10 @@ void main(void) {
         PORTCbits.RC2 = 1;                    //Subo RD
         __delay_us(25);
         PORTCbits.RC2 = 0;                    //Subo RD
+        __delay_us(50);
         B = PORTB;             //Lectura
         
-        //__delay_ms(4000); 
+        __delay_ms(40); 
         
         PORTCbits.RC0 = 0;                    //Mux en 10
         PORTCbits.RC1 = 1;
@@ -85,9 +88,10 @@ void main(void) {
         PORTCbits.RC2 = 1;                    //Subo RD
         __delay_us(25);
         PORTCbits.RC2 = 0;                    //Subo RD
+        __delay_us(50);
         C = PORTB;             //Lectura
         
-        //__delay_ms(4000); 
+        __delay_ms(40); 
         
         PORTCbits.RC0 = 1;                    //Mux en 11
         PORTCbits.RC1 = 1;
@@ -95,22 +99,30 @@ void main(void) {
         PORTCbits.RC2 = 1;                    //Subo RD
         __delay_us(25);
         PORTCbits.RC2 = 0;                    //Subo RD
+        __delay_us(50);
         D = PORTB;             //Lectura
         
-        //__delay_ms(4000); 
-        PORTCbits.RC7 = 0;
-        //Input = (A+B)-(C+D); //está bien?
-        Input = A;
+        __delay_ms(40); 
+        Input = (A+B)-(C+D);
         PidType PID;
         PID_init(&PID, 1, 0, 0, PID_Direction_Reverse);
         PID_SetMode(&PID, PID_Mode_Automatic);
-        //PID_SetOutputLimits(&PID, PID_Out_Min, PID_Out_Max);
+        PID_SetOutputLimits(&PID, PID_Out_Min, PID_Out_Max);
         PID.mySetpoint = Setpoint;    
         PID.myInput = Input;
-        PID_Compute(&PID);    
+        PID_Compute(&PID);  
         Output = PID.myOutput;
-        //PORTD = Output; //está bien?
-        PORTD = Input;
+        
+        if(Output>0){
+            Output = Output;
+            PORTCbits.RC7 = 0;
+        }
+        else{
+            Output = -Output;
+            PORTCbits.RC7 = 1;
+        }
+        output = Output;
+        PORTD = output;
     }
     return;
 }

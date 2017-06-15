@@ -1,7 +1,7 @@
 
 
 Microchip Technology PIC18 LITE Macro Assembler V1.42 build -159332390 
-                                                                                               Thu Jun 15 09:17:05 2017
+                                                                                               Thu Jun 15 09:19:04 2017
 
 Microchip Technology Omniscient Code Generator v1.42 (Free mode) build 201704130522
      1                           	processor	18F4550
@@ -72,26 +72,26 @@ Microchip Technology Omniscient Code Generator v1.42 (Free mode) build 201704130
     58                           ; #config settings
     59  0000                     
     60                           	psect	cinit
-    61  007CE0                     __pcinit:
+    61  0079E0                     __pcinit:
     62                           	opt stack 0
-    63  007CE0                     start_initialization:
+    63  0079E0                     start_initialization:
     64                           	opt stack 0
-    65  007CE0                     __initialization:
+    65  0079E0                     __initialization:
     66                           	opt stack 0
     67                           
     68                           ; Clear objects allocated to COMRAM (12 bytes)
-    69  007CE0  EE00  F012         	lfsr	0,__pbssCOMRAM
-    70  007CE4  0E0C               	movlw	12
-    71  007CE6                     clear_0:
-    72  007CE6  6AEE               	clrf	postinc0,c
-    73  007CE8  06E8               	decf	wreg,f,c
-    74  007CEA  E1FD               	bnz	clear_0
-    75  007CEC                     end_of_initialization:
+    69  0079E0  EE00  F012         	lfsr	0,__pbssCOMRAM
+    70  0079E4  0E0C               	movlw	12
+    71  0079E6                     clear_0:
+    72  0079E6  6AEE               	clrf	postinc0,c
+    73  0079E8  06E8               	decf	wreg,f,c
+    74  0079EA  E1FD               	bnz	clear_0
+    75  0079EC                     end_of_initialization:
     76                           	opt stack 0
-    77  007CEC                     __end_of__initialization:
+    77  0079EC                     __end_of__initialization:
     78                           	opt stack 0
-    79  007CEC  0100               	movlb	0
-    80  007CEE  EF5C  F03F         	goto	_main	;jump to C main() function
+    79  0079EC  0100               	movlb	0
+    80  0079EE  EFDC  F03D         	goto	_main	;jump to C main() function
     81                           postinc0	equ	0xFEE
     82                           wreg	equ	0xFE8
     83                           
@@ -208,237 +208,237 @@ Microchip Technology Omniscient Code Generator v1.42 (Free mode) build 201704130
    194 ;;
    195                           
    196                           	psect	text0
-   197  007EB8                     __ptext0:
+   197  007BB8                     __ptext0:
    198                           	opt stack 0
-   199  007EB8                     _main:
+   199  007BB8                     _main:
    200                           	opt stack 29
    201                           
    202                           ;prueba.c: 20: TRISB = 0xFF;
    203                           
    204                           ;incstack = 0
-   205  007EB8  6893               	setf	3987,c	;volatile
+   205  007BB8  6893               	setf	3987,c	;volatile
    206                           
    207                           ;prueba.c: 21: TRISD = 0x00;
-   208  007EBA  0E00               	movlw	0
-   209  007EBC  6E95               	movwf	3989,c	;volatile
+   208  007BBA  0E00               	movlw	0
+   209  007BBC  6E95               	movwf	3989,c	;volatile
    210                           
    211                           ;prueba.c: 22: TRISC = 0b01000000;
-   212  007EBE  0E40               	movlw	64
-   213  007EC0  6E94               	movwf	3988,c	;volatile
+   212  007BBE  0E40               	movlw	64
+   213  007BC0  6E94               	movwf	3988,c	;volatile
    214                           
    215                           ;prueba.c: 23: TMR1CS = 0;
-   216  007EC2  92CD               	bcf	4045,1,c	;volatile
+   216  007BC2  92CD               	bcf	4045,1,c	;volatile
    217                           
    218                           ;prueba.c: 24: TMR3CS = 0;
-   219  007EC4  92B1               	bcf	4017,1,c	;volatile
+   219  007BC4  92B1               	bcf	4017,1,c	;volatile
    220                           
    221                           ;prueba.c: 25: PORTCbits.RC0 = 0;
-   222  007EC6  9082               	bcf	3970,0,c	;volatile
+   222  007BC6  9082               	bcf	3970,0,c	;volatile
    223                           
    224                           ;prueba.c: 26: PORTCbits.RC1 = 0;
-   225  007EC8  9282               	bcf	3970,1,c	;volatile
+   225  007BC8  9282               	bcf	3970,1,c	;volatile
    226                           
    227                           ;prueba.c: 27: PORTCbits.RC2 = 1;
-   228  007ECA  8482               	bsf	3970,2,c	;volatile
+   228  007BCA  8482               	bsf	3970,2,c	;volatile
    229                           
    230                           ;prueba.c: 28: PORTCbits.RC7 = 0;
-   231  007ECC  9E82               	bcf	3970,7,c	;volatile
-   232  007ECE                     l924:
+   231  007BCC  9E82               	bcf	3970,7,c	;volatile
+   232  007BCE                     l924:
    233                           
    234                           ;prueba.c: 32: {
    235                           ;prueba.c: 33: PORTCbits.RC0 = 0;
-   236  007ECE  9082               	bcf	3970,0,c	;volatile
+   236  007BCE  9082               	bcf	3970,0,c	;volatile
    237                           
    238                           ;prueba.c: 34: PORTCbits.RC1 = 0;
-   239  007ED0  9282               	bcf	3970,1,c	;volatile
+   239  007BD0  9282               	bcf	3970,1,c	;volatile
    240                           
    241                           ;prueba.c: 37: PORTCbits.RC2 = 1;
-   242  007ED2  8482               	bsf	3970,2,c	;volatile
+   242  007BD2  8482               	bsf	3970,2,c	;volatile
    243                           
    244                           ;prueba.c: 38: _delay((unsigned long)((5)*(32000000/4000000.0)));
-   245  007ED4  0E0D               	movlw	13
-   246  007ED6                     u337:
-   247  007ED6  2EE8               	decfsz	wreg,f,c
-   248  007ED8  D7FE               	bra	u337
-   249  007EDA  F000               	nop	
+   245  007BD4  0E0D               	movlw	13
+   246  007BD6                     u337:
+   247  007BD6  2EE8               	decfsz	wreg,f,c
+   248  007BD8  D7FE               	bra	u337
+   249  007BDA  F000               	nop	
    250                           
    251                           ;prueba.c: 39: PORTCbits.RC2 = 0;
-   252  007EDC  9482               	bcf	3970,2,c	;volatile
+   252  007BDC  9482               	bcf	3970,2,c	;volatile
    253                           
    254                           ;prueba.c: 40: Input1 = PORTB;
-   255  007EDE  5081               	movf	3969,w,c	;volatile
-   256  007EE0  EC79  F03E         	call	___lbtoft
-   257  007EE4  C009  F01B         	movff	?___lbtoft,_Input1
-   258  007EE8  C00A  F01C         	movff	?___lbtoft+1,_Input1+1
-   259  007EEC  C00B  F01D         	movff	?___lbtoft+2,_Input1+2
+   255  007BDE  5081               	movf	3969,w,c	;volatile
+   256  007BE0  ECF9  F03C         	call	___lbtoft
+   257  007BE4  C009  F01B         	movff	?___lbtoft,_Input1
+   258  007BE8  C00A  F01C         	movff	?___lbtoft+1,_Input1+1
+   259  007BEC  C00B  F01D         	movff	?___lbtoft+2,_Input1+2
    260                           
    261                           ;prueba.c: 41: PORTD = Input1;
-   262  007EF0  C01B  F001         	movff	_Input1,___fttol@f1
-   263  007EF4  C01C  F002         	movff	_Input1+1,___fttol@f1+1
-   264  007EF8  C01D  F003         	movff	_Input1+2,___fttol@f1+2
-   265  007EFC  ECE2  F03E         	call	___fttol	;wreg free
-   266  007F00  5001               	movf	?___fttol,w,c
-   267  007F02  6E83               	movwf	3971,c	;volatile
+   262  007BF0  C01B  F001         	movff	_Input1,___fttol@f1
+   263  007BF4  C01C  F002         	movff	_Input1+1,___fttol@f1+1
+   264  007BF8  C01D  F003         	movff	_Input1+2,___fttol@f1+2
+   265  007BFC  EC62  F03D         	call	___fttol	;wreg free
+   266  007C00  5001               	movf	?___fttol,w,c
+   267  007C02  6E83               	movwf	3971,c	;volatile
    268                           
    269                           ;prueba.c: 42: _delay((unsigned long)((3000)*(32000000/4000.0)));
-   270  007F04  0E7A               	movlw	122
-   271  007F06  6E11               	movwf	(??_main+1)& (0+255),c
-   272  007F08  0EC1               	movlw	193
-   273  007F0A  6E10               	movwf	??_main& (0+255),c
-   274  007F0C  0E82               	movlw	130
-   275  007F0E                     u347:
-   276  007F0E  2EE8               	decfsz	wreg,f,c
-   277  007F10  D7FE               	bra	u347
-   278  007F12  2E10               	decfsz	??_main& (0+255),f,c
-   279  007F14  D7FC               	bra	u347
-   280  007F16  2E11               	decfsz	(??_main+1)& (0+255),f,c
-   281  007F18  D7FA               	bra	u347
+   270  007C04  0E7A               	movlw	122
+   271  007C06  6E11               	movwf	(??_main+1)& (0+255),c
+   272  007C08  0EC1               	movlw	193
+   273  007C0A  6E10               	movwf	??_main& (0+255),c
+   274  007C0C  0E82               	movlw	130
+   275  007C0E                     u347:
+   276  007C0E  2EE8               	decfsz	wreg,f,c
+   277  007C10  D7FE               	bra	u347
+   278  007C12  2E10               	decfsz	??_main& (0+255),f,c
+   279  007C14  D7FC               	bra	u347
+   280  007C16  2E11               	decfsz	(??_main+1)& (0+255),f,c
+   281  007C18  D7FA               	bra	u347
    282                           
    283                           ;prueba.c: 44: PORTCbits.RC0 = 1;
-   284  007F1A  8082               	bsf	3970,0,c	;volatile
+   284  007C1A  8082               	bsf	3970,0,c	;volatile
    285                           
    286                           ;prueba.c: 45: PORTCbits.RC1 = 0;
-   287  007F1C  9282               	bcf	3970,1,c	;volatile
+   287  007C1C  9282               	bcf	3970,1,c	;volatile
    288                           
    289                           ;prueba.c: 48: PORTCbits.RC2 = 1;
-   290  007F1E  8482               	bsf	3970,2,c	;volatile
+   290  007C1E  8482               	bsf	3970,2,c	;volatile
    291                           
    292                           ;prueba.c: 49: _delay((unsigned long)((5)*(32000000/4000000.0)));
-   293  007F20  0E0D               	movlw	13
-   294  007F22                     u357:
-   295  007F22  2EE8               	decfsz	wreg,f,c
-   296  007F24  D7FE               	bra	u357
-   297  007F26  F000               	nop	
+   293  007C20  0E0D               	movlw	13
+   294  007C22                     u357:
+   295  007C22  2EE8               	decfsz	wreg,f,c
+   296  007C24  D7FE               	bra	u357
+   297  007C26  F000               	nop	
    298                           
    299                           ;prueba.c: 50: PORTCbits.RC2 = 0;
-   300  007F28  9482               	bcf	3970,2,c	;volatile
+   300  007C28  9482               	bcf	3970,2,c	;volatile
    301                           
    302                           ;prueba.c: 51: Input2 = PORTB;
-   303  007F2A  5081               	movf	3969,w,c	;volatile
-   304  007F2C  EC79  F03E         	call	___lbtoft
-   305  007F30  C009  F018         	movff	?___lbtoft,_Input2
-   306  007F34  C00A  F019         	movff	?___lbtoft+1,_Input2+1
-   307  007F38  C00B  F01A         	movff	?___lbtoft+2,_Input2+2
+   303  007C2A  5081               	movf	3969,w,c	;volatile
+   304  007C2C  ECF9  F03C         	call	___lbtoft
+   305  007C30  C009  F018         	movff	?___lbtoft,_Input2
+   306  007C34  C00A  F019         	movff	?___lbtoft+1,_Input2+1
+   307  007C38  C00B  F01A         	movff	?___lbtoft+2,_Input2+2
    308                           
    309                           ;prueba.c: 52: PORTD = Input2;
-   310  007F3C  C018  F001         	movff	_Input2,___fttol@f1
-   311  007F40  C019  F002         	movff	_Input2+1,___fttol@f1+1
-   312  007F44  C01A  F003         	movff	_Input2+2,___fttol@f1+2
-   313  007F48  ECE2  F03E         	call	___fttol	;wreg free
-   314  007F4C  5001               	movf	?___fttol,w,c
-   315  007F4E  6E83               	movwf	3971,c	;volatile
+   310  007C3C  C018  F001         	movff	_Input2,___fttol@f1
+   311  007C40  C019  F002         	movff	_Input2+1,___fttol@f1+1
+   312  007C44  C01A  F003         	movff	_Input2+2,___fttol@f1+2
+   313  007C48  EC62  F03D         	call	___fttol	;wreg free
+   314  007C4C  5001               	movf	?___fttol,w,c
+   315  007C4E  6E83               	movwf	3971,c	;volatile
    316                           
    317                           ;prueba.c: 53: _delay((unsigned long)((3000)*(32000000/4000.0)));
-   318  007F50  0E7A               	movlw	122
-   319  007F52  6E11               	movwf	(??_main+1)& (0+255),c
-   320  007F54  0EC1               	movlw	193
-   321  007F56  6E10               	movwf	??_main& (0+255),c
-   322  007F58  0E82               	movlw	130
-   323  007F5A                     u367:
-   324  007F5A  2EE8               	decfsz	wreg,f,c
-   325  007F5C  D7FE               	bra	u367
-   326  007F5E  2E10               	decfsz	??_main& (0+255),f,c
-   327  007F60  D7FC               	bra	u367
-   328  007F62  2E11               	decfsz	(??_main+1)& (0+255),f,c
-   329  007F64  D7FA               	bra	u367
+   318  007C50  0E7A               	movlw	122
+   319  007C52  6E11               	movwf	(??_main+1)& (0+255),c
+   320  007C54  0EC1               	movlw	193
+   321  007C56  6E10               	movwf	??_main& (0+255),c
+   322  007C58  0E82               	movlw	130
+   323  007C5A                     u367:
+   324  007C5A  2EE8               	decfsz	wreg,f,c
+   325  007C5C  D7FE               	bra	u367
+   326  007C5E  2E10               	decfsz	??_main& (0+255),f,c
+   327  007C60  D7FC               	bra	u367
+   328  007C62  2E11               	decfsz	(??_main+1)& (0+255),f,c
+   329  007C64  D7FA               	bra	u367
    330                           
    331                           ;prueba.c: 55: PORTCbits.RC0 = 0;
-   332  007F66  9082               	bcf	3970,0,c	;volatile
+   332  007C66  9082               	bcf	3970,0,c	;volatile
    333                           
    334                           ;prueba.c: 56: PORTCbits.RC1 = 1;
-   335  007F68  8282               	bsf	3970,1,c	;volatile
+   335  007C68  8282               	bsf	3970,1,c	;volatile
    336                           
    337                           ;prueba.c: 59: PORTCbits.RC2 = 1;
-   338  007F6A  8482               	bsf	3970,2,c	;volatile
+   338  007C6A  8482               	bsf	3970,2,c	;volatile
    339                           
    340                           ;prueba.c: 60: _delay((unsigned long)((5)*(32000000/4000000.0)));
-   341  007F6C  0E0D               	movlw	13
-   342  007F6E                     u377:
-   343  007F6E  2EE8               	decfsz	wreg,f,c
-   344  007F70  D7FE               	bra	u377
-   345  007F72  F000               	nop	
+   341  007C6C  0E0D               	movlw	13
+   342  007C6E                     u377:
+   343  007C6E  2EE8               	decfsz	wreg,f,c
+   344  007C70  D7FE               	bra	u377
+   345  007C72  F000               	nop	
    346                           
    347                           ;prueba.c: 61: PORTCbits.RC2 = 0;
-   348  007F74  9482               	bcf	3970,2,c	;volatile
+   348  007C74  9482               	bcf	3970,2,c	;volatile
    349                           
    350                           ;prueba.c: 62: Input3 = PORTB;
-   351  007F76  5081               	movf	3969,w,c	;volatile
-   352  007F78  EC79  F03E         	call	___lbtoft
-   353  007F7C  C009  F015         	movff	?___lbtoft,_Input3
-   354  007F80  C00A  F016         	movff	?___lbtoft+1,_Input3+1
-   355  007F84  C00B  F017         	movff	?___lbtoft+2,_Input3+2
+   351  007C76  5081               	movf	3969,w,c	;volatile
+   352  007C78  ECF9  F03C         	call	___lbtoft
+   353  007C7C  C009  F015         	movff	?___lbtoft,_Input3
+   354  007C80  C00A  F016         	movff	?___lbtoft+1,_Input3+1
+   355  007C84  C00B  F017         	movff	?___lbtoft+2,_Input3+2
    356                           
    357                           ;prueba.c: 63: PORTD = Input3;
-   358  007F88  C015  F001         	movff	_Input3,___fttol@f1
-   359  007F8C  C016  F002         	movff	_Input3+1,___fttol@f1+1
-   360  007F90  C017  F003         	movff	_Input3+2,___fttol@f1+2
-   361  007F94  ECE2  F03E         	call	___fttol	;wreg free
-   362  007F98  5001               	movf	?___fttol,w,c
-   363  007F9A  6E83               	movwf	3971,c	;volatile
+   358  007C88  C015  F001         	movff	_Input3,___fttol@f1
+   359  007C8C  C016  F002         	movff	_Input3+1,___fttol@f1+1
+   360  007C90  C017  F003         	movff	_Input3+2,___fttol@f1+2
+   361  007C94  EC62  F03D         	call	___fttol	;wreg free
+   362  007C98  5001               	movf	?___fttol,w,c
+   363  007C9A  6E83               	movwf	3971,c	;volatile
    364                           
    365                           ;prueba.c: 64: _delay((unsigned long)((3000)*(32000000/4000.0)));
-   366  007F9C  0E7A               	movlw	122
-   367  007F9E  6E11               	movwf	(??_main+1)& (0+255),c
-   368  007FA0  0EC1               	movlw	193
-   369  007FA2  6E10               	movwf	??_main& (0+255),c
-   370  007FA4  0E82               	movlw	130
-   371  007FA6                     u387:
-   372  007FA6  2EE8               	decfsz	wreg,f,c
-   373  007FA8  D7FE               	bra	u387
-   374  007FAA  2E10               	decfsz	??_main& (0+255),f,c
-   375  007FAC  D7FC               	bra	u387
-   376  007FAE  2E11               	decfsz	(??_main+1)& (0+255),f,c
-   377  007FB0  D7FA               	bra	u387
+   366  007C9C  0E7A               	movlw	122
+   367  007C9E  6E11               	movwf	(??_main+1)& (0+255),c
+   368  007CA0  0EC1               	movlw	193
+   369  007CA2  6E10               	movwf	??_main& (0+255),c
+   370  007CA4  0E82               	movlw	130
+   371  007CA6                     u387:
+   372  007CA6  2EE8               	decfsz	wreg,f,c
+   373  007CA8  D7FE               	bra	u387
+   374  007CAA  2E10               	decfsz	??_main& (0+255),f,c
+   375  007CAC  D7FC               	bra	u387
+   376  007CAE  2E11               	decfsz	(??_main+1)& (0+255),f,c
+   377  007CB0  D7FA               	bra	u387
    378                           
    379                           ;prueba.c: 66: PORTCbits.RC0 = 1;
-   380  007FB2  8082               	bsf	3970,0,c	;volatile
+   380  007CB2  8082               	bsf	3970,0,c	;volatile
    381                           
    382                           ;prueba.c: 67: PORTCbits.RC1 = 1;
-   383  007FB4  8282               	bsf	3970,1,c	;volatile
+   383  007CB4  8282               	bsf	3970,1,c	;volatile
    384                           
    385                           ;prueba.c: 70: PORTCbits.RC2 = 1;
-   386  007FB6  8482               	bsf	3970,2,c	;volatile
+   386  007CB6  8482               	bsf	3970,2,c	;volatile
    387                           
    388                           ;prueba.c: 71: _delay((unsigned long)((5)*(32000000/4000000.0)));
-   389  007FB8  0E0D               	movlw	13
-   390  007FBA                     u397:
-   391  007FBA  2EE8               	decfsz	wreg,f,c
-   392  007FBC  D7FE               	bra	u397
-   393  007FBE  F000               	nop	
+   389  007CB8  0E0D               	movlw	13
+   390  007CBA                     u397:
+   391  007CBA  2EE8               	decfsz	wreg,f,c
+   392  007CBC  D7FE               	bra	u397
+   393  007CBE  F000               	nop	
    394                           
    395                           ;prueba.c: 72: PORTCbits.RC2 = 0;
-   396  007FC0  9482               	bcf	3970,2,c	;volatile
+   396  007CC0  9482               	bcf	3970,2,c	;volatile
    397                           
    398                           ;prueba.c: 73: Input4 = PORTB;
-   399  007FC2  5081               	movf	3969,w,c	;volatile
-   400  007FC4  EC79  F03E         	call	___lbtoft
-   401  007FC8  C009  F012         	movff	?___lbtoft,_Input4
-   402  007FCC  C00A  F013         	movff	?___lbtoft+1,_Input4+1
-   403  007FD0  C00B  F014         	movff	?___lbtoft+2,_Input4+2
+   399  007CC2  5081               	movf	3969,w,c	;volatile
+   400  007CC4  ECF9  F03C         	call	___lbtoft
+   401  007CC8  C009  F012         	movff	?___lbtoft,_Input4
+   402  007CCC  C00A  F013         	movff	?___lbtoft+1,_Input4+1
+   403  007CD0  C00B  F014         	movff	?___lbtoft+2,_Input4+2
    404                           
    405                           ;prueba.c: 74: PORTD = Input4;
-   406  007FD4  C012  F001         	movff	_Input4,___fttol@f1
-   407  007FD8  C013  F002         	movff	_Input4+1,___fttol@f1+1
-   408  007FDC  C014  F003         	movff	_Input4+2,___fttol@f1+2
-   409  007FE0  ECE2  F03E         	call	___fttol	;wreg free
-   410  007FE4  5001               	movf	?___fttol,w,c
-   411  007FE6  6E83               	movwf	3971,c	;volatile
+   406  007CD4  C012  F001         	movff	_Input4,___fttol@f1
+   407  007CD8  C013  F002         	movff	_Input4+1,___fttol@f1+1
+   408  007CDC  C014  F003         	movff	_Input4+2,___fttol@f1+2
+   409  007CE0  EC62  F03D         	call	___fttol	;wreg free
+   410  007CE4  5001               	movf	?___fttol,w,c
+   411  007CE6  6E83               	movwf	3971,c	;volatile
    412                           
    413                           ;prueba.c: 75: _delay((unsigned long)((3000)*(32000000/4000.0)));
-   414  007FE8  0E7A               	movlw	122
-   415  007FEA  6E11               	movwf	(??_main+1)& (0+255),c
-   416  007FEC  0EC1               	movlw	193
-   417  007FEE  6E10               	movwf	??_main& (0+255),c
-   418  007FF0  0E82               	movlw	130
-   419  007FF2                     u407:
-   420  007FF2  2EE8               	decfsz	wreg,f,c
-   421  007FF4  D7FE               	bra	u407
-   422  007FF6  2E10               	decfsz	??_main& (0+255),f,c
-   423  007FF8  D7FC               	bra	u407
-   424  007FFA  2E11               	decfsz	(??_main+1)& (0+255),f,c
-   425  007FFC  D7FA               	bra	u407
-   426  007FFE  D767               	goto	l924
-   427  008000                     __end_of_main:
+   414  007CE8  0E7A               	movlw	122
+   415  007CEA  6E11               	movwf	(??_main+1)& (0+255),c
+   416  007CEC  0EC1               	movlw	193
+   417  007CEE  6E10               	movwf	??_main& (0+255),c
+   418  007CF0  0E82               	movlw	130
+   419  007CF2                     u407:
+   420  007CF2  2EE8               	decfsz	wreg,f,c
+   421  007CF4  D7FE               	bra	u407
+   422  007CF6  2E10               	decfsz	??_main& (0+255),f,c
+   423  007CF8  D7FC               	bra	u407
+   424  007CFA  2E11               	decfsz	(??_main+1)& (0+255),f,c
+   425  007CFC  D7FA               	bra	u407
+   426  007CFE  D767               	goto	l924
+   427  007D00                     __end_of_main:
    428                           	opt stack 0
    429                           postinc0	equ	0xFEE
    430                           wreg	equ	0xFE8
@@ -474,28 +474,28 @@ Microchip Technology Omniscient Code Generator v1.42 (Free mode) build 201704130
    460 ;;
    461                           
    462                           	psect	text1
-   463  007CF2                     __ptext1:
+   463  0079F2                     __ptext1:
    464                           	opt stack 0
-   465  007CF2                     ___lbtoft:
+   465  0079F2                     ___lbtoft:
    466                           	opt stack 29
    467                           
    468                           ;incstack = 0
    469                           ;___lbtoft@c stored from wreg
-   470  007CF2  6E0C               	movwf	___lbtoft@c,c
-   471  007CF4  500C               	movf	___lbtoft@c,w,c
-   472  007CF6  6E01               	movwf	___ftpack@arg,c
-   473  007CF8  6A02               	clrf	___ftpack@arg+1,c
-   474  007CFA  6A03               	clrf	___ftpack@arg+2,c
-   475  007CFC  0E8E               	movlw	142
-   476  007CFE  6E04               	movwf	___ftpack@exp,c
-   477  007D00  0E00               	movlw	0
-   478  007D02  6E05               	movwf	___ftpack@sign,c
-   479  007D04  EC8B  F03E         	call	___ftpack	;wreg free
-   480  007D08  C001  F009         	movff	?___ftpack,?___lbtoft
-   481  007D0C  C002  F00A         	movff	?___ftpack+1,?___lbtoft+1
-   482  007D10  C003  F00B         	movff	?___ftpack+2,?___lbtoft+2
-   483  007D14  0012               	return	
-   484  007D16                     __end_of___lbtoft:
+   470  0079F2  6E0C               	movwf	___lbtoft@c,c
+   471  0079F4  500C               	movf	___lbtoft@c,w,c
+   472  0079F6  6E01               	movwf	___ftpack@arg,c
+   473  0079F8  6A02               	clrf	___ftpack@arg+1,c
+   474  0079FA  6A03               	clrf	___ftpack@arg+2,c
+   475  0079FC  0E8E               	movlw	142
+   476  0079FE  6E04               	movwf	___ftpack@exp,c
+   477  007A00  0E00               	movlw	0
+   478  007A02  6E05               	movwf	___ftpack@sign,c
+   479  007A04  EC0B  F03D         	call	___ftpack	;wreg free
+   480  007A08  C001  F009         	movff	?___ftpack,?___lbtoft
+   481  007A0C  C002  F00A         	movff	?___ftpack+1,?___lbtoft+1
+   482  007A10  C003  F00B         	movff	?___ftpack+2,?___lbtoft+2
+   483  007A14  0012               	return	
+   484  007A16                     __end_of___lbtoft:
    485                           	opt stack 0
    486                           postinc0	equ	0xFEE
    487                           wreg	equ	0xFE8
@@ -532,105 +532,105 @@ Microchip Technology Omniscient Code Generator v1.42 (Free mode) build 201704130
    518 ;;
    519                           
    520                           	psect	text2
-   521  007D16                     __ptext2:
+   521  007A16                     __ptext2:
    522                           	opt stack 0
-   523  007D16                     ___ftpack:
+   523  007A16                     ___ftpack:
    524                           	opt stack 29
    525                           
    526                           ;incstack = 0
-   527  007D16  5004               	movf	___ftpack@exp,w,c
-   528  007D18  B4D8               	btfsc	status,2,c
-   529  007D1A  D005               	goto	l826
-   530  007D1C  5001               	movf	___ftpack@arg,w,c
-   531  007D1E  1002               	iorwf	___ftpack@arg+1,w,c
-   532  007D20  1003               	iorwf	___ftpack@arg+2,w,c
-   533  007D22  A4D8               	btfss	status,2,c
-   534  007D24  D00C               	goto	l832
-   535  007D26                     l826:
-   536  007D26  0E00               	movlw	0
-   537  007D28  6E01               	movwf	?___ftpack,c
-   538  007D2A  0E00               	movlw	0
-   539  007D2C  6E02               	movwf	?___ftpack+1,c
-   540  007D2E  0E00               	movlw	0
-   541  007D30  6E03               	movwf	?___ftpack+2,c
-   542  007D32  0012               	return	
-   543  007D34                     l830:
-   544  007D34  2A04               	incf	___ftpack@exp,f,c
-   545  007D36  90D8               	bcf	status,0,c
-   546  007D38  3203               	rrcf	___ftpack@arg+2,f,c
-   547  007D3A  3202               	rrcf	___ftpack@arg+1,f,c
-   548  007D3C  3201               	rrcf	___ftpack@arg,f,c
-   549  007D3E                     l832:
-   550  007D3E  0E00               	movlw	0
-   551  007D40  1401               	andwf	___ftpack@arg,w,c
-   552  007D42  6E06               	movwf	??___ftpack& (0+255),c
-   553  007D44  0E00               	movlw	0
-   554  007D46  1402               	andwf	___ftpack@arg+1,w,c
-   555  007D48  6E07               	movwf	(??___ftpack+1)& (0+255),c
-   556  007D4A  0EFE               	movlw	254
-   557  007D4C  1403               	andwf	___ftpack@arg+2,w,c
-   558  007D4E  6E08               	movwf	(??___ftpack+2)& (0+255),c
-   559  007D50  5006               	movf	??___ftpack,w,c
-   560  007D52  1007               	iorwf	??___ftpack+1,w,c
-   561  007D54  1008               	iorwf	??___ftpack+2,w,c
-   562  007D56  B4D8               	btfsc	status,2,c
-   563  007D58  D00C               	goto	l838
-   564  007D5A  D7EC               	goto	l830
-   565  007D5C                     l834:
-   566  007D5C  2A04               	incf	___ftpack@exp,f,c
-   567  007D5E  0E01               	movlw	1
-   568  007D60  2601               	addwf	___ftpack@arg,f,c
-   569  007D62  0E00               	movlw	0
-   570  007D64  2202               	addwfc	___ftpack@arg+1,f,c
-   571  007D66  0E00               	movlw	0
-   572  007D68  2203               	addwfc	___ftpack@arg+2,f,c
-   573  007D6A  90D8               	bcf	status,0,c
-   574  007D6C  3203               	rrcf	___ftpack@arg+2,f,c
-   575  007D6E  3202               	rrcf	___ftpack@arg+1,f,c
-   576  007D70  3201               	rrcf	___ftpack@arg,f,c
-   577  007D72                     l838:
-   578  007D72  0E00               	movlw	0
-   579  007D74  1401               	andwf	___ftpack@arg,w,c
-   580  007D76  6E06               	movwf	??___ftpack& (0+255),c
-   581  007D78  0E00               	movlw	0
-   582  007D7A  1402               	andwf	___ftpack@arg+1,w,c
-   583  007D7C  6E07               	movwf	(??___ftpack+1)& (0+255),c
-   584  007D7E  0EFF               	movlw	255
-   585  007D80  1403               	andwf	___ftpack@arg+2,w,c
-   586  007D82  6E08               	movwf	(??___ftpack+2)& (0+255),c
-   587  007D84  5006               	movf	??___ftpack,w,c
-   588  007D86  1007               	iorwf	??___ftpack+1,w,c
-   589  007D88  1008               	iorwf	??___ftpack+2,w,c
-   590  007D8A  B4D8               	btfsc	status,2,c
-   591  007D8C  D006               	goto	l842
-   592  007D8E  D7E6               	goto	l834
-   593  007D90                     l840:
-   594  007D90  0604               	decf	___ftpack@exp,f,c
-   595  007D92  90D8               	bcf	status,0,c
-   596  007D94  3601               	rlcf	___ftpack@arg,f,c
-   597  007D96  3602               	rlcf	___ftpack@arg+1,f,c
-   598  007D98  3603               	rlcf	___ftpack@arg+2,f,c
-   599  007D9A                     l842:
-   600  007D9A  BE02               	btfsc	___ftpack@arg+1,7,c
-   601  007D9C  D003               	goto	l259
-   602  007D9E  0E02               	movlw	2
-   603  007DA0  6004               	cpfslt	___ftpack@exp,c
-   604  007DA2  D7F6               	goto	l840
-   605  007DA4                     l259:
-   606  007DA4  A004               	btfss	___ftpack@exp,0,c
-   607  007DA6  9E02               	bcf	___ftpack@arg+1,7,c
-   608  007DA8  90D8               	bcf	status,0,c
-   609  007DAA  3204               	rrcf	___ftpack@exp,f,c
-   610  007DAC  5004               	movf	___ftpack@exp,w,c
-   611  007DAE  1203               	iorwf	___ftpack@arg+2,f,c
-   612  007DB0  5005               	movf	___ftpack@sign,w,c
-   613  007DB2  A4D8               	btfss	status,2,c
-   614  007DB4  8E03               	bsf	___ftpack@arg+2,7,c
-   615  007DB6  C001  F001         	movff	___ftpack@arg,?___ftpack
-   616  007DBA  C002  F002         	movff	___ftpack@arg+1,?___ftpack+1
-   617  007DBE  C003  F003         	movff	___ftpack@arg+2,?___ftpack+2
-   618  007DC2  0012               	return	
-   619  007DC4                     __end_of___ftpack:
+   527  007A16  5004               	movf	___ftpack@exp,w,c
+   528  007A18  B4D8               	btfsc	status,2,c
+   529  007A1A  D005               	goto	l826
+   530  007A1C  5001               	movf	___ftpack@arg,w,c
+   531  007A1E  1002               	iorwf	___ftpack@arg+1,w,c
+   532  007A20  1003               	iorwf	___ftpack@arg+2,w,c
+   533  007A22  A4D8               	btfss	status,2,c
+   534  007A24  D00C               	goto	l832
+   535  007A26                     l826:
+   536  007A26  0E00               	movlw	0
+   537  007A28  6E01               	movwf	?___ftpack,c
+   538  007A2A  0E00               	movlw	0
+   539  007A2C  6E02               	movwf	?___ftpack+1,c
+   540  007A2E  0E00               	movlw	0
+   541  007A30  6E03               	movwf	?___ftpack+2,c
+   542  007A32  0012               	return	
+   543  007A34                     l830:
+   544  007A34  2A04               	incf	___ftpack@exp,f,c
+   545  007A36  90D8               	bcf	status,0,c
+   546  007A38  3203               	rrcf	___ftpack@arg+2,f,c
+   547  007A3A  3202               	rrcf	___ftpack@arg+1,f,c
+   548  007A3C  3201               	rrcf	___ftpack@arg,f,c
+   549  007A3E                     l832:
+   550  007A3E  0E00               	movlw	0
+   551  007A40  1401               	andwf	___ftpack@arg,w,c
+   552  007A42  6E06               	movwf	??___ftpack& (0+255),c
+   553  007A44  0E00               	movlw	0
+   554  007A46  1402               	andwf	___ftpack@arg+1,w,c
+   555  007A48  6E07               	movwf	(??___ftpack+1)& (0+255),c
+   556  007A4A  0EFE               	movlw	254
+   557  007A4C  1403               	andwf	___ftpack@arg+2,w,c
+   558  007A4E  6E08               	movwf	(??___ftpack+2)& (0+255),c
+   559  007A50  5006               	movf	??___ftpack,w,c
+   560  007A52  1007               	iorwf	??___ftpack+1,w,c
+   561  007A54  1008               	iorwf	??___ftpack+2,w,c
+   562  007A56  B4D8               	btfsc	status,2,c
+   563  007A58  D00C               	goto	l838
+   564  007A5A  D7EC               	goto	l830
+   565  007A5C                     l834:
+   566  007A5C  2A04               	incf	___ftpack@exp,f,c
+   567  007A5E  0E01               	movlw	1
+   568  007A60  2601               	addwf	___ftpack@arg,f,c
+   569  007A62  0E00               	movlw	0
+   570  007A64  2202               	addwfc	___ftpack@arg+1,f,c
+   571  007A66  0E00               	movlw	0
+   572  007A68  2203               	addwfc	___ftpack@arg+2,f,c
+   573  007A6A  90D8               	bcf	status,0,c
+   574  007A6C  3203               	rrcf	___ftpack@arg+2,f,c
+   575  007A6E  3202               	rrcf	___ftpack@arg+1,f,c
+   576  007A70  3201               	rrcf	___ftpack@arg,f,c
+   577  007A72                     l838:
+   578  007A72  0E00               	movlw	0
+   579  007A74  1401               	andwf	___ftpack@arg,w,c
+   580  007A76  6E06               	movwf	??___ftpack& (0+255),c
+   581  007A78  0E00               	movlw	0
+   582  007A7A  1402               	andwf	___ftpack@arg+1,w,c
+   583  007A7C  6E07               	movwf	(??___ftpack+1)& (0+255),c
+   584  007A7E  0EFF               	movlw	255
+   585  007A80  1403               	andwf	___ftpack@arg+2,w,c
+   586  007A82  6E08               	movwf	(??___ftpack+2)& (0+255),c
+   587  007A84  5006               	movf	??___ftpack,w,c
+   588  007A86  1007               	iorwf	??___ftpack+1,w,c
+   589  007A88  1008               	iorwf	??___ftpack+2,w,c
+   590  007A8A  B4D8               	btfsc	status,2,c
+   591  007A8C  D006               	goto	l842
+   592  007A8E  D7E6               	goto	l834
+   593  007A90                     l840:
+   594  007A90  0604               	decf	___ftpack@exp,f,c
+   595  007A92  90D8               	bcf	status,0,c
+   596  007A94  3601               	rlcf	___ftpack@arg,f,c
+   597  007A96  3602               	rlcf	___ftpack@arg+1,f,c
+   598  007A98  3603               	rlcf	___ftpack@arg+2,f,c
+   599  007A9A                     l842:
+   600  007A9A  BE02               	btfsc	___ftpack@arg+1,7,c
+   601  007A9C  D003               	goto	l259
+   602  007A9E  0E02               	movlw	2
+   603  007AA0  6004               	cpfslt	___ftpack@exp,c
+   604  007AA2  D7F6               	goto	l840
+   605  007AA4                     l259:
+   606  007AA4  A004               	btfss	___ftpack@exp,0,c
+   607  007AA6  9E02               	bcf	___ftpack@arg+1,7,c
+   608  007AA8  90D8               	bcf	status,0,c
+   609  007AAA  3204               	rrcf	___ftpack@exp,f,c
+   610  007AAC  5004               	movf	___ftpack@exp,w,c
+   611  007AAE  1203               	iorwf	___ftpack@arg+2,f,c
+   612  007AB0  5005               	movf	___ftpack@sign,w,c
+   613  007AB2  A4D8               	btfss	status,2,c
+   614  007AB4  8E03               	bsf	___ftpack@arg+2,7,c
+   615  007AB6  C001  F001         	movff	___ftpack@arg,?___ftpack
+   616  007ABA  C002  F002         	movff	___ftpack@arg+1,?___ftpack+1
+   617  007ABE  C003  F003         	movff	___ftpack@arg+2,?___ftpack+2
+   618  007AC2  0012               	return	
+   619  007AC4                     __end_of___ftpack:
    620                           	opt stack 0
    621                           postinc0	equ	0xFEE
    622                           wreg	equ	0xFE8
@@ -668,137 +668,137 @@ Microchip Technology Omniscient Code Generator v1.42 (Free mode) build 201704130
    654 ;;
    655                           
    656                           	psect	text3
-   657  007DC4                     __ptext3:
+   657  007AC4                     __ptext3:
    658                           	opt stack 0
-   659  007DC4                     ___fttol:
+   659  007AC4                     ___fttol:
    660                           	opt stack 30
    661                           
    662                           ;incstack = 0
-   663  007DC4  C003  F005         	movff	___fttol@f1+2,??___fttol
-   664  007DC8  6A06               	clrf	(??___fttol+1)& (0+255),c
-   665  007DCA  6A07               	clrf	(??___fttol+2)& (0+255),c
-   666  007DCC  3402               	rlcf	___fttol@f1+1,w,c
-   667  007DCE  3605               	rlcf	??___fttol& (0+255),f,c
-   668  007DD0  E301               	bnc	u251
-   669  007DD2  8006               	bsf	(??___fttol+1)& (0+255),0,c
-   670  007DD4                     u251:
-   671  007DD4  5005               	movf	??___fttol,w,c
-   672  007DD6  6E0F               	movwf	___fttol@exp1,c
-   673  007DD8  500F               	movf	___fttol@exp1,w,c
-   674  007DDA  A4D8               	btfss	status,2,c
-   675  007DDC  D009               	goto	l864
-   676  007DDE  0E00               	movlw	0
-   677  007DE0  6E01               	movwf	?___fttol,c
-   678  007DE2  0E00               	movlw	0
-   679  007DE4  6E02               	movwf	?___fttol+1,c
-   680  007DE6  0E00               	movlw	0
-   681  007DE8  6E03               	movwf	?___fttol+2,c
-   682  007DEA  0E00               	movlw	0
-   683  007DEC  6E04               	movwf	?___fttol+3,c
-   684  007DEE  0012               	return	
-   685  007DF0                     l864:
-   686  007DF0  0E17               	movlw	23
-   687  007DF2  6E05               	movwf	??___fttol& (0+255),c
-   688  007DF4  C001  F006         	movff	___fttol@f1,??___fttol+1
-   689  007DF8  C002  F007         	movff	___fttol@f1+1,??___fttol+2
-   690  007DFC  C003  F008         	movff	___fttol@f1+2,??___fttol+3
-   691  007E00  2805               	incf	??___fttol,w,c
-   692  007E02  6E09               	movwf	(??___fttol+4)& (0+255),c
-   693  007E04  D004               	goto	u270
-   694  007E06                     u275:
-   695  007E06  90D8               	bcf	status,0,c
-   696  007E08  3208               	rrcf	??___fttol+3,f,c
-   697  007E0A  3207               	rrcf	??___fttol+2,f,c
-   698  007E0C  3206               	rrcf	??___fttol+1,f,c
-   699  007E0E                     u270:
-   700  007E0E  2E09               	decfsz	(??___fttol+4)& (0+255),f,c
-   701  007E10  D7FA               	goto	u275
-   702  007E12  5006               	movf	??___fttol+1,w,c
-   703  007E14  6E0A               	movwf	___fttol@sign1,c
-   704  007E16  8E02               	bsf	___fttol@f1+1,7,c
-   705  007E18  0EFF               	movlw	255
-   706  007E1A  1601               	andwf	___fttol@f1,f,c
-   707  007E1C  0EFF               	movlw	255
-   708  007E1E  1602               	andwf	___fttol@f1+1,f,c
-   709  007E20  0E00               	movlw	0
-   710  007E22  1603               	andwf	___fttol@f1+2,f,c
-   711  007E24  5001               	movf	___fttol@f1,w,c
-   712  007E26  6E0B               	movwf	___fttol@lval,c
-   713  007E28  5002               	movf	___fttol@f1+1,w,c
-   714  007E2A  6E0C               	movwf	___fttol@lval+1,c
-   715  007E2C  5003               	movf	___fttol@f1+2,w,c
-   716  007E2E  6E0D               	movwf	___fttol@lval+2,c
-   717  007E30  6A0E               	clrf	___fttol@lval+3,c
-   718  007E32  0E8E               	movlw	142
-   719  007E34  5E0F               	subwf	___fttol@exp1,f,c
-   720  007E36  AE0F               	btfss	___fttol@exp1,7,c
-   721  007E38  D016               	goto	l886
-   722  007E3A  500F               	movf	___fttol@exp1,w,c
-   723  007E3C  0A80               	xorlw	128
-   724  007E3E  0F8F               	addlw	143
-   725  007E40  B0D8               	btfsc	status,0,c
-   726  007E42  D009               	goto	l882
-   727  007E44  0E00               	movlw	0
-   728  007E46  6E01               	movwf	?___fttol,c
-   729  007E48  0E00               	movlw	0
-   730  007E4A  6E02               	movwf	?___fttol+1,c
-   731  007E4C  0E00               	movlw	0
-   732  007E4E  6E03               	movwf	?___fttol+2,c
-   733  007E50  0E00               	movlw	0
-   734  007E52  6E04               	movwf	?___fttol+3,c
-   735  007E54  0012               	return	
-   736  007E56                     l882:
-   737  007E56  90D8               	bcf	status,0,c
-   738  007E58  320E               	rrcf	___fttol@lval+3,f,c
-   739  007E5A  320D               	rrcf	___fttol@lval+2,f,c
-   740  007E5C  320C               	rrcf	___fttol@lval+1,f,c
-   741  007E5E  320B               	rrcf	___fttol@lval,f,c
-   742  007E60  3E0F               	incfsz	___fttol@exp1,f,c
-   743  007E62  D7F9               	goto	l882
-   744  007E64  D015               	goto	l896
-   745  007E66                     l886:
-   746  007E66  0E17               	movlw	23
-   747  007E68  640F               	cpfsgt	___fttol@exp1,c
-   748  007E6A  D00F               	goto	l894
-   749  007E6C  0E00               	movlw	0
-   750  007E6E  6E01               	movwf	?___fttol,c
-   751  007E70  0E00               	movlw	0
-   752  007E72  6E02               	movwf	?___fttol+1,c
-   753  007E74  0E00               	movlw	0
-   754  007E76  6E03               	movwf	?___fttol+2,c
-   755  007E78  0E00               	movlw	0
-   756  007E7A  6E04               	movwf	?___fttol+3,c
-   757  007E7C  0012               	return	
-   758  007E7E                     l892:
-   759  007E7E  90D8               	bcf	status,0,c
-   760  007E80  360B               	rlcf	___fttol@lval,f,c
-   761  007E82  360C               	rlcf	___fttol@lval+1,f,c
-   762  007E84  360D               	rlcf	___fttol@lval+2,f,c
-   763  007E86  360E               	rlcf	___fttol@lval+3,f,c
-   764  007E88  060F               	decf	___fttol@exp1,f,c
-   765  007E8A                     l894:
-   766  007E8A  500F               	movf	___fttol@exp1,w,c
-   767  007E8C  A4D8               	btfss	status,2,c
-   768  007E8E  D7F7               	goto	l892
-   769  007E90                     l896:
-   770  007E90  500A               	movf	___fttol@sign1,w,c
-   771  007E92  B4D8               	btfsc	status,2,c
-   772  007E94  D008               	goto	l900
-   773  007E96  1E0E               	comf	___fttol@lval+3,f,c
-   774  007E98  1E0D               	comf	___fttol@lval+2,f,c
-   775  007E9A  1E0C               	comf	___fttol@lval+1,f,c
-   776  007E9C  6C0B               	negf	___fttol@lval,c
-   777  007E9E  0E00               	movlw	0
-   778  007EA0  220C               	addwfc	___fttol@lval+1,f,c
-   779  007EA2  220D               	addwfc	___fttol@lval+2,f,c
-   780  007EA4  220E               	addwfc	___fttol@lval+3,f,c
-   781  007EA6                     l900:
-   782  007EA6  C00B  F001         	movff	___fttol@lval,?___fttol
-   783  007EAA  C00C  F002         	movff	___fttol@lval+1,?___fttol+1
-   784  007EAE  C00D  F003         	movff	___fttol@lval+2,?___fttol+2
-   785  007EB2  C00E  F004         	movff	___fttol@lval+3,?___fttol+3
-   786  007EB6  0012               	return	
-   787  007EB8                     __end_of___fttol:
+   663  007AC4  C003  F005         	movff	___fttol@f1+2,??___fttol
+   664  007AC8  6A06               	clrf	(??___fttol+1)& (0+255),c
+   665  007ACA  6A07               	clrf	(??___fttol+2)& (0+255),c
+   666  007ACC  3402               	rlcf	___fttol@f1+1,w,c
+   667  007ACE  3605               	rlcf	??___fttol& (0+255),f,c
+   668  007AD0  E301               	bnc	u251
+   669  007AD2  8006               	bsf	(??___fttol+1)& (0+255),0,c
+   670  007AD4                     u251:
+   671  007AD4  5005               	movf	??___fttol,w,c
+   672  007AD6  6E0F               	movwf	___fttol@exp1,c
+   673  007AD8  500F               	movf	___fttol@exp1,w,c
+   674  007ADA  A4D8               	btfss	status,2,c
+   675  007ADC  D009               	goto	l864
+   676  007ADE  0E00               	movlw	0
+   677  007AE0  6E01               	movwf	?___fttol,c
+   678  007AE2  0E00               	movlw	0
+   679  007AE4  6E02               	movwf	?___fttol+1,c
+   680  007AE6  0E00               	movlw	0
+   681  007AE8  6E03               	movwf	?___fttol+2,c
+   682  007AEA  0E00               	movlw	0
+   683  007AEC  6E04               	movwf	?___fttol+3,c
+   684  007AEE  0012               	return	
+   685  007AF0                     l864:
+   686  007AF0  0E17               	movlw	23
+   687  007AF2  6E05               	movwf	??___fttol& (0+255),c
+   688  007AF4  C001  F006         	movff	___fttol@f1,??___fttol+1
+   689  007AF8  C002  F007         	movff	___fttol@f1+1,??___fttol+2
+   690  007AFC  C003  F008         	movff	___fttol@f1+2,??___fttol+3
+   691  007B00  2805               	incf	??___fttol,w,c
+   692  007B02  6E09               	movwf	(??___fttol+4)& (0+255),c
+   693  007B04  D004               	goto	u270
+   694  007B06                     u275:
+   695  007B06  90D8               	bcf	status,0,c
+   696  007B08  3208               	rrcf	??___fttol+3,f,c
+   697  007B0A  3207               	rrcf	??___fttol+2,f,c
+   698  007B0C  3206               	rrcf	??___fttol+1,f,c
+   699  007B0E                     u270:
+   700  007B0E  2E09               	decfsz	(??___fttol+4)& (0+255),f,c
+   701  007B10  D7FA               	goto	u275
+   702  007B12  5006               	movf	??___fttol+1,w,c
+   703  007B14  6E0A               	movwf	___fttol@sign1,c
+   704  007B16  8E02               	bsf	___fttol@f1+1,7,c
+   705  007B18  0EFF               	movlw	255
+   706  007B1A  1601               	andwf	___fttol@f1,f,c
+   707  007B1C  0EFF               	movlw	255
+   708  007B1E  1602               	andwf	___fttol@f1+1,f,c
+   709  007B20  0E00               	movlw	0
+   710  007B22  1603               	andwf	___fttol@f1+2,f,c
+   711  007B24  5001               	movf	___fttol@f1,w,c
+   712  007B26  6E0B               	movwf	___fttol@lval,c
+   713  007B28  5002               	movf	___fttol@f1+1,w,c
+   714  007B2A  6E0C               	movwf	___fttol@lval+1,c
+   715  007B2C  5003               	movf	___fttol@f1+2,w,c
+   716  007B2E  6E0D               	movwf	___fttol@lval+2,c
+   717  007B30  6A0E               	clrf	___fttol@lval+3,c
+   718  007B32  0E8E               	movlw	142
+   719  007B34  5E0F               	subwf	___fttol@exp1,f,c
+   720  007B36  AE0F               	btfss	___fttol@exp1,7,c
+   721  007B38  D016               	goto	l886
+   722  007B3A  500F               	movf	___fttol@exp1,w,c
+   723  007B3C  0A80               	xorlw	128
+   724  007B3E  0F8F               	addlw	143
+   725  007B40  B0D8               	btfsc	status,0,c
+   726  007B42  D009               	goto	l882
+   727  007B44  0E00               	movlw	0
+   728  007B46  6E01               	movwf	?___fttol,c
+   729  007B48  0E00               	movlw	0
+   730  007B4A  6E02               	movwf	?___fttol+1,c
+   731  007B4C  0E00               	movlw	0
+   732  007B4E  6E03               	movwf	?___fttol+2,c
+   733  007B50  0E00               	movlw	0
+   734  007B52  6E04               	movwf	?___fttol+3,c
+   735  007B54  0012               	return	
+   736  007B56                     l882:
+   737  007B56  90D8               	bcf	status,0,c
+   738  007B58  320E               	rrcf	___fttol@lval+3,f,c
+   739  007B5A  320D               	rrcf	___fttol@lval+2,f,c
+   740  007B5C  320C               	rrcf	___fttol@lval+1,f,c
+   741  007B5E  320B               	rrcf	___fttol@lval,f,c
+   742  007B60  3E0F               	incfsz	___fttol@exp1,f,c
+   743  007B62  D7F9               	goto	l882
+   744  007B64  D015               	goto	l896
+   745  007B66                     l886:
+   746  007B66  0E17               	movlw	23
+   747  007B68  640F               	cpfsgt	___fttol@exp1,c
+   748  007B6A  D00F               	goto	l894
+   749  007B6C  0E00               	movlw	0
+   750  007B6E  6E01               	movwf	?___fttol,c
+   751  007B70  0E00               	movlw	0
+   752  007B72  6E02               	movwf	?___fttol+1,c
+   753  007B74  0E00               	movlw	0
+   754  007B76  6E03               	movwf	?___fttol+2,c
+   755  007B78  0E00               	movlw	0
+   756  007B7A  6E04               	movwf	?___fttol+3,c
+   757  007B7C  0012               	return	
+   758  007B7E                     l892:
+   759  007B7E  90D8               	bcf	status,0,c
+   760  007B80  360B               	rlcf	___fttol@lval,f,c
+   761  007B82  360C               	rlcf	___fttol@lval+1,f,c
+   762  007B84  360D               	rlcf	___fttol@lval+2,f,c
+   763  007B86  360E               	rlcf	___fttol@lval+3,f,c
+   764  007B88  060F               	decf	___fttol@exp1,f,c
+   765  007B8A                     l894:
+   766  007B8A  500F               	movf	___fttol@exp1,w,c
+   767  007B8C  A4D8               	btfss	status,2,c
+   768  007B8E  D7F7               	goto	l892
+   769  007B90                     l896:
+   770  007B90  500A               	movf	___fttol@sign1,w,c
+   771  007B92  B4D8               	btfsc	status,2,c
+   772  007B94  D008               	goto	l900
+   773  007B96  1E0E               	comf	___fttol@lval+3,f,c
+   774  007B98  1E0D               	comf	___fttol@lval+2,f,c
+   775  007B9A  1E0C               	comf	___fttol@lval+1,f,c
+   776  007B9C  6C0B               	negf	___fttol@lval,c
+   777  007B9E  0E00               	movlw	0
+   778  007BA0  220C               	addwfc	___fttol@lval+1,f,c
+   779  007BA2  220D               	addwfc	___fttol@lval+2,f,c
+   780  007BA4  220E               	addwfc	___fttol@lval+3,f,c
+   781  007BA6                     l900:
+   782  007BA6  C00B  F001         	movff	___fttol@lval,?___fttol
+   783  007BAA  C00C  F002         	movff	___fttol@lval+1,?___fttol+1
+   784  007BAE  C00D  F003         	movff	___fttol@lval+2,?___fttol+2
+   785  007BB2  C00E  F004         	movff	___fttol@lval+3,?___fttol+3
+   786  007BB6  0012               	return	
+   787  007BB8                     __end_of___fttol:
    788                           	opt stack 0
    789  0000                     postinc0	equ	0xFEE
    790                           wreg	equ	0xFE8
@@ -827,7 +827,7 @@ Auto Spaces:
     BANK0           160      0       0
     BANK1           256      0       0
     BANK2           256      0       0
-    BANK3           256      0       0
+    BANK3           239      0       0
     BANK4           256      0       0
     BANK5           256      0       0
     BANK6           256      0       0
@@ -906,55 +906,66 @@ Call Graph Tables:
 
  Address spaces:
 Name               Size   Autos  Total    Cost      Usage
-BIGRAM             7FF      0       0      21        0.0%
+BIGRAM_1           400      0       0      21        0.0%
+BIGRAM             3EE      0       0      22        0.0%
 EEDATA             100      0       0       0        0.0%
-BITBANK7           100      0       0      18        0.0%
-BANK7              100      0       0      19        0.0%
-BITBANK6           100      0       0      16        0.0%
-BANK6              100      0       0      17        0.0%
-BITBANK5           100      0       0      14        0.0%
-BANK5              100      0       0      15        0.0%
-BITBANK4           100      0       0      12        0.0%
-BANK4              100      0       0      13        0.0%
-BITBANK3           100      0       0      10        0.0%
-BANK3              100      0       0      11        0.0%
+BITBANK7           100      0       0      19        0.0%
+BANK7              100      0       0      20        0.0%
+BITBANK6           100      0       0      17        0.0%
+BANK6              100      0       0      18        0.0%
+BITBANK5           100      0       0      15        0.0%
+BANK5              100      0       0      16        0.0%
+BITBANK4           100      0       0      13        0.0%
+BANK4              100      0       0      14        0.0%
 BITBANK2           100      0       0       8        0.0%
 BANK2              100      0       0       9        0.0%
 BITBANK1           100      0       0       6        0.0%
 BANK1              100      0       0       7        0.0%
+BITBANK3            EF      0       0      12        0.0%
+BANK3               EF      0       0      10        0.0%
 BITBANK0            A0      0       0       4        0.0%
 BANK0               A0      0       0       5        0.0%
 BITCOMRAM           5F      0       0       0        0.0%
 COMRAM              5F     11      1D       1       30.5%
+BITSFR_5             0      0       0     200        0.0%
+SFR_5                0      0       0     200        0.0%
+BITSFR_4             0      0       0     200        0.0%
+SFR_4                0      0       0     200        0.0%
+BITSFR_3             0      0       0     200        0.0%
+SFR_3                0      0       0     200        0.0%
+BITSFR_2             0      0       0     200        0.0%
+SFR_2                0      0       0     200        0.0%
+BITSFR_1             0      0       0     200        0.0%
+SFR_1                0      0       0     200        0.0%
 BITSFR               0      0       0     200        0.0%
 SFR                  0      0       0     200        0.0%
 STACK                0      0       0       2        0.0%
 NULL                 0      0       0       0        0.0%
-ABS                  0      0      1D      20        0.0%
+ABS                  0      0      1D      11        0.0%
 DATA                 0      0      1D       3        0.0%
 CODE                 0      0       0       0        0.0%
 
 
 Microchip Technology PIC18 Macro Assembler V1.42 build -159332390 
-Symbol Table                                                                                   Thu Jun 15 09:17:05 2017
+Symbol Table                                                                                   Thu Jun 15 09:19:04 2017
 
             __CFG_BORV$3 000000             __CFG_CP0$OFF 000000             __CFG_CP1$OFF 000000  
-           __CFG_CP2$OFF 000000             __CFG_CP3$OFF 000000                      l259 7DA4  
-                    l900 7EA6                      l830 7D34                      l840 7D90  
-                    l832 7D3E                      l842 7D9A                      l834 7D5C  
-                    l826 7D26                      l924 7ECE                      l838 7D72  
-                    l864 7DF0                      l882 7E56                      l892 7E7E  
-                    l894 7E8A                      l886 7E66                      l896 7E90  
-           __CFG_CPB$OFF 000000                      u251 7DD4                      u270 7E0E  
-                    u407 7FF2                      u337 7ED6             __CFG_CPD$OFF 000000  
-                    u275 7E06                      u347 7F0E                      u357 7F22  
-                    u367 7F5A                      u377 7F6E                      u387 7FA6  
-                    u397 7FBA             __CFG_BOR$OFF 000000                      wreg 000FE8  
-           __CFG_LVP$OFF 000000             __CFG_WDT$OFF 000000                     _main 7EB8  
-           ___ftpack@arg 0001             ___ftpack@exp 0004                     start 0000  
+           __CFG_CP2$OFF 000000             __CFG_CP3$OFF 000000                      l259 7AA4  
+                    l900 7BA6                      l830 7A34                      l840 7A90  
+                    l832 7A3E                      l842 7A9A                      l834 7A5C  
+                    l826 7A26                      l924 7BCE                      l838 7A72  
+                    l864 7AF0                      l882 7B56                      l892 7B7E  
+                    l894 7B8A                      l886 7B66                      l896 7B90  
+           __CFG_CPB$OFF 000000                      u251 7AD4                      u270 7B0E  
+                    u407 7CF2                      u337 7BD6             __CFG_CPD$OFF 000000  
+                    u275 7B06                      u347 7C0E                      u357 7C22  
+                    u367 7C5A                      u377 7C6E                      u387 7CA6  
+                    u397 7CBA             __CFG_BOR$OFF 000000                      wreg 000FE8  
+           __CFG_LVP$OFF 000000             __CFG_WDT$OFF 000000                     _main 7BB8  
+           ___ftpack@arg 0001             ___ftpack@exp 0004                     start 0002  
           __CFG_IESO$OFF 000000             ___param_bank 000000             ___fttol@exp1 000F  
            ___fttol@lval 000B            __CFG_PLLDIV$5 000000                    ?_main 0001  
-        __end_of___fttol 7EB8                    _PORTB 000F81                    _PORTD 000F83  
+        __end_of___fttol 7BB8                    _PORTB 000F81                    _PORTD 000F83  
           __CFG_USBDIV$1 000000                    _TRISB 000F93                    _TRISC 000F94  
                   _TRISD 000F95            __CFG_PWRT$OFF 000000            __CFG_WRT0$OFF 000000  
           __CFG_WRT1$OFF 000000            __CFG_WRT2$OFF 000000            __CFG_WRT3$OFF 000000  
@@ -962,23 +973,23 @@ Symbol Table                                                                    
          __CFG_EBTR2$OFF 000000           __CFG_EBTR3$OFF 000000            __CFG_WRTB$OFF 000000  
           __CFG_WRTC$OFF 000000            __CFG_WRTD$OFF 000000           __CFG_EBTRB$OFF 000000  
           ___ftpack@sign 0005                    status 000FD8           __CFG_ICPRT$OFF 000000  
-         __CFG_MCLRE$OFF 000000          __initialization 7CE0             __end_of_main 8000  
+         __CFG_MCLRE$OFF 000000          __initialization 79E0             __end_of_main 7D00  
                  ??_main 0010            ___fttol@sign1 000A            __activetblptr 000000  
-        __CFG_CCP2MX$OFF 000000         __end_of___ftpack 7DC4         __end_of___lbtoft 7D16  
+        __CFG_CCP2MX$OFF 000000         __end_of___ftpack 7AC4         __end_of___lbtoft 7A16  
                  _TMR1CS 007E69                   _TMR3CS 007D89                   _Input1 001B  
                  _Input2 0018                   _Input3 0015                   _Input4 0012  
-         __CFG_XINST$OFF 000000                ??___fttol 0005                   clear_0 7CE6  
-             __accesstop 0060  __end_of__initialization 7CEC          __CFG_PBADEN$OFF 000000  
+         __CFG_XINST$OFF 000000                ??___fttol 0005                   clear_0 79E6  
+             __accesstop 0060  __end_of__initialization 79EC          __CFG_PBADEN$OFF 000000  
           ___rparam_used 000001               ___lbtoft@c 000C               ___fttol@f1 0001  
          __pcstackCOMRAM 0001                ?___ftpack 0001                ?___lbtoft 0009  
         __CFG_VREGEN$OFF 000000                  __Hparam 0000                  __Lparam 0000  
-                ___fttol 7DC4          __CFG_STVREN$OFF 000000                  __pcinit 7CE0  
+                ___fttol 7AC4          __CFG_STVREN$OFF 000000                  __pcinit 79E0  
              ??___ftpack 0006               ??___lbtoft 000C                  __ramtop 0800  
-                __ptext0 7EB8                  __ptext1 7CF2                  __ptext2 7D16  
-                __ptext3 7DC4     end_of_initialization 7CEC                  postinc0 000FEE  
-              _PORTCbits 000F82      start_initialization 7CE0         __CFG_LPT1OSC$OFF 000000  
+                __ptext0 7BB8                  __ptext1 79F2                  __ptext2 7A16  
+                __ptext3 7AC4     end_of_initialization 79EC                  postinc0 000FEE  
+              _PORTCbits 000F82      start_initialization 79E0         __CFG_LPT1OSC$OFF 000000  
       __size_of___ftpack 00AE        __size_of___lbtoft 0024              __pbssCOMRAM 0012  
                ?___fttol 0001         __CFG_WDTPS$32768 000000                 __Hrparam 0000  
-               __Lrparam 0000         __size_of___fttol 00F4                 ___ftpack 7D16  
-               ___lbtoft 7CF2            __size_of_main 0148    __CFG_CPUDIV$OSC2_PLL3 000000  
+               __Lrparam 0000         __size_of___fttol 00F4                 ___ftpack 7A16  
+               ___lbtoft 79F2            __size_of_main 0148    __CFG_CPUDIV$OSC2_PLL3 000000  
      __CFG_FOSC$HSPLL_HS 000000  

@@ -1,0 +1,244 @@
+
+# 1 "pid.c"
+
+# 4 "pid.h"
+typedef float FloatType;
+
+# 12 "C:\Program Files (x86)\Microchip\xc8\v1.42\include\stdbool.h"
+typedef unsigned char bool;
+
+# 9 "pid.h"
+typedef enum
+{
+PID_Mode_Automatic = 1,
+PID_Mode_Manual = 0
+} PidModeType;
+
+typedef enum
+{
+PID_Direction_Direct = 0,
+PID_Direction_Reverse = 1
+} PidDirectionType;
+
+typedef struct {
+FloatType dispKp;
+FloatType dispKi;
+FloatType dispKd;
+
+FloatType kp;
+FloatType ki;
+FloatType kd;
+
+PidDirectionType controllerDirection;
+
+FloatType myInput;
+FloatType myOutput;
+FloatType mySetpoint;
+
+
+
+FloatType ITerm, lastInput;
+
+unsigned long SampleTime;
+FloatType outMin, outMax;
+bool inAuto;
+} PidType;
+
+# 49
+void PID_init(PidType* pid,
+FloatType kp,
+FloatType ki,
+FloatType kd,
+PidDirectionType controllerDirection);
+
+
+void PID_SetMode(PidType* pid, PidModeType mode);
+
+# 62
+bool PID_Compute(PidType* pid);
+
+
+
+
+void PID_SetOutputLimits(PidType* pid, FloatType min, FloatType max);
+
+# 74
+void PID_SetTunings(PidType* pid, FloatType kp, FloatType ki, FloatType kd);
+
+# 80
+void PID_SetControllerDirection(PidType* pid, PidDirectionType Direction);
+
+
+
+void PID_SetSampleTime(PidType* pid, int newSampleTime);
+
+# 91
+FloatType PID_GetKp(PidType* pid);
+FloatType PID_GetKi(PidType* pid);
+FloatType PID_GetKd(PidType* pid);
+PidModeType PID_GetMode(PidType* pid);
+PidDirectionType PID_GetDirection(PidType* pid);
+
+# 10 "pid.c"
+void PID_Initialize(PidType* pid);
+
+# 16
+void PID_init(PidType* pid, FloatType Kp, FloatType Ki, FloatType Kd,
+PidDirectionType ControllerDirection) {
+pid->myInput = 0;
+pid->myOutput = 0;
+pid->mySetpoint = 0;
+pid->ITerm = 0;
+pid->lastInput = 0;
+pid->inAuto = 0;
+
+PID_SetOutputLimits(pid, 0, 0xffff);
+
+
+pid->SampleTime = 1000;
+
+PID_SetControllerDirection(pid, ControllerDirection);
+PID_SetTunings(pid, Kp, Ki, Kd);
+
+
+}
+
+# 43
+bool PID_Compute(PidType* pid) {
+if (!pid->inAuto) {
+return 0;
+}
+
+
+
+
+FloatType input = pid->myInput;
+FloatType error = pid->mySetpoint - input;
+pid->ITerm += (pid->ki * error);
+if (pid->ITerm > pid->outMax)
+pid->ITerm = pid->outMax;
+else if (pid->ITerm < pid->outMin)
+pid->ITerm = pid->outMin;
+FloatType dInput = (input - pid->lastInput);
+
+
+FloatType output = pid->kp * error + pid->ITerm - pid->kd * dInput;
+
+if (output > pid->outMax)
+output = pid->outMax;
+else if (output < pid->outMin)
+output = pid->outMin;
+pid->myOutput = output;
+
+
+pid->lastInput = input;
+
+return 1;
+
+
+
+}
+
+# 85
+void PID_SetTunings(PidType* pid, FloatType Kp, FloatType Ki, FloatType Kd) {
+if (Kp < 0 || Ki < 0 || Kd < 0){
+return;
+}
+
+pid->dispKp = Kp;
+pid->dispKi = Ki;
+pid->dispKd = Kd;
+
+FloatType SampleTimeInSec = ((FloatType) pid->SampleTime) / 1000;
+pid->kp = Kp;
+pid->ki = Ki * SampleTimeInSec;
+pid->kd = Kd / SampleTimeInSec;
+
+if (pid->controllerDirection == PID_Direction_Reverse) {
+pid->kp = (0 - pid->kp);
+pid->ki = (0 - pid->ki);
+pid->kd = (0 - pid->kd);
+}
+}
+
+# 109
+void PID_SetSampleTime(PidType* pid, int NewSampleTime) {
+if (NewSampleTime > 0) {
+FloatType ratio = (FloatType) NewSampleTime / (FloatType) pid->SampleTime;
+pid->ki *= ratio;
+pid->kd /= ratio;
+pid->SampleTime = (unsigned long) NewSampleTime;
+}
+}
+
+# 126
+void PID_SetOutputLimits(PidType* pid, FloatType Min, FloatType Max) {
+if (Min >= Max) {
+return;
+}
+pid->outMin = Min;
+pid->outMax = Max;
+
+if (pid->inAuto) {
+if (pid->myOutput > pid->outMax) {
+pid->myOutput = pid->outMax;
+} else if (pid->myOutput < pid->outMin) {
+pid->myOutput = pid->outMin;
+}
+
+if (pid->ITerm > pid->outMax) {
+pid->ITerm = pid->outMax;
+} else if (pid->ITerm < pid->outMin) {
+pid->ITerm = pid->outMin;
+}
+}
+}
+
+# 153
+void PID_SetMode(PidType* pid, PidModeType Mode)
+{
+bool newAuto = (Mode == PID_Mode_Automatic);
+if(newAuto != pid->inAuto)
+{
+PID_Initialize(pid);
+}
+pid->inAuto = newAuto;
+}
+
+# 167
+void PID_Initialize(PidType* pid) {
+pid->ITerm = pid->myOutput;
+pid->lastInput = pid->myInput;
+if (pid->ITerm > pid->outMax) {
+pid->ITerm = pid->outMax;
+} else if (pid->ITerm < pid->outMin) {
+pid->ITerm = pid->outMin;
+}
+}
+
+# 183
+void PID_SetControllerDirection(PidType* pid, PidDirectionType Direction) {
+if (pid->inAuto && Direction != pid->controllerDirection) {
+pid->kp = (0 - pid->kp);
+pid->ki = (0 - pid->ki);
+pid->kd = (0 - pid->kd);
+}
+pid->controllerDirection = Direction;
+}
+
+# 197
+FloatType PID_GetKp(PidType* pid) {
+return pid->dispKp;
+}
+FloatType PID_GetKi(PidType* pid) {
+return pid->dispKi;
+}
+FloatType PID_GetKd(PidType* pid) {
+return pid->dispKd;
+}
+PidModeType PID_GetMode(PidType* pid) {
+return pid->inAuto ? PID_Mode_Automatic : PID_Mode_Manual;
+}
+PidDirectionType PID_GetDirection(PidType* pid) {
+return pid->controllerDirection;
+}
