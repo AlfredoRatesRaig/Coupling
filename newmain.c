@@ -60,49 +60,59 @@ void main(void) {
     PORTCbits.RC2 = 1;
     PORTCbits.RC7 = 0;
     while(true){
+        
+    //Lectura de los 4 photodiodes
+        
         PORTCbits.RC0 = 0;                    //Mux en 00
         PORTCbits.RC1 = 0;
         
         PORTCbits.RC2 = 1;                    //Subo RD
-        __delay_us(25);
+        __delay_us(5);
         PORTCbits.RC2 = 0;                    //Subo RD
-        __delay_us(50);
+        //__delay_us(50);
+        while(PORTCbits.RC6 == 1);
         A = PORTB;             //Lectura
         
-        __delay_ms(40); 
+        __delay_us(40); 
         
         PORTCbits.RC0 = 1;                    //Mux en 01
         PORTCbits.RC1 = 0;
         
         PORTCbits.RC2 = 1;                    //Subo RD
-        __delay_us(25);
+        __delay_us(5);
         PORTCbits.RC2 = 0;                    //Subo RD
-        __delay_us(50);
+        //__delay_us(50);
+        while(PORTCbits.RC6 == 1);
         B = PORTB;             //Lectura
         
-        __delay_ms(40); 
+        __delay_us(40); 
         
         PORTCbits.RC0 = 0;                    //Mux en 10
         PORTCbits.RC1 = 1;
         
         PORTCbits.RC2 = 1;                    //Subo RD
-        __delay_us(25);
+        __delay_us(5);
         PORTCbits.RC2 = 0;                    //Subo RD
-        __delay_us(50);
+        //__delay_us(50);
+        while(PORTCbits.RC6 == 1);  
         C = PORTB;             //Lectura
         
-        __delay_ms(40); 
+        __delay_us(40); 
         
         PORTCbits.RC0 = 1;                    //Mux en 11
         PORTCbits.RC1 = 1;
         
         PORTCbits.RC2 = 1;                    //Subo RD
-        __delay_us(25);
+        __delay_us(5);
         PORTCbits.RC2 = 0;                    //Subo RD
-        __delay_us(50);
+        //__delay_us(50);
+        while(PORTCbits.RC6 == 1);
         D = PORTB;             //Lectura
         
-        __delay_ms(40); 
+        __delay_us(40); 
+        
+    //Operación matemática de entradas
+        
         Input = (A+B)-(C+D);
         PidType PID;
         PID_init(&PID, 1, 0, 0, PID_Direction_Reverse);

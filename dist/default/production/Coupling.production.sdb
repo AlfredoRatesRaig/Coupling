@@ -3,12 +3,12 @@
 [d edition pro ]
 [d chip 18F4550 ]
 [d frameptr 4065 ]
-"107 C:\Users\Astrolab\Coupling\newmain.c
+"117 C:\Users\Astrolab\Coupling\newmain.c
 [e E3796 . `uc
 PID_Direction_Direct 0
 PID_Direction_Reverse 1
 ]
-"109
+"119
 [e E3792 . `uc
 PID_Mode_Automatic 1
 PID_Mode_Manual 0
@@ -142,9 +142,9 @@ PID_Mode_Manual 0
 [v _main main `(v  1 e 1 0 ]
 {
 [s S103 . 45 `f 1 dispKp 3 0 `f 1 dispKi 3 3 `f 1 dispKd 3 6 `f 1 kp 3 9 `f 1 ki 3 12 `f 1 kd 3 15 `E3796 1 controllerDirection 1 18 `f 1 myInput 3 19 `f 1 myOutput 3 22 `f 1 mySetpoint 3 25 `f 1 ITerm 3 28 `f 1 lastInput 3 31 `ul 1 SampleTime 4 34 `f 1 outMin 3 38 `f 1 outMax 3 41 `uc 1 inAuto 1 44 ]
-"107
+"117
 [v main@PID PID `S103  1 a 45 6 ]
-"128
+"138
 } 0
 "27 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\lbtoft.c
 [v ___lbtoft __lbtoft `(f  1 e 3 0 ]

@@ -4817,7 +4817,7 @@ extern __nonreentrant void _delay3(unsigned char);
 #pragma config IESO = OFF
 
 
-#pragma config PWRT = OFF
+#pragma config PWRT = ON
 #pragma config BOR = OFF
 #pragma config BORV = 3
 #pragma config VREGEN = OFF
@@ -4891,47 +4891,68 @@ while(1)
 {
 PORTCbits.RC0 = 0;
 PORTCbits.RC1 = 0;
-
+PORTCbits.RC7 = 0;
 
 PORTCbits.RC2 = 1;
 _delay((unsigned long)((5)*(32000000/4000000.0)));
 PORTCbits.RC2 = 0;
+while(PORTCbits.RC6 == 1);
+
 Input1 = PORTB;
 PORTD = Input1;
-_delay((unsigned long)((3000)*(32000000/4000.0)));
+
+
+
+_delay((unsigned long)((4)*(32000000/4000.0)));
 
 PORTCbits.RC0 = 1;
 PORTCbits.RC1 = 0;
-
+PORTCbits.RC7 = 1;
 
 PORTCbits.RC2 = 1;
 _delay((unsigned long)((5)*(32000000/4000000.0)));
 PORTCbits.RC2 = 0;
+while(PORTCbits.RC6 == 1);
+
 Input2 = PORTB;
 PORTD = Input2;
-_delay((unsigned long)((3000)*(32000000/4000.0)));
+
+
+
+_delay((unsigned long)((4)*(32000000/4000.0)));
 
 PORTCbits.RC0 = 0;
 PORTCbits.RC1 = 1;
-
+PORTCbits.RC7 = 0;
 
 PORTCbits.RC2 = 1;
 _delay((unsigned long)((5)*(32000000/4000000.0)));
 PORTCbits.RC2 = 0;
+while(PORTCbits.RC6 == 1);
+
 Input3 = PORTB;
 PORTD = Input3;
-_delay((unsigned long)((3000)*(32000000/4000.0)));
+
+
+
+_delay((unsigned long)((4)*(32000000/4000.0)));
+
 
 PORTCbits.RC0 = 1;
 PORTCbits.RC1 = 1;
-
+PORTCbits.RC7 = 1;
 
 PORTCbits.RC2 = 1;
 _delay((unsigned long)((5)*(32000000/4000000.0)));
 PORTCbits.RC2 = 0;
+while(PORTCbits.RC6 == 1);
+
 Input4 = PORTB;
 PORTD = Input4;
-_delay((unsigned long)((3000)*(32000000/4000.0)));
+
+
+
+_delay((unsigned long)((4)*(32000000/4000.0)));
 
 }
 return 0;
