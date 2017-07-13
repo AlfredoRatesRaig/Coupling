@@ -40,7 +40,7 @@
 float Output;
 int PID_Out_Min = -10000;
 int PID_Out_Max = 10000;
-int Setpoint = 0;
+float Setpoint = 0;
 float Input = 0;
 float A;
 float B;
@@ -59,6 +59,62 @@ void main(void) {
     PORTCbits.RC1 = 0;
     PORTCbits.RC2 = 1;
     PORTCbits.RC7 = 0;
+    int count = 0;
+    float err;
+    while (count<1000){
+        count = count+1;
+        PORTCbits.RC0 = 0;                    //Mux en 00
+        PORTCbits.RC1 = 0;
+        
+        PORTCbits.RC2 = 1;                    //Subo RD
+        __delay_us(5);
+        PORTCbits.RC2 = 0;                    //Subo RD
+        //__delay_us(50);
+        while(PORTCbits.RC6 == 1);
+        A = PORTB;             //Lectura
+        
+        __delay_us(40); 
+        
+        PORTCbits.RC0 = 1;                    //Mux en 01
+        PORTCbits.RC1 = 0;
+        
+        PORTCbits.RC2 = 1;                    //Subo RD
+        __delay_us(5);
+        PORTCbits.RC2 = 0;                    //Subo RD
+        //__delay_us(50);
+        while(PORTCbits.RC6 == 1);
+        B = PORTB;             //Lectura
+        
+        __delay_us(40); 
+        
+        PORTCbits.RC0 = 0;                    //Mux en 10
+        PORTCbits.RC1 = 1;
+        
+        PORTCbits.RC2 = 1;                    //Subo RD
+        __delay_us(5);
+        PORTCbits.RC2 = 0;                    //Subo RD
+        //__delay_us(50);
+        while(PORTCbits.RC6 == 1);  
+        C = PORTB;             //Lectura
+        
+        __delay_us(40); 
+        
+        PORTCbits.RC0 = 1;                    //Mux en 11
+        PORTCbits.RC1 = 1;
+        
+        PORTCbits.RC2 = 1;                    //Subo RD
+        __delay_us(5);
+        PORTCbits.RC2 = 0;                    //Subo RD
+        //__delay_us(50);
+        while(PORTCbits.RC6 == 1);
+        D = PORTB;             //Lectura
+        
+        __delay_us(40); 
+        err = (A+B)-(C+D);
+        Setpoint = Setpoint+err;
+    }
+    Setpoint = Setpoint/1000;
+    
     while(true){
         
     //Lectura de los 4 photodiodes

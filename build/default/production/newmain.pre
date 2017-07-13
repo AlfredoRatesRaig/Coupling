@@ -4950,7 +4950,7 @@ PidDirectionType PID_GetDirection(PidType* pid);
 float Output;
 int PID_Out_Min = -10000;
 int PID_Out_Max = 10000;
-int Setpoint = 0;
+float Setpoint = 0;
 float Input = 0;
 float A;
 float B;
@@ -4969,6 +4969,62 @@ PORTCbits.RC0 = 0;
 PORTCbits.RC1 = 0;
 PORTCbits.RC2 = 1;
 PORTCbits.RC7 = 0;
+int count = 0;
+float err;
+while (count<1000){
+count = count+1;
+PORTCbits.RC0 = 0;
+PORTCbits.RC1 = 0;
+
+PORTCbits.RC2 = 1;
+_delay((unsigned long)((5)*(32000000/4000000.0)));
+PORTCbits.RC2 = 0;
+
+while(PORTCbits.RC6 == 1);
+A = PORTB;
+
+_delay((unsigned long)((40)*(32000000/4000000.0)));
+
+PORTCbits.RC0 = 1;
+PORTCbits.RC1 = 0;
+
+PORTCbits.RC2 = 1;
+_delay((unsigned long)((5)*(32000000/4000000.0)));
+PORTCbits.RC2 = 0;
+
+while(PORTCbits.RC6 == 1);
+B = PORTB;
+
+_delay((unsigned long)((40)*(32000000/4000000.0)));
+
+PORTCbits.RC0 = 0;
+PORTCbits.RC1 = 1;
+
+PORTCbits.RC2 = 1;
+_delay((unsigned long)((5)*(32000000/4000000.0)));
+PORTCbits.RC2 = 0;
+
+while(PORTCbits.RC6 == 1);
+C = PORTB;
+
+_delay((unsigned long)((40)*(32000000/4000000.0)));
+
+PORTCbits.RC0 = 1;
+PORTCbits.RC1 = 1;
+
+PORTCbits.RC2 = 1;
+_delay((unsigned long)((5)*(32000000/4000000.0)));
+PORTCbits.RC2 = 0;
+
+while(PORTCbits.RC6 == 1);
+D = PORTB;
+
+_delay((unsigned long)((40)*(32000000/4000000.0)));
+err = (A+B)-(C+D);
+Setpoint = Setpoint+err;
+}
+Setpoint = Setpoint/1000;
+
 while(1){
 
 

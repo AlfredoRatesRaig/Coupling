@@ -36,7 +36,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p i __delay ]
 "2451 C:\Program Files (x86)\Microchip\xc8\v1.42\include\pic18f4550.h
 [v _PORTB `Vuc ~T0 @X0 0 e@3969 ]
-"117 newmain.c
+"173 newmain.c
 [c E3796 0 1 .. ]
 [n E3796 . PID_Direction_Direct PID_Direction_Reverse  ]
 "21 pid.h
@@ -44,7 +44,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S362 . dispKp dispKi dispKd kp ki kd controllerDirection myInput myOutput mySetpoint ITerm lastInput SampleTime outMin outMax inAuto ]
 "49
 [v _PID_init `(v ~T0 @X0 0 ef5`*S362`f`f`f`E3796 ]
-"119 newmain.c
+"175 newmain.c
 [c E3792 1 0 .. ]
 [n E3792 . PID_Mode_Automatic PID_Mode_Manual  ]
 "56 pid.h
@@ -3701,11 +3701,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [; ;newmain.c: 42: int PID_Out_Max = 10000;
 "43
-[v _Setpoint `i ~T0 @X0 1 e ]
+[v _Setpoint `f ~T0 @X0 1 e ]
 [i _Setpoint
--> 0 `i
+-> -> 0 `i `f
 ]
-[; ;newmain.c: 43: int Setpoint = 0;
+[; ;newmain.c: 43: float Setpoint = 0;
 "44
 [v _Input `f ~T0 @X0 1 e ]
 [i _Input
@@ -3764,10 +3764,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;newmain.c: 61: PORTCbits.RC7 = 0;
 "61
 [e = . . _PORTCbits 0 7 -> -> 0 `i `uc ]
-[; ;newmain.c: 62: while(1){
 "62
+[v _count `i ~T0 @X0 1 a ]
+[; ;newmain.c: 62: int count = 0;
+[e = _count -> 0 `i ]
+"63
+[v _err `f ~T0 @X0 1 a ]
+[; ;newmain.c: 63: float err;
+[; ;newmain.c: 64: while (count<1000){
+"64
+[e $U 364  ]
 [e :U 365 ]
 {
+[; ;newmain.c: 65: count = count+1;
+"65
+[e = _count + _count -> 1 `i ]
 [; ;newmain.c: 66: PORTCbits.RC0 = 0;
 "66
 [e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
@@ -3880,78 +3891,210 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;newmain.c: 112: _delay((unsigned long)((40)*(32000000/4000000.0)));
 "112
 [e ( __delay (1 -> * -> -> 40 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
-[; ;newmain.c: 116: Input = (A+B)-(C+D);
-"116
-[e = _Input - + _A _B + _C _D ]
-"117
-[v _PID `S362 ~T0 @X0 1 a ]
-[; ;newmain.c: 117: PidType PID;
-[; ;newmain.c: 118: PID_init(&PID, 1, 0, 0, PID_Direction_Reverse);
-"118
-[e ( _PID_init (4 , , , , &U _PID -> -> 1 `i `f -> -> 0 `i `f -> -> 0 `i `f . `E3796 1 ]
-[; ;newmain.c: 119: PID_SetMode(&PID, PID_Mode_Automatic);
-"119
-[e ( _PID_SetMode (2 , &U _PID . `E3792 0 ]
-[; ;newmain.c: 120: PID_SetOutputLimits(&PID, PID_Out_Min, PID_Out_Max);
-"120
-[e ( _PID_SetOutputLimits (3 , , &U _PID -> _PID_Out_Min `f -> _PID_Out_Max `f ]
-[; ;newmain.c: 121: PID.mySetpoint = Setpoint;
-"121
-[e = . _PID 9 -> _Setpoint `f ]
-[; ;newmain.c: 122: PID.myInput = Input;
-"122
-[e = . _PID 7 _Input ]
-[; ;newmain.c: 123: PID_Compute(&PID);
-"123
-[e ( _PID_Compute (1 &U _PID ]
-[; ;newmain.c: 124: Output = PID.myOutput;
-"124
-[e = _Output . _PID 8 ]
-[; ;newmain.c: 126: if(Output>0){
-"126
-[e $ ! > _Output -> -> 0 `i `f 379  ]
-{
-[; ;newmain.c: 127: Output = Output;
-"127
-[e = _Output _Output ]
-[; ;newmain.c: 128: PORTCbits.RC7 = 0;
-"128
-[e = . . _PORTCbits 0 7 -> -> 0 `i `uc ]
-"129
-}
-[; ;newmain.c: 129: }
-[e $U 380  ]
-"130
-[e :U 379 ]
-[; ;newmain.c: 130: else{
-{
-[; ;newmain.c: 131: Output = -Output;
-"131
-[e = _Output -U _Output ]
-[; ;newmain.c: 132: PORTCbits.RC7 = 1;
-"132
-[e = . . _PORTCbits 0 7 -> -> 1 `i `uc ]
-"133
-}
-[e :U 380 ]
-[; ;newmain.c: 133: }
-[; ;newmain.c: 134: output = Output;
-"134
-[e = _output -> _Output `uc ]
-[; ;newmain.c: 135: PORTD = output;
-"135
-[e = _PORTD _output ]
-"136
+[; ;newmain.c: 113: err = (A+B)-(C+D);
+"113
+[e = _err - + _A _B + _C _D ]
+[; ;newmain.c: 114: Setpoint = Setpoint+err;
+"114
+[e = _Setpoint + _Setpoint _err ]
+"115
 }
 [e :U 364 ]
-"62
-[e $U 365  ]
+"64
+[e $ < _count -> 1000 `i 365  ]
 [e :U 366 ]
-[; ;newmain.c: 136: }
-[; ;newmain.c: 137: return;
+[; ;newmain.c: 115: }
+[; ;newmain.c: 116: Setpoint = Setpoint/1000;
+"116
+[e = _Setpoint / _Setpoint -> -> 1000 `i `f ]
+[; ;newmain.c: 118: while(1){
+"118
+[e :U 380 ]
+{
+[; ;newmain.c: 122: PORTCbits.RC0 = 0;
+"122
+[e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
+[; ;newmain.c: 123: PORTCbits.RC1 = 0;
+"123
+[e = . . _PORTCbits 0 1 -> -> 0 `i `uc ]
+[; ;newmain.c: 125: PORTCbits.RC2 = 1;
+"125
+[e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
+[; ;newmain.c: 126: _delay((unsigned long)((5)*(32000000/4000000.0)));
+"126
+[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
+[; ;newmain.c: 127: PORTCbits.RC2 = 0;
+"127
+[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
+[; ;newmain.c: 129: while(PORTCbits.RC6 == 1);
+"129
+[e $U 382  ]
+[e :U 383 ]
+[e :U 382 ]
+[e $ == -> . . _PORTCbits 0 6 `i -> 1 `i 383  ]
+[e :U 384 ]
+[; ;newmain.c: 130: A = PORTB;
+"130
+[e = _A -> _PORTB `f ]
+[; ;newmain.c: 132: _delay((unsigned long)((40)*(32000000/4000000.0)));
+"132
+[e ( __delay (1 -> * -> -> 40 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
+[; ;newmain.c: 134: PORTCbits.RC0 = 1;
+"134
+[e = . . _PORTCbits 0 0 -> -> 1 `i `uc ]
+[; ;newmain.c: 135: PORTCbits.RC1 = 0;
+"135
+[e = . . _PORTCbits 0 1 -> -> 0 `i `uc ]
+[; ;newmain.c: 137: PORTCbits.RC2 = 1;
 "137
-[e $UE 363  ]
-[; ;newmain.c: 138: }
+[e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
+[; ;newmain.c: 138: _delay((unsigned long)((5)*(32000000/4000000.0)));
 "138
+[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
+[; ;newmain.c: 139: PORTCbits.RC2 = 0;
+"139
+[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
+[; ;newmain.c: 141: while(PORTCbits.RC6 == 1);
+"141
+[e $U 385  ]
+[e :U 386 ]
+[e :U 385 ]
+[e $ == -> . . _PORTCbits 0 6 `i -> 1 `i 386  ]
+[e :U 387 ]
+[; ;newmain.c: 142: B = PORTB;
+"142
+[e = _B -> _PORTB `f ]
+[; ;newmain.c: 144: _delay((unsigned long)((40)*(32000000/4000000.0)));
+"144
+[e ( __delay (1 -> * -> -> 40 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
+[; ;newmain.c: 146: PORTCbits.RC0 = 0;
+"146
+[e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
+[; ;newmain.c: 147: PORTCbits.RC1 = 1;
+"147
+[e = . . _PORTCbits 0 1 -> -> 1 `i `uc ]
+[; ;newmain.c: 149: PORTCbits.RC2 = 1;
+"149
+[e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
+[; ;newmain.c: 150: _delay((unsigned long)((5)*(32000000/4000000.0)));
+"150
+[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
+[; ;newmain.c: 151: PORTCbits.RC2 = 0;
+"151
+[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
+[; ;newmain.c: 153: while(PORTCbits.RC6 == 1);
+"153
+[e $U 388  ]
+[e :U 389 ]
+[e :U 388 ]
+[e $ == -> . . _PORTCbits 0 6 `i -> 1 `i 389  ]
+[e :U 390 ]
+[; ;newmain.c: 154: C = PORTB;
+"154
+[e = _C -> _PORTB `f ]
+[; ;newmain.c: 156: _delay((unsigned long)((40)*(32000000/4000000.0)));
+"156
+[e ( __delay (1 -> * -> -> 40 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
+[; ;newmain.c: 158: PORTCbits.RC0 = 1;
+"158
+[e = . . _PORTCbits 0 0 -> -> 1 `i `uc ]
+[; ;newmain.c: 159: PORTCbits.RC1 = 1;
+"159
+[e = . . _PORTCbits 0 1 -> -> 1 `i `uc ]
+[; ;newmain.c: 161: PORTCbits.RC2 = 1;
+"161
+[e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
+[; ;newmain.c: 162: _delay((unsigned long)((5)*(32000000/4000000.0)));
+"162
+[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
+[; ;newmain.c: 163: PORTCbits.RC2 = 0;
+"163
+[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
+[; ;newmain.c: 165: while(PORTCbits.RC6 == 1);
+"165
+[e $U 391  ]
+[e :U 392 ]
+[e :U 391 ]
+[e $ == -> . . _PORTCbits 0 6 `i -> 1 `i 392  ]
+[e :U 393 ]
+[; ;newmain.c: 166: D = PORTB;
+"166
+[e = _D -> _PORTB `f ]
+[; ;newmain.c: 168: _delay((unsigned long)((40)*(32000000/4000000.0)));
+"168
+[e ( __delay (1 -> * -> -> 40 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
+[; ;newmain.c: 172: Input = (A+B)-(C+D);
+"172
+[e = _Input - + _A _B + _C _D ]
+"173
+[v _PID `S362 ~T0 @X0 1 a ]
+[; ;newmain.c: 173: PidType PID;
+[; ;newmain.c: 174: PID_init(&PID, 1, 0, 0, PID_Direction_Reverse);
+"174
+[e ( _PID_init (4 , , , , &U _PID -> -> 1 `i `f -> -> 0 `i `f -> -> 0 `i `f . `E3796 1 ]
+[; ;newmain.c: 175: PID_SetMode(&PID, PID_Mode_Automatic);
+"175
+[e ( _PID_SetMode (2 , &U _PID . `E3792 0 ]
+[; ;newmain.c: 176: PID_SetOutputLimits(&PID, PID_Out_Min, PID_Out_Max);
+"176
+[e ( _PID_SetOutputLimits (3 , , &U _PID -> _PID_Out_Min `f -> _PID_Out_Max `f ]
+[; ;newmain.c: 177: PID.mySetpoint = Setpoint;
+"177
+[e = . _PID 9 _Setpoint ]
+[; ;newmain.c: 178: PID.myInput = Input;
+"178
+[e = . _PID 7 _Input ]
+[; ;newmain.c: 179: PID_Compute(&PID);
+"179
+[e ( _PID_Compute (1 &U _PID ]
+[; ;newmain.c: 180: Output = PID.myOutput;
+"180
+[e = _Output . _PID 8 ]
+[; ;newmain.c: 182: if(Output>0){
+"182
+[e $ ! > _Output -> -> 0 `i `f 394  ]
+{
+[; ;newmain.c: 183: Output = Output;
+"183
+[e = _Output _Output ]
+[; ;newmain.c: 184: PORTCbits.RC7 = 0;
+"184
+[e = . . _PORTCbits 0 7 -> -> 0 `i `uc ]
+"185
+}
+[; ;newmain.c: 185: }
+[e $U 395  ]
+"186
+[e :U 394 ]
+[; ;newmain.c: 186: else{
+{
+[; ;newmain.c: 187: Output = -Output;
+"187
+[e = _Output -U _Output ]
+[; ;newmain.c: 188: PORTCbits.RC7 = 1;
+"188
+[e = . . _PORTCbits 0 7 -> -> 1 `i `uc ]
+"189
+}
+[e :U 395 ]
+[; ;newmain.c: 189: }
+[; ;newmain.c: 190: output = Output;
+"190
+[e = _output -> _Output `uc ]
+[; ;newmain.c: 191: PORTD = output;
+"191
+[e = _PORTD _output ]
+"192
+}
+[e :U 379 ]
+"118
+[e $U 380  ]
+[e :U 381 ]
+[; ;newmain.c: 192: }
+[; ;newmain.c: 193: return;
+"193
+[e $UE 363  ]
+[; ;newmain.c: 194: }
+"194
 [e :UE 363 ]
 }
