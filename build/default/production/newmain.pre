@@ -4947,15 +4947,15 @@ PidDirectionType PID_GetDirection(PidType* pid);
 #pragma config EBTRB = OFF
 
 # 40 "newmain.c"
-float Output;
-int PID_Out_Min = -10000;
-int PID_Out_Max = 10000;
-float Setpoint = 0;
-float Input = 0;
-float A;
-float B;
-float C;
-float D;
+int Output;
+
+
+int Setpoint = 0;
+int Input = 0;
+int A;
+int B;
+int C;
+int D;
 int sign;
 unsigned char output;
 
@@ -4970,7 +4970,7 @@ PORTCbits.RC1 = 0;
 PORTCbits.RC2 = 1;
 PORTCbits.RC7 = 0;
 int count = 0;
-float err;
+int err;
 while (count<1000){
 count = count+1;
 PORTCbits.RC0 = 0;
@@ -4983,7 +4983,7 @@ PORTCbits.RC2 = 0;
 while(PORTCbits.RC6 == 1);
 A = PORTB;
 
-_delay((unsigned long)((40)*(32000000/4000000.0)));
+
 
 PORTCbits.RC0 = 1;
 PORTCbits.RC1 = 0;
@@ -4995,7 +4995,7 @@ PORTCbits.RC2 = 0;
 while(PORTCbits.RC6 == 1);
 B = PORTB;
 
-_delay((unsigned long)((40)*(32000000/4000000.0)));
+
 
 PORTCbits.RC0 = 0;
 PORTCbits.RC1 = 1;
@@ -5007,7 +5007,7 @@ PORTCbits.RC2 = 0;
 while(PORTCbits.RC6 == 1);
 C = PORTB;
 
-_delay((unsigned long)((40)*(32000000/4000000.0)));
+
 
 PORTCbits.RC0 = 1;
 PORTCbits.RC1 = 1;
@@ -5019,7 +5019,7 @@ PORTCbits.RC2 = 0;
 while(PORTCbits.RC6 == 1);
 D = PORTB;
 
-_delay((unsigned long)((40)*(32000000/4000000.0)));
+
 err = (A+B)-(C+D);
 Setpoint = Setpoint+err;
 }
@@ -5039,7 +5039,7 @@ PORTCbits.RC2 = 0;
 while(PORTCbits.RC6 == 1);
 A = PORTB;
 
-_delay((unsigned long)((40)*(32000000/4000000.0)));
+
 
 PORTCbits.RC0 = 1;
 PORTCbits.RC1 = 0;
@@ -5051,7 +5051,7 @@ PORTCbits.RC2 = 0;
 while(PORTCbits.RC6 == 1);
 B = PORTB;
 
-_delay((unsigned long)((40)*(32000000/4000000.0)));
+
 
 PORTCbits.RC0 = 0;
 PORTCbits.RC1 = 1;
@@ -5063,7 +5063,7 @@ PORTCbits.RC2 = 0;
 while(PORTCbits.RC6 == 1);
 C = PORTB;
 
-_delay((unsigned long)((40)*(32000000/4000000.0)));
+
 
 PORTCbits.RC0 = 1;
 PORTCbits.RC1 = 1;
@@ -5075,20 +5075,11 @@ PORTCbits.RC2 = 0;
 while(PORTCbits.RC6 == 1);
 D = PORTB;
 
-_delay((unsigned long)((40)*(32000000/4000000.0)));
-
-
-
+# 172
 Input = (A+B)-(C+D);
-PidType PID;
-PID_init(&PID, 1, 0, 0, PID_Direction_Reverse);
-PID_SetMode(&PID, PID_Mode_Automatic);
-PID_SetOutputLimits(&PID, PID_Out_Min, PID_Out_Max);
-PID.mySetpoint = Setpoint;
-PID.myInput = Input;
-PID_Compute(&PID);
-Output = PID.myOutput;
+Output = Input-Setpoint;
 
+# 183
 if(Output>0){
 Output = Output;
 PORTCbits.RC7 = 0;

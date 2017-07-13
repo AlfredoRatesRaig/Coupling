@@ -10,13 +10,9 @@
  POR HACER:
  * Revisar código
  * Config y clock!!
- * ver como setear los puertos
- * Revisar como mandar 1s y 0s por los puertos
- * revisar como mandar un byte y recibir un byte por los puertos
  * revisar si se puede hacer todo el trabajo con bytes
  * Timer 
- * revisar main de asembler y tirarlo para aca
- * hacer las funciones para: encontrar setpoint, comunicacion para graficar*, forma de setear las constantes!
+ * hacer las funciones para: comunicacion para graficar*, forma de setear las constantes!
  */
 
 /*
@@ -37,15 +33,15 @@
 #include "pid.h"
 #include "Config.h"
 #define _XTAL_FREQ 32000000
-float Output;
-int PID_Out_Min = -10000;
-int PID_Out_Max = 10000;
-float Setpoint = 0;
-float Input = 0;
-float A;
-float B;
-float C;
-float D;
+int Output;
+//int PID_Out_Min = -10000;
+//int PID_Out_Max = 10000;
+int Setpoint = 0;
+int Input = 0;
+int A;
+int B;
+int C;
+int D;
 int sign;
 unsigned char output;
 
@@ -60,7 +56,7 @@ void main(void) {
     PORTCbits.RC2 = 1;
     PORTCbits.RC7 = 0;
     int count = 0;
-    float err;
+    int err;
     while (count<1000){
         count = count+1;
         PORTCbits.RC0 = 0;                    //Mux en 00
@@ -73,7 +69,7 @@ void main(void) {
         while(PORTCbits.RC6 == 1);
         A = PORTB;             //Lectura
         
-        __delay_us(40); 
+        //__delay_us(40); 
         
         PORTCbits.RC0 = 1;                    //Mux en 01
         PORTCbits.RC1 = 0;
@@ -85,7 +81,7 @@ void main(void) {
         while(PORTCbits.RC6 == 1);
         B = PORTB;             //Lectura
         
-        __delay_us(40); 
+        //__delay_us(40); 
         
         PORTCbits.RC0 = 0;                    //Mux en 10
         PORTCbits.RC1 = 1;
@@ -97,7 +93,7 @@ void main(void) {
         while(PORTCbits.RC6 == 1);  
         C = PORTB;             //Lectura
         
-        __delay_us(40); 
+        //__delay_us(40);  
         
         PORTCbits.RC0 = 1;                    //Mux en 11
         PORTCbits.RC1 = 1;
@@ -109,7 +105,7 @@ void main(void) {
         while(PORTCbits.RC6 == 1);
         D = PORTB;             //Lectura
         
-        __delay_us(40); 
+        //__delay_us(40); 
         err = (A+B)-(C+D);
         Setpoint = Setpoint+err;
     }
@@ -129,7 +125,7 @@ void main(void) {
         while(PORTCbits.RC6 == 1);
         A = PORTB;             //Lectura
         
-        __delay_us(40); 
+        //__delay_us(40); 
         
         PORTCbits.RC0 = 1;                    //Mux en 01
         PORTCbits.RC1 = 0;
@@ -141,7 +137,7 @@ void main(void) {
         while(PORTCbits.RC6 == 1);
         B = PORTB;             //Lectura
         
-        __delay_us(40); 
+        //__delay_us(40); 
         
         PORTCbits.RC0 = 0;                    //Mux en 10
         PORTCbits.RC1 = 1;
@@ -153,7 +149,7 @@ void main(void) {
         while(PORTCbits.RC6 == 1);  
         C = PORTB;             //Lectura
         
-        __delay_us(40); 
+        //__delay_us(40);  
         
         PORTCbits.RC0 = 1;                    //Mux en 11
         PORTCbits.RC1 = 1;
@@ -165,19 +161,20 @@ void main(void) {
         while(PORTCbits.RC6 == 1);
         D = PORTB;             //Lectura
         
-        __delay_us(40); 
+        //__delay_us(40); 
         
     //Operación matemática de entradas
         
         Input = (A+B)-(C+D);
-        PidType PID;
-        PID_init(&PID, 1, 0, 0, PID_Direction_Reverse);
-        PID_SetMode(&PID, PID_Mode_Automatic);
-        PID_SetOutputLimits(&PID, PID_Out_Min, PID_Out_Max);
-        PID.mySetpoint = Setpoint;    
-        PID.myInput = Input;
-        PID_Compute(&PID);  
-        Output = PID.myOutput;
+        Output = Input-Setpoint;
+        //PidType PID;
+        //PID_init(&PID, 1, 0, 0, PID_Direction_Reverse);
+        //PID_SetMode(&PID, PID_Mode_Automatic);
+        //PID_SetOutputLimits(&PID, PID_Out_Min, PID_Out_Max);
+        //PID.mySetpoint = Setpoint;    
+        //PID.myInput = Input;
+        //PID_Compute(&PID);  
+        //Output = PID.myOutput;
         
         if(Output>0){
             Output = Output;
