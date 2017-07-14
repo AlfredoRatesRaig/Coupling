@@ -17,7 +17,7 @@ text0 CODE 0 7E3A 7E3A 1C6 1
 text1 CODE 0 7DB6 7DB6 84 1
 cstackCOMRAM COMRAM 1 12 12 E 1
 bssCOMRAM COMRAM 1 1 1 11 1
-$C:\Users\Astrolab\AppData\Local\Temp\s644.obj
+$C:\Users\Astrolab\AppData\Local\Temp\s7eo.obj
 idloc IDLOC 0 200000 200000 8 1
 init CODE 0 0 0 4 1
 config CONFIG 0 300000 300000 E 1
@@ -83,102 +83,102 @@ $dist/default/production\Coupling.production.obj
 7E22 text1 CODE >39:C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\awdiv.c
 7E28 text1 CODE >40:C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\awdiv.c
 7E30 text1 CODE >41:C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\awdiv.c
-7E3A text0 CODE >52:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E3A text0 CODE >53:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E3C text0 CODE >54:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E40 text0 CODE >55:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E44 text0 CODE >56:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E46 text0 CODE >57:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E48 text0 CODE >58:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E4A text0 CODE >59:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E4C text0 CODE >60:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E4E text0 CODE >61:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E50 text0 CODE >62:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E58 text0 CODE >64:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E5A text0 CODE >65:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E66 text0 CODE >66:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E68 text0 CODE >67:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E6A text0 CODE >69:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E6C text0 CODE >70:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E74 text0 CODE >71:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E76 text0 CODE >73:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E7A text0 CODE >74:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E80 text0 CODE >78:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E82 text0 CODE >79:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E84 text0 CODE >81:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E86 text0 CODE >82:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E8E text0 CODE >83:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E90 text0 CODE >85:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E94 text0 CODE >86:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E9A text0 CODE >90:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E9C text0 CODE >91:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7E9E text0 CODE >93:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7EA0 text0 CODE >94:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7EA8 text0 CODE >95:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7EAA text0 CODE >97:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7EAE text0 CODE >98:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7EB4 text0 CODE >102:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7EB6 text0 CODE >103:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7EB8 text0 CODE >105:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7EBA text0 CODE >106:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7EC2 text0 CODE >107:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7EC4 text0 CODE >109:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7EC8 text0 CODE >110:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7ECE text0 CODE >113:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7EF6 text0 CODE >114:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F02 text0 CODE >64:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F02 text0 CODE >115:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F12 text0 CODE >116:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F2E text0 CODE >122:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F30 text0 CODE >123:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F32 text0 CODE >125:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F34 text0 CODE >126:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F3C text0 CODE >127:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F3E text0 CODE >129:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F42 text0 CODE >130:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F48 text0 CODE >134:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F4A text0 CODE >135:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F4C text0 CODE >137:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F4E text0 CODE >138:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F56 text0 CODE >139:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F58 text0 CODE >141:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F5C text0 CODE >142:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F62 text0 CODE >146:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F64 text0 CODE >147:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F66 text0 CODE >149:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F68 text0 CODE >150:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F70 text0 CODE >151:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F72 text0 CODE >153:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F76 text0 CODE >154:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F7C text0 CODE >158:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F7E text0 CODE >159:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F80 text0 CODE >161:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F82 text0 CODE >162:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F8A text0 CODE >163:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F8C text0 CODE >165:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F90 text0 CODE >166:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7F96 text0 CODE >172:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7FBE text0 CODE >173:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7FDA text0 CODE >183:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7FE8 text0 CODE >185:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7FEA text0 CODE >186:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7FEC text0 CODE >188:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7FF4 text0 CODE >189:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7FF6 text0 CODE >191:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7FFA text0 CODE >192:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7FFE text0 CODE >118:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
-7DA4 cinit CODE >492:C:\Users\Astrolab\AppData\Local\Temp\s644.
-7DA4 cinit CODE >494:C:\Users\Astrolab\AppData\Local\Temp\s644.
-7DA4 cinit CODE >497:C:\Users\Astrolab\AppData\Local\Temp\s644.
-7DA4 cinit CODE >534:C:\Users\Astrolab\AppData\Local\Temp\s644.
-7DA8 cinit CODE >535:C:\Users\Astrolab\AppData\Local\Temp\s644.
-7DAA cinit CODE >536:C:\Users\Astrolab\AppData\Local\Temp\s644.
-7DAA cinit CODE >537:C:\Users\Astrolab\AppData\Local\Temp\s644.
-7DAC cinit CODE >538:C:\Users\Astrolab\AppData\Local\Temp\s644.
-7DAE cinit CODE >539:C:\Users\Astrolab\AppData\Local\Temp\s644.
-7DB0 cinit CODE >545:C:\Users\Astrolab\AppData\Local\Temp\s644.
-7DB0 cinit CODE >547:C:\Users\Astrolab\AppData\Local\Temp\s644.
-7DB2 cinit CODE >548:C:\Users\Astrolab\AppData\Local\Temp\s644.
+7E3A text0 CODE >34:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E3A text0 CODE >35:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E3C text0 CODE >36:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E40 text0 CODE >37:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E44 text0 CODE >38:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E46 text0 CODE >39:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E48 text0 CODE >40:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E4A text0 CODE >41:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E4C text0 CODE >42:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E4E text0 CODE >43:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E50 text0 CODE >44:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E58 text0 CODE >46:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E5A text0 CODE >47:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E66 text0 CODE >48:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E68 text0 CODE >49:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E6A text0 CODE >51:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E6C text0 CODE >52:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E74 text0 CODE >53:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E76 text0 CODE >55:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E7A text0 CODE >56:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E80 text0 CODE >60:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E82 text0 CODE >61:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E84 text0 CODE >63:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E86 text0 CODE >64:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E8E text0 CODE >65:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E90 text0 CODE >67:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E94 text0 CODE >68:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E9A text0 CODE >72:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E9C text0 CODE >73:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7E9E text0 CODE >75:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7EA0 text0 CODE >76:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7EA8 text0 CODE >77:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7EAA text0 CODE >79:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7EAE text0 CODE >80:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7EB4 text0 CODE >84:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7EB6 text0 CODE >85:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7EB8 text0 CODE >87:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7EBA text0 CODE >88:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7EC2 text0 CODE >89:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7EC4 text0 CODE >91:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7EC8 text0 CODE >92:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7ECE text0 CODE >95:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7EF6 text0 CODE >96:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F02 text0 CODE >46:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F02 text0 CODE >97:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F12 text0 CODE >98:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F2E text0 CODE >104:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F30 text0 CODE >105:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F32 text0 CODE >107:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F34 text0 CODE >108:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F3C text0 CODE >109:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F3E text0 CODE >111:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F42 text0 CODE >112:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F48 text0 CODE >116:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F4A text0 CODE >117:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F4C text0 CODE >119:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F4E text0 CODE >120:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F56 text0 CODE >121:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F58 text0 CODE >123:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F5C text0 CODE >124:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F62 text0 CODE >128:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F64 text0 CODE >129:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F66 text0 CODE >131:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F68 text0 CODE >132:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F70 text0 CODE >133:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F72 text0 CODE >135:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F76 text0 CODE >136:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F7C text0 CODE >140:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F7E text0 CODE >141:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F80 text0 CODE >143:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F82 text0 CODE >144:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F8A text0 CODE >145:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F8C text0 CODE >147:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F90 text0 CODE >148:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7F96 text0 CODE >154:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7FBE text0 CODE >155:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7FDA text0 CODE >165:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7FE8 text0 CODE >167:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7FEA text0 CODE >168:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7FEC text0 CODE >170:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7FF4 text0 CODE >171:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7FF6 text0 CODE >173:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7FFA text0 CODE >174:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7FFE text0 CODE >100:C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+7DA4 cinit CODE >492:C:\Users\Astrolab\AppData\Local\Temp\s7eo.
+7DA4 cinit CODE >494:C:\Users\Astrolab\AppData\Local\Temp\s7eo.
+7DA4 cinit CODE >497:C:\Users\Astrolab\AppData\Local\Temp\s7eo.
+7DA4 cinit CODE >534:C:\Users\Astrolab\AppData\Local\Temp\s7eo.
+7DA8 cinit CODE >535:C:\Users\Astrolab\AppData\Local\Temp\s7eo.
+7DAA cinit CODE >536:C:\Users\Astrolab\AppData\Local\Temp\s7eo.
+7DAA cinit CODE >537:C:\Users\Astrolab\AppData\Local\Temp\s7eo.
+7DAC cinit CODE >538:C:\Users\Astrolab\AppData\Local\Temp\s7eo.
+7DAE cinit CODE >539:C:\Users\Astrolab\AppData\Local\Temp\s7eo.
+7DB0 cinit CODE >545:C:\Users\Astrolab\AppData\Local\Temp\s7eo.
+7DB0 cinit CODE >547:C:\Users\Astrolab\AppData\Local\Temp\s7eo.
+7DB2 cinit CODE >548:C:\Users\Astrolab\AppData\Local\Temp\s7eo.
 # %SYMTAB Section
 # An enumeration of all symbols in the program.
 # The beginning of the section is indicated by %SYMTAB.
@@ -202,22 +202,22 @@ __Hspace_1 20 0 ABS 0 - dist/default/production\Coupling.production.obj
 __Hspace_2 0 0 ABS 0 - dist/default/production\Coupling.production.obj
 __CFG_IESO$OFF 0 0 ABS 0 - dist/default/production\Coupling.production.obj
 __Hibigdata 0 0 CODE 0 ibigdata dist/default/production\Coupling.production.obj
-__mediumconst 0 0 MEDIUMCONST 0 mediumconst C:\Users\Astrolab\AppData\Local\Temp\s644.obj
+__mediumconst 0 0 MEDIUMCONST 0 mediumconst C:\Users\Astrolab\AppData\Local\Temp\s7eo.obj
 __Heeprom_data 0 0 EEDATA 0 eeprom_data dist/default/production\Coupling.production.obj
 __Lsmallconst 0 0 SMALLCONST 0 smallconst dist/default/production\Coupling.production.obj
-___sp 0 0 STACK 2 stack C:\Users\Astrolab\AppData\Local\Temp\s644.obj
+___sp 0 0 STACK 2 stack C:\Users\Astrolab\AppData\Local\Temp\s7eo.obj
 _main 7E3A 0 CODE 0 text0 dist/default/production\Coupling.production.obj
 _sign 1 0 COMRAM 1 bssCOMRAM dist/default/production\Coupling.production.obj
-start 0 0 CODE 0 init C:\Users\Astrolab\AppData\Local\Temp\s644.obj
+start 0 0 CODE 0 init C:\Users\Astrolab\AppData\Local\Temp\s7eo.obj
 __size_of___awdiv 0 0 ABS 0 - dist/default/production\Coupling.production.obj
 __size_of_main 0 0 ABS 0 - dist/default/production\Coupling.production.obj
 __HbssCOMRAM 0 0 ABS 0 bssCOMRAM dist/default/production\Coupling.production.obj
 __Hpowerup 0 0 CODE 0 powerup dist/default/production\Coupling.production.obj
-__accesstop 60 0 ABS 0 - C:\Users\Astrolab\AppData\Local\Temp\s644.obj
-intlevel0 0 0 CODE 0 text C:\Users\Astrolab\AppData\Local\Temp\s644.obj
-intlevel1 0 0 CODE 0 text C:\Users\Astrolab\AppData\Local\Temp\s644.obj
-intlevel2 0 0 CODE 0 text C:\Users\Astrolab\AppData\Local\Temp\s644.obj
-intlevel3 0 0 CODE 0 text C:\Users\Astrolab\AppData\Local\Temp\s644.obj
+__accesstop 60 0 ABS 0 - C:\Users\Astrolab\AppData\Local\Temp\s7eo.obj
+intlevel0 0 0 CODE 0 text C:\Users\Astrolab\AppData\Local\Temp\s7eo.obj
+intlevel1 0 0 CODE 0 text C:\Users\Astrolab\AppData\Local\Temp\s7eo.obj
+intlevel2 0 0 CODE 0 text C:\Users\Astrolab\AppData\Local\Temp\s7eo.obj
+intlevel3 0 0 CODE 0 text C:\Users\Astrolab\AppData\Local\Temp\s7eo.obj
 __LbssCOMRAM 0 0 ABS 0 bssCOMRAM dist/default/production\Coupling.production.obj
 __CFG_USBDIV$1 0 0 ABS 0 - dist/default/production\Coupling.production.obj
 __LnvFARRAM 0 0 FARRAM 0 nvFARRAM dist/default/production\Coupling.production.obj
@@ -230,8 +230,8 @@ __Hifardata 0 0 CODE 0 ifardata dist/default/production\Coupling.production.obj
 ___awdiv@sign 17 0 COMRAM 1 cstackCOMRAM dist/default/production\Coupling.production.obj
 __Hclrtext 0 0 ABS 0 clrtext dist/default/production\Coupling.production.obj
 ___awdiv@dividend 12 0 COMRAM 1 cstackCOMRAM dist/default/production\Coupling.production.obj
-___inthi_sp 0 0 STACK 2 stack C:\Users\Astrolab\AppData\Local\Temp\s644.obj
-___intlo_sp 0 0 STACK 2 stack C:\Users\Astrolab\AppData\Local\Temp\s644.obj
+___inthi_sp 0 0 STACK 2 stack C:\Users\Astrolab\AppData\Local\Temp\s7eo.obj
+___intlo_sp 0 0 STACK 2 stack C:\Users\Astrolab\AppData\Local\Temp\s7eo.obj
 __Hintcode_body 0 0 ABS 0 intcode_body dist/default/production\Coupling.production.obj
 __Lintsave_regs 0 0 BIGRAM 1 intsave_regs dist/default/production\Coupling.production.obj
 _Setpoint D 0 COMRAM 1 bssCOMRAM dist/default/production\Coupling.production.obj
@@ -272,7 +272,7 @@ __Htext0 0 0 ABS 0 text0 dist/default/production\Coupling.production.obj
 __Htext1 0 0 ABS 0 text1 dist/default/production\Coupling.production.obj
 __Hbigbss 0 0 BIGRAM 1 bigbss dist/default/production\Coupling.production.obj
 __Hbigram 0 0 ABS 0 bigram dist/default/production\Coupling.production.obj
-__smallconst 0 0 SMALLCONST 0 smallconst C:\Users\Astrolab\AppData\Local\Temp\s644.obj
+__smallconst 0 0 SMALLCONST 0 smallconst C:\Users\Astrolab\AppData\Local\Temp\s7eo.obj
 __Hcomram 0 0 ABS 0 comram dist/default/production\Coupling.production.obj
 __Hconfig 30000E 0 CONFIG 0 config dist/default/production\Coupling.production.obj
 __CFG_LPT1OSC$OFF 0 0 ABS 0 - dist/default/production\Coupling.production.obj
@@ -339,8 +339,8 @@ __Lconfig 300000 0 CONFIG 0 config dist/default/production\Coupling.production.o
 __Lfarbss 0 0 FARRAM 0 farbss dist/default/production\Coupling.production.obj
 main@count 1E 0 COMRAM 1 cstackCOMRAM dist/default/production\Coupling.production.obj
 __Lfardata 0 0 FARRAM 0 fardata dist/default/production\Coupling.production.obj
-stackhi 7FF 0 ABS 0 - C:\Users\Astrolab\AppData\Local\Temp\s644.obj
-stacklo 60 0 ABS 0 - C:\Users\Astrolab\AppData\Local\Temp\s644.obj
+stackhi 7FF 0 ABS 0 - C:\Users\Astrolab\AppData\Local\Temp\s7eo.obj
+stacklo 60 0 ABS 0 - C:\Users\Astrolab\AppData\Local\Temp\s7eo.obj
 __Lintcode 0 0 CODE 0 intcode dist/default/production\Coupling.production.obj
 __Lintret 0 0 ABS 0 intret dist/default/production\Coupling.production.obj
 __Lirdata 0 0 CODE 0 irdata dist/default/production\Coupling.production.obj
@@ -364,7 +364,7 @@ __pcinit 7DA4 0 CODE 0 cinit dist/default/production\Coupling.production.obj
 __ptext0 7E3A 0 CODE 0 text0 dist/default/production\Coupling.production.obj
 __ptext1 7DB6 0 CODE 0 text1 dist/default/production\Coupling.production.obj
 __Lstruct 0 0 COMRAM 1 struct dist/default/production\Coupling.production.obj
-__ramtop 800 0 RAM 0 ramtop C:\Users\Astrolab\AppData\Local\Temp\s644.obj
+__ramtop 800 0 RAM 0 ramtop C:\Users\Astrolab\AppData\Local\Temp\s7eo.obj
 __Lpowerup 0 0 CODE 0 powerup dist/default/production\Coupling.production.obj
 __Leeprom_data 0 0 EEDATA 0 eeprom_data dist/default/production\Coupling.production.obj
 __Lreset_vec 0 0 CODE 0 reset_vec dist/default/production\Coupling.production.obj

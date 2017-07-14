@@ -3548,50 +3548,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 164: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 166: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 168: extern __nonreentrant void _delay3(unsigned char);
-[; ;pid.h: 4: typedef float FloatType;
-[; ;stdbool.h: 12: typedef unsigned char bool;
-[; ;pid.h: 9: typedef enum
-[; ;pid.h: 10: {
-[; ;pid.h: 11: PID_Mode_Automatic = 1,
-[; ;pid.h: 12: PID_Mode_Manual = 0
-[; ;pid.h: 13: } PidModeType;
-[; ;pid.h: 15: typedef enum
-[; ;pid.h: 16: {
-[; ;pid.h: 17: PID_Direction_Direct = 0,
-[; ;pid.h: 18: PID_Direction_Reverse = 1
-[; ;pid.h: 19: } PidDirectionType;
-[; ;pid.h: 21: typedef struct {
-[; ;pid.h: 22: FloatType dispKp;
-[; ;pid.h: 23: FloatType dispKi;
-[; ;pid.h: 24: FloatType dispKd;
-[; ;pid.h: 26: FloatType kp;
-[; ;pid.h: 27: FloatType ki;
-[; ;pid.h: 28: FloatType kd;
-[; ;pid.h: 30: PidDirectionType controllerDirection;
-[; ;pid.h: 32: FloatType myInput;
-[; ;pid.h: 33: FloatType myOutput;
-[; ;pid.h: 34: FloatType mySetpoint;
-[; ;pid.h: 38: FloatType ITerm, lastInput;
-[; ;pid.h: 40: unsigned long SampleTime;
-[; ;pid.h: 41: FloatType outMin, outMax;
-[; ;pid.h: 42: bool inAuto;
-[; ;pid.h: 43: } PidType;
-[; ;pid.h: 49: void PID_init(PidType* pid,
-[; ;pid.h: 50: FloatType kp,
-[; ;pid.h: 51: FloatType ki,
-[; ;pid.h: 52: FloatType kd,
-[; ;pid.h: 53: PidDirectionType controllerDirection);
-[; ;pid.h: 56: void PID_SetMode(PidType* pid, PidModeType mode);
-[; ;pid.h: 62: bool PID_Compute(PidType* pid);
-[; ;pid.h: 67: void PID_SetOutputLimits(PidType* pid, FloatType min, FloatType max);
-[; ;pid.h: 74: void PID_SetTunings(PidType* pid, FloatType kp, FloatType ki, FloatType kd);
-[; ;pid.h: 80: void PID_SetControllerDirection(PidType* pid, PidDirectionType Direction);
-[; ;pid.h: 84: void PID_SetSampleTime(PidType* pid, int newSampleTime);
-[; ;pid.h: 91: FloatType PID_GetKp(PidType* pid);
-[; ;pid.h: 92: FloatType PID_GetKi(PidType* pid);
-[; ;pid.h: 93: FloatType PID_GetKd(PidType* pid);
-[; ;pid.h: 94: PidModeType PID_GetMode(PidType* pid);
-[; ;pid.h: 95: PidDirectionType PID_GetDirection(PidType* pid);
 "6 Config.h
 [p x PLLDIV=5 ]
 "7
@@ -3668,359 +3624,359 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p x EBTR3=OFF ]
 "65
 [p x EBTRB=OFF ]
-"40 newmain.c
+"22 newmain.c
 [v _Output `i ~T0 @X0 1 e ]
-[; ;newmain.c: 40: int Output;
-"43
+[; ;newmain.c: 22: int Output;
+"25
 [v _Setpoint `i ~T0 @X0 1 e ]
 [i _Setpoint
 -> 0 `i
 ]
-[; ;newmain.c: 43: int Setpoint = 0;
-"44
+[; ;newmain.c: 25: int Setpoint = 0;
+"26
 [v _Input `i ~T0 @X0 1 e ]
 [i _Input
 -> 0 `i
 ]
-[; ;newmain.c: 44: int Input = 0;
-"45
+[; ;newmain.c: 26: int Input = 0;
+"27
 [v _A `i ~T0 @X0 1 e ]
-[; ;newmain.c: 45: int A;
-"46
+[; ;newmain.c: 27: int A;
+"28
 [v _B `i ~T0 @X0 1 e ]
-[; ;newmain.c: 46: int B;
-"47
+[; ;newmain.c: 28: int B;
+"29
 [v _C `i ~T0 @X0 1 e ]
-[; ;newmain.c: 47: int C;
-"48
+[; ;newmain.c: 29: int C;
+"30
 [v _D `i ~T0 @X0 1 e ]
-[; ;newmain.c: 48: int D;
-"49
+[; ;newmain.c: 30: int D;
+"31
 [v _sign `i ~T0 @X0 1 e ]
-[; ;newmain.c: 49: int sign;
-"50
+[; ;newmain.c: 31: int sign;
+"32
 [v _output `uc ~T0 @X0 1 e ]
-[; ;newmain.c: 50: unsigned char output;
+[; ;newmain.c: 32: unsigned char output;
 [v $root$_main `(v ~T0 @X0 0 e ]
-"52
+"34
 [v _main `(v ~T0 @X0 1 ef ]
 {
-[; ;newmain.c: 52: void main(void) {
+[; ;newmain.c: 34: void main(void) {
 [e :U _main ]
 [f ]
-[; ;newmain.c: 53: TRISB = 0xFF;
-"53
+[; ;newmain.c: 35: TRISB = 0xFF;
+"35
 [e = _TRISB -> -> 255 `i `uc ]
-[; ;newmain.c: 54: TRISD = 0x00;
-"54
+[; ;newmain.c: 36: TRISD = 0x00;
+"36
 [e = _TRISD -> -> 0 `i `uc ]
-[; ;newmain.c: 55: TRISC = 0b01000000;
-"55
+[; ;newmain.c: 37: TRISC = 0b01000000;
+"37
 [e = _TRISC -> -> 64 `i `uc ]
-[; ;newmain.c: 56: TMR1CS = 0;
-"56
+[; ;newmain.c: 38: TMR1CS = 0;
+"38
 [e = _TMR1CS -> -> 0 `i `b ]
-[; ;newmain.c: 57: TMR3CS = 0;
-"57
+[; ;newmain.c: 39: TMR3CS = 0;
+"39
 [e = _TMR3CS -> -> 0 `i `b ]
-[; ;newmain.c: 58: PORTCbits.RC0 = 0;
-"58
+[; ;newmain.c: 40: PORTCbits.RC0 = 0;
+"40
 [e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
-[; ;newmain.c: 59: PORTCbits.RC1 = 0;
-"59
+[; ;newmain.c: 41: PORTCbits.RC1 = 0;
+"41
 [e = . . _PORTCbits 0 1 -> -> 0 `i `uc ]
-[; ;newmain.c: 60: PORTCbits.RC2 = 1;
-"60
+[; ;newmain.c: 42: PORTCbits.RC2 = 1;
+"42
 [e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
-[; ;newmain.c: 61: PORTCbits.RC7 = 0;
-"61
+[; ;newmain.c: 43: PORTCbits.RC7 = 0;
+"43
 [e = . . _PORTCbits 0 7 -> -> 0 `i `uc ]
-"62
+"44
 [v _count `i ~T0 @X0 1 a ]
-[; ;newmain.c: 62: int count = 0;
+[; ;newmain.c: 44: int count = 0;
 [e = _count -> 0 `i ]
-"63
+"45
 [v _err `i ~T0 @X0 1 a ]
-[; ;newmain.c: 63: int err;
-[; ;newmain.c: 64: while (count<1000){
-"64
-[e $U 364  ]
-[e :U 365 ]
-{
-[; ;newmain.c: 65: count = count+1;
-"65
-[e = _count + _count -> 1 `i ]
-[; ;newmain.c: 66: PORTCbits.RC0 = 0;
-"66
-[e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
-[; ;newmain.c: 67: PORTCbits.RC1 = 0;
-"67
-[e = . . _PORTCbits 0 1 -> -> 0 `i `uc ]
-[; ;newmain.c: 69: PORTCbits.RC2 = 1;
-"69
-[e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
-[; ;newmain.c: 70: _delay((unsigned long)((5)*(32000000/4000000.0)));
-"70
-[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
-[; ;newmain.c: 71: PORTCbits.RC2 = 0;
-"71
-[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
-[; ;newmain.c: 73: while(PORTCbits.RC6 == 1);
-"73
-[e $U 367  ]
-[e :U 368 ]
-[e :U 367 ]
-[e $ == -> . . _PORTCbits 0 6 `i -> 1 `i 368  ]
-[e :U 369 ]
-[; ;newmain.c: 74: A = PORTB;
-"74
-[e = _A -> _PORTB `i ]
-[; ;newmain.c: 78: PORTCbits.RC0 = 1;
-"78
-[e = . . _PORTCbits 0 0 -> -> 1 `i `uc ]
-[; ;newmain.c: 79: PORTCbits.RC1 = 0;
-"79
-[e = . . _PORTCbits 0 1 -> -> 0 `i `uc ]
-[; ;newmain.c: 81: PORTCbits.RC2 = 1;
-"81
-[e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
-[; ;newmain.c: 82: _delay((unsigned long)((5)*(32000000/4000000.0)));
-"82
-[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
-[; ;newmain.c: 83: PORTCbits.RC2 = 0;
-"83
-[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
-[; ;newmain.c: 85: while(PORTCbits.RC6 == 1);
-"85
-[e $U 370  ]
-[e :U 371 ]
-[e :U 370 ]
-[e $ == -> . . _PORTCbits 0 6 `i -> 1 `i 371  ]
-[e :U 372 ]
-[; ;newmain.c: 86: B = PORTB;
-"86
-[e = _B -> _PORTB `i ]
-[; ;newmain.c: 90: PORTCbits.RC0 = 0;
-"90
-[e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
-[; ;newmain.c: 91: PORTCbits.RC1 = 1;
-"91
-[e = . . _PORTCbits 0 1 -> -> 1 `i `uc ]
-[; ;newmain.c: 93: PORTCbits.RC2 = 1;
-"93
-[e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
-[; ;newmain.c: 94: _delay((unsigned long)((5)*(32000000/4000000.0)));
-"94
-[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
-[; ;newmain.c: 95: PORTCbits.RC2 = 0;
-"95
-[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
-[; ;newmain.c: 97: while(PORTCbits.RC6 == 1);
-"97
-[e $U 373  ]
-[e :U 374 ]
-[e :U 373 ]
-[e $ == -> . . _PORTCbits 0 6 `i -> 1 `i 374  ]
-[e :U 375 ]
-[; ;newmain.c: 98: C = PORTB;
-"98
-[e = _C -> _PORTB `i ]
-[; ;newmain.c: 102: PORTCbits.RC0 = 1;
-"102
-[e = . . _PORTCbits 0 0 -> -> 1 `i `uc ]
-[; ;newmain.c: 103: PORTCbits.RC1 = 1;
-"103
-[e = . . _PORTCbits 0 1 -> -> 1 `i `uc ]
-[; ;newmain.c: 105: PORTCbits.RC2 = 1;
-"105
-[e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
-[; ;newmain.c: 106: _delay((unsigned long)((5)*(32000000/4000000.0)));
-"106
-[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
-[; ;newmain.c: 107: PORTCbits.RC2 = 0;
-"107
-[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
-[; ;newmain.c: 109: while(PORTCbits.RC6 == 1);
-"109
-[e $U 376  ]
-[e :U 377 ]
-[e :U 376 ]
-[e $ == -> . . _PORTCbits 0 6 `i -> 1 `i 377  ]
-[e :U 378 ]
-[; ;newmain.c: 110: D = PORTB;
-"110
-[e = _D -> _PORTB `i ]
-[; ;newmain.c: 113: err = (A+B)-(C+D);
-"113
-[e = _err - + _A _B + _C _D ]
-[; ;newmain.c: 114: Setpoint = Setpoint+err;
-"114
-[e = _Setpoint + _Setpoint _err ]
-"115
-}
+[; ;newmain.c: 45: int err;
+[; ;newmain.c: 46: while (count<1000){
+"46
+[e $U 363  ]
 [e :U 364 ]
-"64
-[e $ < _count -> 1000 `i 365  ]
+{
+[; ;newmain.c: 47: count = count+1;
+"47
+[e = _count + _count -> 1 `i ]
+[; ;newmain.c: 48: PORTCbits.RC0 = 0;
+"48
+[e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
+[; ;newmain.c: 49: PORTCbits.RC1 = 0;
+"49
+[e = . . _PORTCbits 0 1 -> -> 0 `i `uc ]
+[; ;newmain.c: 51: PORTCbits.RC2 = 1;
+"51
+[e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
+[; ;newmain.c: 52: _delay((unsigned long)((5)*(32000000/4000000.0)));
+"52
+[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
+[; ;newmain.c: 53: PORTCbits.RC2 = 0;
+"53
+[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
+[; ;newmain.c: 55: while(PORTCbits.RC6 == 1);
+"55
+[e $U 366  ]
+[e :U 367 ]
 [e :U 366 ]
-[; ;newmain.c: 115: }
-[; ;newmain.c: 116: Setpoint = Setpoint/1000;
-"116
-[e = _Setpoint / _Setpoint -> 1000 `i ]
-[; ;newmain.c: 118: while(1){
-"118
-[e :U 380 ]
-{
-[; ;newmain.c: 122: PORTCbits.RC0 = 0;
-"122
-[e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
-[; ;newmain.c: 123: PORTCbits.RC1 = 0;
-"123
-[e = . . _PORTCbits 0 1 -> -> 0 `i `uc ]
-[; ;newmain.c: 125: PORTCbits.RC2 = 1;
-"125
-[e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
-[; ;newmain.c: 126: _delay((unsigned long)((5)*(32000000/4000000.0)));
-"126
-[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
-[; ;newmain.c: 127: PORTCbits.RC2 = 0;
-"127
-[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
-[; ;newmain.c: 129: while(PORTCbits.RC6 == 1);
-"129
-[e $U 382  ]
-[e :U 383 ]
-[e :U 382 ]
-[e $ == -> . . _PORTCbits 0 6 `i -> 1 `i 383  ]
-[e :U 384 ]
-[; ;newmain.c: 130: A = PORTB;
-"130
+[e $ == -> . . _PORTCbits 0 6 `i -> 1 `i 367  ]
+[e :U 368 ]
+[; ;newmain.c: 56: A = PORTB;
+"56
 [e = _A -> _PORTB `i ]
-[; ;newmain.c: 134: PORTCbits.RC0 = 1;
-"134
+[; ;newmain.c: 60: PORTCbits.RC0 = 1;
+"60
 [e = . . _PORTCbits 0 0 -> -> 1 `i `uc ]
-[; ;newmain.c: 135: PORTCbits.RC1 = 0;
-"135
+[; ;newmain.c: 61: PORTCbits.RC1 = 0;
+"61
 [e = . . _PORTCbits 0 1 -> -> 0 `i `uc ]
-[; ;newmain.c: 137: PORTCbits.RC2 = 1;
-"137
+[; ;newmain.c: 63: PORTCbits.RC2 = 1;
+"63
 [e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
-[; ;newmain.c: 138: _delay((unsigned long)((5)*(32000000/4000000.0)));
-"138
+[; ;newmain.c: 64: _delay((unsigned long)((5)*(32000000/4000000.0)));
+"64
 [e ( __delay (1 -> * -> -> 5 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
-[; ;newmain.c: 139: PORTCbits.RC2 = 0;
-"139
+[; ;newmain.c: 65: PORTCbits.RC2 = 0;
+"65
 [e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
-[; ;newmain.c: 141: while(PORTCbits.RC6 == 1);
-"141
-[e $U 385  ]
-[e :U 386 ]
-[e :U 385 ]
-[e $ == -> . . _PORTCbits 0 6 `i -> 1 `i 386  ]
-[e :U 387 ]
-[; ;newmain.c: 142: B = PORTB;
-"142
+[; ;newmain.c: 67: while(PORTCbits.RC6 == 1);
+"67
+[e $U 369  ]
+[e :U 370 ]
+[e :U 369 ]
+[e $ == -> . . _PORTCbits 0 6 `i -> 1 `i 370  ]
+[e :U 371 ]
+[; ;newmain.c: 68: B = PORTB;
+"68
 [e = _B -> _PORTB `i ]
-[; ;newmain.c: 146: PORTCbits.RC0 = 0;
-"146
+[; ;newmain.c: 72: PORTCbits.RC0 = 0;
+"72
 [e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
-[; ;newmain.c: 147: PORTCbits.RC1 = 1;
-"147
+[; ;newmain.c: 73: PORTCbits.RC1 = 1;
+"73
 [e = . . _PORTCbits 0 1 -> -> 1 `i `uc ]
-[; ;newmain.c: 149: PORTCbits.RC2 = 1;
-"149
+[; ;newmain.c: 75: PORTCbits.RC2 = 1;
+"75
 [e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
-[; ;newmain.c: 150: _delay((unsigned long)((5)*(32000000/4000000.0)));
-"150
+[; ;newmain.c: 76: _delay((unsigned long)((5)*(32000000/4000000.0)));
+"76
 [e ( __delay (1 -> * -> -> 5 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
-[; ;newmain.c: 151: PORTCbits.RC2 = 0;
-"151
+[; ;newmain.c: 77: PORTCbits.RC2 = 0;
+"77
 [e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
-[; ;newmain.c: 153: while(PORTCbits.RC6 == 1);
-"153
-[e $U 388  ]
-[e :U 389 ]
-[e :U 388 ]
-[e $ == -> . . _PORTCbits 0 6 `i -> 1 `i 389  ]
-[e :U 390 ]
-[; ;newmain.c: 154: C = PORTB;
-"154
+[; ;newmain.c: 79: while(PORTCbits.RC6 == 1);
+"79
+[e $U 372  ]
+[e :U 373 ]
+[e :U 372 ]
+[e $ == -> . . _PORTCbits 0 6 `i -> 1 `i 373  ]
+[e :U 374 ]
+[; ;newmain.c: 80: C = PORTB;
+"80
 [e = _C -> _PORTB `i ]
-[; ;newmain.c: 158: PORTCbits.RC0 = 1;
-"158
+[; ;newmain.c: 84: PORTCbits.RC0 = 1;
+"84
 [e = . . _PORTCbits 0 0 -> -> 1 `i `uc ]
-[; ;newmain.c: 159: PORTCbits.RC1 = 1;
-"159
+[; ;newmain.c: 85: PORTCbits.RC1 = 1;
+"85
 [e = . . _PORTCbits 0 1 -> -> 1 `i `uc ]
-[; ;newmain.c: 161: PORTCbits.RC2 = 1;
-"161
+[; ;newmain.c: 87: PORTCbits.RC2 = 1;
+"87
 [e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
-[; ;newmain.c: 162: _delay((unsigned long)((5)*(32000000/4000000.0)));
-"162
+[; ;newmain.c: 88: _delay((unsigned long)((5)*(32000000/4000000.0)));
+"88
 [e ( __delay (1 -> * -> -> 5 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
-[; ;newmain.c: 163: PORTCbits.RC2 = 0;
-"163
+[; ;newmain.c: 89: PORTCbits.RC2 = 0;
+"89
 [e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
-[; ;newmain.c: 165: while(PORTCbits.RC6 == 1);
-"165
-[e $U 391  ]
-[e :U 392 ]
-[e :U 391 ]
-[e $ == -> . . _PORTCbits 0 6 `i -> 1 `i 392  ]
-[e :U 393 ]
-[; ;newmain.c: 166: D = PORTB;
-"166
+[; ;newmain.c: 91: while(PORTCbits.RC6 == 1);
+"91
+[e $U 375  ]
+[e :U 376 ]
+[e :U 375 ]
+[e $ == -> . . _PORTCbits 0 6 `i -> 1 `i 376  ]
+[e :U 377 ]
+[; ;newmain.c: 92: D = PORTB;
+"92
 [e = _D -> _PORTB `i ]
-[; ;newmain.c: 172: Input = (A+B)-(C+D);
-"172
-[e = _Input - + _A _B + _C _D ]
-[; ;newmain.c: 173: Output = Input-Setpoint;
-"173
-[e = _Output - _Input _Setpoint ]
-[; ;newmain.c: 183: if(Output>0){
-"183
-[e $ ! > _Output -> 0 `i 394  ]
-{
-[; ;newmain.c: 184: Output = Output;
-"184
-[e = _Output _Output ]
-[; ;newmain.c: 185: PORTCbits.RC7 = 0;
-"185
-[e = . . _PORTCbits 0 7 -> -> 0 `i `uc ]
-"186
+[; ;newmain.c: 95: err = (A+B)-(C+D);
+"95
+[e = _err - + _A _B + _C _D ]
+[; ;newmain.c: 96: Setpoint = Setpoint+err;
+"96
+[e = _Setpoint + _Setpoint _err ]
+"97
 }
-[; ;newmain.c: 186: }
-[e $U 395  ]
-"187
-[e :U 394 ]
-[; ;newmain.c: 187: else{
-{
-[; ;newmain.c: 188: Output = -Output;
-"188
-[e = _Output -U _Output ]
-[; ;newmain.c: 189: PORTCbits.RC7 = 1;
-"189
-[e = . . _PORTCbits 0 7 -> -> 1 `i `uc ]
-"190
-}
-[e :U 395 ]
-[; ;newmain.c: 190: }
-[; ;newmain.c: 191: output = Output;
-"191
-[e = _output -> _Output `uc ]
-[; ;newmain.c: 192: PORTD = output;
-"192
-[e = _PORTD _output ]
-"193
-}
+[e :U 363 ]
+"46
+[e $ < _count -> 1000 `i 364  ]
+[e :U 365 ]
+[; ;newmain.c: 97: }
+[; ;newmain.c: 98: Setpoint = Setpoint/1000;
+"98
+[e = _Setpoint / _Setpoint -> 1000 `i ]
+[; ;newmain.c: 100: while(1){
+"100
 [e :U 379 ]
-"118
-[e $U 380  ]
+{
+[; ;newmain.c: 104: PORTCbits.RC0 = 0;
+"104
+[e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
+[; ;newmain.c: 105: PORTCbits.RC1 = 0;
+"105
+[e = . . _PORTCbits 0 1 -> -> 0 `i `uc ]
+[; ;newmain.c: 107: PORTCbits.RC2 = 1;
+"107
+[e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
+[; ;newmain.c: 108: _delay((unsigned long)((5)*(32000000/4000000.0)));
+"108
+[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
+[; ;newmain.c: 109: PORTCbits.RC2 = 0;
+"109
+[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
+[; ;newmain.c: 111: while(PORTCbits.RC6 == 1);
+"111
+[e $U 381  ]
+[e :U 382 ]
 [e :U 381 ]
-[; ;newmain.c: 193: }
-[; ;newmain.c: 194: return;
-"194
-[e $UE 363  ]
-[; ;newmain.c: 195: }
-"195
-[e :UE 363 ]
+[e $ == -> . . _PORTCbits 0 6 `i -> 1 `i 382  ]
+[e :U 383 ]
+[; ;newmain.c: 112: A = PORTB;
+"112
+[e = _A -> _PORTB `i ]
+[; ;newmain.c: 116: PORTCbits.RC0 = 1;
+"116
+[e = . . _PORTCbits 0 0 -> -> 1 `i `uc ]
+[; ;newmain.c: 117: PORTCbits.RC1 = 0;
+"117
+[e = . . _PORTCbits 0 1 -> -> 0 `i `uc ]
+[; ;newmain.c: 119: PORTCbits.RC2 = 1;
+"119
+[e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
+[; ;newmain.c: 120: _delay((unsigned long)((5)*(32000000/4000000.0)));
+"120
+[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
+[; ;newmain.c: 121: PORTCbits.RC2 = 0;
+"121
+[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
+[; ;newmain.c: 123: while(PORTCbits.RC6 == 1);
+"123
+[e $U 384  ]
+[e :U 385 ]
+[e :U 384 ]
+[e $ == -> . . _PORTCbits 0 6 `i -> 1 `i 385  ]
+[e :U 386 ]
+[; ;newmain.c: 124: B = PORTB;
+"124
+[e = _B -> _PORTB `i ]
+[; ;newmain.c: 128: PORTCbits.RC0 = 0;
+"128
+[e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
+[; ;newmain.c: 129: PORTCbits.RC1 = 1;
+"129
+[e = . . _PORTCbits 0 1 -> -> 1 `i `uc ]
+[; ;newmain.c: 131: PORTCbits.RC2 = 1;
+"131
+[e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
+[; ;newmain.c: 132: _delay((unsigned long)((5)*(32000000/4000000.0)));
+"132
+[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
+[; ;newmain.c: 133: PORTCbits.RC2 = 0;
+"133
+[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
+[; ;newmain.c: 135: while(PORTCbits.RC6 == 1);
+"135
+[e $U 387  ]
+[e :U 388 ]
+[e :U 387 ]
+[e $ == -> . . _PORTCbits 0 6 `i -> 1 `i 388  ]
+[e :U 389 ]
+[; ;newmain.c: 136: C = PORTB;
+"136
+[e = _C -> _PORTB `i ]
+[; ;newmain.c: 140: PORTCbits.RC0 = 1;
+"140
+[e = . . _PORTCbits 0 0 -> -> 1 `i `uc ]
+[; ;newmain.c: 141: PORTCbits.RC1 = 1;
+"141
+[e = . . _PORTCbits 0 1 -> -> 1 `i `uc ]
+[; ;newmain.c: 143: PORTCbits.RC2 = 1;
+"143
+[e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
+[; ;newmain.c: 144: _delay((unsigned long)((5)*(32000000/4000000.0)));
+"144
+[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
+[; ;newmain.c: 145: PORTCbits.RC2 = 0;
+"145
+[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
+[; ;newmain.c: 147: while(PORTCbits.RC6 == 1);
+"147
+[e $U 390  ]
+[e :U 391 ]
+[e :U 390 ]
+[e $ == -> . . _PORTCbits 0 6 `i -> 1 `i 391  ]
+[e :U 392 ]
+[; ;newmain.c: 148: D = PORTB;
+"148
+[e = _D -> _PORTB `i ]
+[; ;newmain.c: 154: Input = (A+B)-(C+D);
+"154
+[e = _Input - + _A _B + _C _D ]
+[; ;newmain.c: 155: Output = Input-Setpoint;
+"155
+[e = _Output - _Input _Setpoint ]
+[; ;newmain.c: 165: if(Output>0){
+"165
+[e $ ! > _Output -> 0 `i 393  ]
+{
+[; ;newmain.c: 166: Output = Output;
+"166
+[e = _Output _Output ]
+[; ;newmain.c: 167: PORTCbits.RC7 = 0;
+"167
+[e = . . _PORTCbits 0 7 -> -> 0 `i `uc ]
+"168
+}
+[; ;newmain.c: 168: }
+[e $U 394  ]
+"169
+[e :U 393 ]
+[; ;newmain.c: 169: else{
+{
+[; ;newmain.c: 170: Output = -Output;
+"170
+[e = _Output -U _Output ]
+[; ;newmain.c: 171: PORTCbits.RC7 = 1;
+"171
+[e = . . _PORTCbits 0 7 -> -> 1 `i `uc ]
+"172
+}
+[e :U 394 ]
+[; ;newmain.c: 172: }
+[; ;newmain.c: 173: output = Output;
+"173
+[e = _output -> _Output `uc ]
+[; ;newmain.c: 174: PORTD = output;
+"174
+[e = _PORTD _output ]
+"175
+}
+[e :U 378 ]
+"100
+[e $U 379  ]
+[e :U 380 ]
+[; ;newmain.c: 175: }
+[; ;newmain.c: 176: return;
+"176
+[e $UE 362  ]
+[; ;newmain.c: 177: }
+"177
+[e :UE 362 ]
 }

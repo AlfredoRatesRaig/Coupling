@@ -4805,84 +4805,6 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 4 "pid.h"
-typedef float FloatType;
-
-# 12 "C:\Program Files (x86)\Microchip\xc8\v1.42\include\stdbool.h"
-typedef unsigned char bool;
-
-# 9 "pid.h"
-typedef enum
-{
-PID_Mode_Automatic = 1,
-PID_Mode_Manual = 0
-} PidModeType;
-
-typedef enum
-{
-PID_Direction_Direct = 0,
-PID_Direction_Reverse = 1
-} PidDirectionType;
-
-typedef struct {
-FloatType dispKp;
-FloatType dispKi;
-FloatType dispKd;
-
-FloatType kp;
-FloatType ki;
-FloatType kd;
-
-PidDirectionType controllerDirection;
-
-FloatType myInput;
-FloatType myOutput;
-FloatType mySetpoint;
-
-
-
-FloatType ITerm, lastInput;
-
-unsigned long SampleTime;
-FloatType outMin, outMax;
-bool inAuto;
-} PidType;
-
-# 49
-void PID_init(PidType* pid,
-FloatType kp,
-FloatType ki,
-FloatType kd,
-PidDirectionType controllerDirection);
-
-
-void PID_SetMode(PidType* pid, PidModeType mode);
-
-# 62
-bool PID_Compute(PidType* pid);
-
-
-
-
-void PID_SetOutputLimits(PidType* pid, FloatType min, FloatType max);
-
-# 74
-void PID_SetTunings(PidType* pid, FloatType kp, FloatType ki, FloatType kd);
-
-# 80
-void PID_SetControllerDirection(PidType* pid, PidDirectionType Direction);
-
-
-
-void PID_SetSampleTime(PidType* pid, int newSampleTime);
-
-# 91
-FloatType PID_GetKp(PidType* pid);
-FloatType PID_GetKi(PidType* pid);
-FloatType PID_GetKd(PidType* pid);
-PidModeType PID_GetMode(PidType* pid);
-PidDirectionType PID_GetDirection(PidType* pid);
-
 
 # 6 "Config.h"
 #pragma config PLLDIV = 5
@@ -4946,7 +4868,7 @@ PidDirectionType PID_GetDirection(PidType* pid);
 
 #pragma config EBTRB = OFF
 
-# 40 "newmain.c"
+# 22 "newmain.c"
 int Output;
 
 
@@ -5075,11 +4997,11 @@ PORTCbits.RC2 = 0;
 while(PORTCbits.RC6 == 1);
 D = PORTB;
 
-# 172
+# 154
 Input = (A+B)-(C+D);
 Output = Input-Setpoint;
 
-# 183
+# 165
 if(Output>0){
 Output = Output;
 PORTCbits.RC7 = 0;

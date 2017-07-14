@@ -15,22 +15,8 @@
  * hacer las funciones para: comunicacion para graficar*, forma de setear las constantes!
  */
 
-/*
- FUNCIONAMIENTO DEL MAIN:
- * Abro el Mux
- * Seteo Mux en 0 (o 1,2,3)
- * Leo PUERTO B y guardo en A (o B,C,D)
- * Repito (4 veces)
- * Cierro el mux
- * Y = (A+C)-(B+D)  -   X = (A+B) - (C+D)
- * Se llama a PID con Input Y (o X)
- * Se recibe el Output del PID
- * Se envía el Output por PUERTO D
- */
-
 #include <p18f4550.h>
 #include <xc.h>
-#include "pid.h"
 #include "Config.h"
 #define _XTAL_FREQ 32000000
 int Output;
@@ -111,7 +97,7 @@ void main(void) {
     }
     Setpoint = Setpoint/1000;
     
-    while(true){
+    while(1){
         
     //Lectura de los 4 photodiodes
         

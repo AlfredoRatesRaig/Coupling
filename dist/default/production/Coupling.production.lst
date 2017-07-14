@@ -1,7 +1,7 @@
 
 
 Microchip Technology PIC18 LITE Macro Assembler V1.42 build -159332390 
-                                                                                               Thu Jul 13 12:59:30 2017
+                                                                                               Fri Jul 14 11:06:09 2017
 
 Microchip Technology Omniscient Code Generator v1.42 (Free mode) build 201704130522
      1                           	processor	18F4550
@@ -178,7 +178,7 @@ Microchip Technology Omniscient Code Generator v1.42 (Free mode) build 201704130
    164 ;;
    165 ;; *************** function _main *****************
    166 ;; Defined at:
-   167 ;;		line 52 in file "newmain.c"
+   167 ;;		line 34 in file "newmain.c"
    168 ;; Parameters:    Size  Location     Type
    169 ;;		None
    170 ;; Auto vars:     Size  Location     Type
@@ -212,49 +212,49 @@ Microchip Technology Omniscient Code Generator v1.42 (Free mode) build 201704130
    198  007E3A                     _main:
    199                           	opt stack 30
    200                           
-   201                           ;newmain.c: 53: TRISB = 0xFF;
+   201                           ;newmain.c: 35: TRISB = 0xFF;
    202                           
    203                           ;incstack = 0
    204  007E3A  6893               	setf	3987,c	;volatile
    205                           
-   206                           ;newmain.c: 54: TRISD = 0x00;
+   206                           ;newmain.c: 36: TRISD = 0x00;
    207  007E3C  0E00               	movlw	0
    208  007E3E  6E95               	movwf	3989,c	;volatile
    209                           
-   210                           ;newmain.c: 55: TRISC = 0b01000000;
+   210                           ;newmain.c: 37: TRISC = 0b01000000;
    211  007E40  0E40               	movlw	64
    212  007E42  6E94               	movwf	3988,c	;volatile
    213                           
-   214                           ;newmain.c: 56: TMR1CS = 0;
+   214                           ;newmain.c: 38: TMR1CS = 0;
    215  007E44  92CD               	bcf	4045,1,c	;volatile
    216                           
-   217                           ;newmain.c: 57: TMR3CS = 0;
+   217                           ;newmain.c: 39: TMR3CS = 0;
    218  007E46  92B1               	bcf	4017,1,c	;volatile
    219                           
-   220                           ;newmain.c: 58: PORTCbits.RC0 = 0;
+   220                           ;newmain.c: 40: PORTCbits.RC0 = 0;
    221  007E48  9082               	bcf	3970,0,c	;volatile
    222                           
-   223                           ;newmain.c: 59: PORTCbits.RC1 = 0;
+   223                           ;newmain.c: 41: PORTCbits.RC1 = 0;
    224  007E4A  9282               	bcf	3970,1,c	;volatile
    225                           
-   226                           ;newmain.c: 60: PORTCbits.RC2 = 1;
+   226                           ;newmain.c: 42: PORTCbits.RC2 = 1;
    227  007E4C  8482               	bsf	3970,2,c	;volatile
    228                           
-   229                           ;newmain.c: 61: PORTCbits.RC7 = 0;
+   229                           ;newmain.c: 43: PORTCbits.RC7 = 0;
    230  007E4E  9E82               	bcf	3970,7,c	;volatile
    231                           
-   232                           ;newmain.c: 62: int count = 0;
+   232                           ;newmain.c: 44: int count = 0;
    233  007E50  0E00               	movlw	0
    234  007E52  6E1F               	movwf	main@count+1,c
    235  007E54  0E00               	movlw	0
    236  007E56  6E1E               	movwf	main@count,c
    237                           
-   238                           ;newmain.c: 63: int err;
-   239                           ;newmain.c: 64: while (count<1000){
+   238                           ;newmain.c: 45: int err;
+   239                           ;newmain.c: 46: while (count<1000){
    240  007E58  D054               	goto	l41
-   241  007E5A                     l1039:
+   241  007E5A                     l877:
    242                           
-   243                           ;newmain.c: 65: count = count+1;
+   243                           ;newmain.c: 47: count = count+1;
    244  007E5A  0E01               	movlw	1
    245  007E5C  241E               	addwf	main@count,w,c
    246  007E5E  6E1E               	movwf	main@count,c
@@ -262,111 +262,111 @@ Microchip Technology Omniscient Code Generator v1.42 (Free mode) build 201704130
    248  007E62  201F               	addwfc	main@count+1,w,c
    249  007E64  6E1F               	movwf	main@count+1,c
    250                           
-   251                           ;newmain.c: 66: PORTCbits.RC0 = 0;
+   251                           ;newmain.c: 48: PORTCbits.RC0 = 0;
    252  007E66  9082               	bcf	3970,0,c	;volatile
    253                           
-   254                           ;newmain.c: 67: PORTCbits.RC1 = 0;
+   254                           ;newmain.c: 49: PORTCbits.RC1 = 0;
    255  007E68  9282               	bcf	3970,1,c	;volatile
    256                           
-   257                           ;newmain.c: 69: PORTCbits.RC2 = 1;
+   257                           ;newmain.c: 51: PORTCbits.RC2 = 1;
    258  007E6A  8482               	bsf	3970,2,c	;volatile
    259                           
-   260                           ;newmain.c: 70: _delay((unsigned long)((5)*(32000000/4000000.0)));
+   260                           ;newmain.c: 52: _delay((unsigned long)((5)*(32000000/4000000.0)));
    261  007E6C  0E0D               	movlw	13
-   262  007E6E                     u527:
+   262  007E6E                     u337:
    263  007E6E  2EE8               	decfsz	wreg,f,c
-   264  007E70  D7FE               	bra	u527
+   264  007E70  D7FE               	bra	u337
    265  007E72  F000               	nop	
    266                           
-   267                           ;newmain.c: 71: PORTCbits.RC2 = 0;
+   267                           ;newmain.c: 53: PORTCbits.RC2 = 0;
    268  007E74  9482               	bcf	3970,2,c	;volatile
    269  007E76                     l43:
    270  007E76  BC82               	btfsc	3970,6,c	;volatile
    271  007E78  D7FE               	goto	l43
    272                           
-   273                           ;newmain.c: 74: A = PORTB;
+   273                           ;newmain.c: 56: A = PORTB;
    274  007E7A  CF81 F009          	movff	3969,_A	;volatile
    275  007E7E  6A0A               	clrf	_A+1,c
    276                           
-   277                           ;newmain.c: 78: PORTCbits.RC0 = 1;
+   277                           ;newmain.c: 60: PORTCbits.RC0 = 1;
    278  007E80  8082               	bsf	3970,0,c	;volatile
    279                           
-   280                           ;newmain.c: 79: PORTCbits.RC1 = 0;
+   280                           ;newmain.c: 61: PORTCbits.RC1 = 0;
    281  007E82  9282               	bcf	3970,1,c	;volatile
    282                           
-   283                           ;newmain.c: 81: PORTCbits.RC2 = 1;
+   283                           ;newmain.c: 63: PORTCbits.RC2 = 1;
    284  007E84  8482               	bsf	3970,2,c	;volatile
    285                           
-   286                           ;newmain.c: 82: _delay((unsigned long)((5)*(32000000/4000000.0)));
+   286                           ;newmain.c: 64: _delay((unsigned long)((5)*(32000000/4000000.0)));
    287  007E86  0E0D               	movlw	13
-   288  007E88                     u537:
+   288  007E88                     u347:
    289  007E88  2EE8               	decfsz	wreg,f,c
-   290  007E8A  D7FE               	bra	u537
+   290  007E8A  D7FE               	bra	u347
    291  007E8C  F000               	nop	
    292                           
-   293                           ;newmain.c: 83: PORTCbits.RC2 = 0;
+   293                           ;newmain.c: 65: PORTCbits.RC2 = 0;
    294  007E8E  9482               	bcf	3970,2,c	;volatile
    295  007E90                     l46:
    296  007E90  BC82               	btfsc	3970,6,c	;volatile
    297  007E92  D7FE               	goto	l46
    298                           
-   299                           ;newmain.c: 86: B = PORTB;
+   299                           ;newmain.c: 68: B = PORTB;
    300  007E94  CF81 F007          	movff	3969,_B	;volatile
    301  007E98  6A08               	clrf	_B+1,c
    302                           
-   303                           ;newmain.c: 90: PORTCbits.RC0 = 0;
+   303                           ;newmain.c: 72: PORTCbits.RC0 = 0;
    304  007E9A  9082               	bcf	3970,0,c	;volatile
    305                           
-   306                           ;newmain.c: 91: PORTCbits.RC1 = 1;
+   306                           ;newmain.c: 73: PORTCbits.RC1 = 1;
    307  007E9C  8282               	bsf	3970,1,c	;volatile
    308                           
-   309                           ;newmain.c: 93: PORTCbits.RC2 = 1;
+   309                           ;newmain.c: 75: PORTCbits.RC2 = 1;
    310  007E9E  8482               	bsf	3970,2,c	;volatile
    311                           
-   312                           ;newmain.c: 94: _delay((unsigned long)((5)*(32000000/4000000.0)));
+   312                           ;newmain.c: 76: _delay((unsigned long)((5)*(32000000/4000000.0)));
    313  007EA0  0E0D               	movlw	13
-   314  007EA2                     u547:
+   314  007EA2                     u357:
    315  007EA2  2EE8               	decfsz	wreg,f,c
-   316  007EA4  D7FE               	bra	u547
+   316  007EA4  D7FE               	bra	u357
    317  007EA6  F000               	nop	
    318                           
-   319                           ;newmain.c: 95: PORTCbits.RC2 = 0;
+   319                           ;newmain.c: 77: PORTCbits.RC2 = 0;
    320  007EA8  9482               	bcf	3970,2,c	;volatile
    321  007EAA                     l49:
    322  007EAA  BC82               	btfsc	3970,6,c	;volatile
    323  007EAC  D7FE               	goto	l49
    324                           
-   325                           ;newmain.c: 98: C = PORTB;
+   325                           ;newmain.c: 80: C = PORTB;
    326  007EAE  CF81 F005          	movff	3969,_C	;volatile
    327  007EB2  6A06               	clrf	_C+1,c
    328                           
-   329                           ;newmain.c: 102: PORTCbits.RC0 = 1;
+   329                           ;newmain.c: 84: PORTCbits.RC0 = 1;
    330  007EB4  8082               	bsf	3970,0,c	;volatile
    331                           
-   332                           ;newmain.c: 103: PORTCbits.RC1 = 1;
+   332                           ;newmain.c: 85: PORTCbits.RC1 = 1;
    333  007EB6  8282               	bsf	3970,1,c	;volatile
    334                           
-   335                           ;newmain.c: 105: PORTCbits.RC2 = 1;
+   335                           ;newmain.c: 87: PORTCbits.RC2 = 1;
    336  007EB8  8482               	bsf	3970,2,c	;volatile
    337                           
-   338                           ;newmain.c: 106: _delay((unsigned long)((5)*(32000000/4000000.0)));
+   338                           ;newmain.c: 88: _delay((unsigned long)((5)*(32000000/4000000.0)));
    339  007EBA  0E0D               	movlw	13
-   340  007EBC                     u557:
+   340  007EBC                     u367:
    341  007EBC  2EE8               	decfsz	wreg,f,c
-   342  007EBE  D7FE               	bra	u557
+   342  007EBE  D7FE               	bra	u367
    343  007EC0  F000               	nop	
    344                           
-   345                           ;newmain.c: 107: PORTCbits.RC2 = 0;
+   345                           ;newmain.c: 89: PORTCbits.RC2 = 0;
    346  007EC2  9482               	bcf	3970,2,c	;volatile
    347  007EC4                     l52:
    348  007EC4  BC82               	btfsc	3970,6,c	;volatile
    349  007EC6  D7FE               	goto	l52
    350                           
-   351                           ;newmain.c: 110: D = PORTB;
+   351                           ;newmain.c: 92: D = PORTB;
    352  007EC8  CF81 F003          	movff	3969,_D	;volatile
    353  007ECC  6A04               	clrf	_D+1,c
    354                           
-   355                           ;newmain.c: 113: err = (A+B)-(C+D);
+   355                           ;newmain.c: 95: err = (A+B)-(C+D);
    356  007ECE  5003               	movf	_D,w,c
    357  007ED0  2405               	addwf	_C,w,c
    358  007ED2  6E1A               	movwf	??_main& (0+255),c
@@ -388,7 +388,7 @@ Microchip Technology Omniscient Code Generator v1.42 (Free mode) build 201704130
    374  007EF2  201B               	addwfc	??_main+1,w,c
    375  007EF4  6E1D               	movwf	main@err+1,c
    376                           
-   377                           ;newmain.c: 114: Setpoint = Setpoint+err;
+   377                           ;newmain.c: 96: Setpoint = Setpoint+err;
    378  007EF6  501C               	movf	main@err,w,c
    379  007EF8  240D               	addwf	_Setpoint,w,c
    380  007EFA  6E0D               	movwf	_Setpoint,c
@@ -397,16 +397,16 @@ Microchip Technology Omniscient Code Generator v1.42 (Free mode) build 201704130
    383  007F00  6E0E               	movwf	_Setpoint+1,c
    384  007F02                     l41:
    385  007F02  BE1F               	btfsc	main@count+1,7,c
-   386  007F04  D7AA               	goto	l1039
+   386  007F04  D7AA               	goto	l877
    387  007F06  0EE8               	movlw	232
    388  007F08  5C1E               	subwf	main@count,w,c
    389  007F0A  0E03               	movlw	3
    390  007F0C  581F               	subwfb	main@count+1,w,c
    391  007F0E  A0D8               	btfss	status,0,c
-   392  007F10  D7A4               	goto	l1039
+   392  007F10  D7A4               	goto	l877
    393                           
-   394                           ;newmain.c: 115: }
-   395                           ;newmain.c: 116: Setpoint = Setpoint/1000;
+   394                           ;newmain.c: 97: }
+   395                           ;newmain.c: 98: Setpoint = Setpoint/1000;
    396  007F12  C00D  F012         	movff	_Setpoint,___awdiv@dividend
    397  007F16  C00E  F013         	movff	_Setpoint+1,___awdiv@dividend+1
    398  007F1A  0E03               	movlw	3
@@ -416,113 +416,113 @@ Microchip Technology Omniscient Code Generator v1.42 (Free mode) build 201704130
    402  007F22  ECDB  F03E         	call	___awdiv	;wreg free
    403  007F26  C012  F00D         	movff	?___awdiv,_Setpoint
    404  007F2A  C013  F00E         	movff	?___awdiv+1,_Setpoint+1
-   405  007F2E                     l1067:
+   405  007F2E                     l905:
    406                           
-   407                           ;newmain.c: 122: PORTCbits.RC0 = 0;
+   407                           ;newmain.c: 104: PORTCbits.RC0 = 0;
    408  007F2E  9082               	bcf	3970,0,c	;volatile
    409                           
-   410                           ;newmain.c: 123: PORTCbits.RC1 = 0;
+   410                           ;newmain.c: 105: PORTCbits.RC1 = 0;
    411  007F30  9282               	bcf	3970,1,c	;volatile
    412                           
-   413                           ;newmain.c: 125: PORTCbits.RC2 = 1;
+   413                           ;newmain.c: 107: PORTCbits.RC2 = 1;
    414  007F32  8482               	bsf	3970,2,c	;volatile
    415                           
-   416                           ;newmain.c: 126: _delay((unsigned long)((5)*(32000000/4000000.0)));
+   416                           ;newmain.c: 108: _delay((unsigned long)((5)*(32000000/4000000.0)));
    417  007F34  0E0D               	movlw	13
-   418  007F36                     u567:
+   418  007F36                     u377:
    419  007F36  2EE8               	decfsz	wreg,f,c
-   420  007F38  D7FE               	bra	u567
+   420  007F38  D7FE               	bra	u377
    421  007F3A  F000               	nop	
    422                           
-   423                           ;newmain.c: 127: PORTCbits.RC2 = 0;
+   423                           ;newmain.c: 109: PORTCbits.RC2 = 0;
    424  007F3C  9482               	bcf	3970,2,c	;volatile
    425  007F3E                     l57:
    426  007F3E  BC82               	btfsc	3970,6,c	;volatile
    427  007F40  D7FE               	goto	l57
    428                           
-   429                           ;newmain.c: 130: A = PORTB;
+   429                           ;newmain.c: 112: A = PORTB;
    430  007F42  CF81 F009          	movff	3969,_A	;volatile
    431  007F46  6A0A               	clrf	_A+1,c
    432                           
-   433                           ;newmain.c: 134: PORTCbits.RC0 = 1;
+   433                           ;newmain.c: 116: PORTCbits.RC0 = 1;
    434  007F48  8082               	bsf	3970,0,c	;volatile
    435                           
-   436                           ;newmain.c: 135: PORTCbits.RC1 = 0;
+   436                           ;newmain.c: 117: PORTCbits.RC1 = 0;
    437  007F4A  9282               	bcf	3970,1,c	;volatile
    438                           
-   439                           ;newmain.c: 137: PORTCbits.RC2 = 1;
+   439                           ;newmain.c: 119: PORTCbits.RC2 = 1;
    440  007F4C  8482               	bsf	3970,2,c	;volatile
    441                           
-   442                           ;newmain.c: 138: _delay((unsigned long)((5)*(32000000/4000000.0)));
+   442                           ;newmain.c: 120: _delay((unsigned long)((5)*(32000000/4000000.0)));
    443  007F4E  0E0D               	movlw	13
-   444  007F50                     u577:
+   444  007F50                     u387:
    445  007F50  2EE8               	decfsz	wreg,f,c
-   446  007F52  D7FE               	bra	u577
+   446  007F52  D7FE               	bra	u387
    447  007F54  F000               	nop	
    448                           
-   449                           ;newmain.c: 139: PORTCbits.RC2 = 0;
+   449                           ;newmain.c: 121: PORTCbits.RC2 = 0;
    450  007F56  9482               	bcf	3970,2,c	;volatile
    451  007F58                     l60:
    452  007F58  BC82               	btfsc	3970,6,c	;volatile
    453  007F5A  D7FE               	goto	l60
    454                           
-   455                           ;newmain.c: 142: B = PORTB;
+   455                           ;newmain.c: 124: B = PORTB;
    456  007F5C  CF81 F007          	movff	3969,_B	;volatile
    457  007F60  6A08               	clrf	_B+1,c
    458                           
-   459                           ;newmain.c: 146: PORTCbits.RC0 = 0;
+   459                           ;newmain.c: 128: PORTCbits.RC0 = 0;
    460  007F62  9082               	bcf	3970,0,c	;volatile
    461                           
-   462                           ;newmain.c: 147: PORTCbits.RC1 = 1;
+   462                           ;newmain.c: 129: PORTCbits.RC1 = 1;
    463  007F64  8282               	bsf	3970,1,c	;volatile
    464                           
-   465                           ;newmain.c: 149: PORTCbits.RC2 = 1;
+   465                           ;newmain.c: 131: PORTCbits.RC2 = 1;
    466  007F66  8482               	bsf	3970,2,c	;volatile
    467                           
-   468                           ;newmain.c: 150: _delay((unsigned long)((5)*(32000000/4000000.0)));
+   468                           ;newmain.c: 132: _delay((unsigned long)((5)*(32000000/4000000.0)));
    469  007F68  0E0D               	movlw	13
-   470  007F6A                     u587:
+   470  007F6A                     u397:
    471  007F6A  2EE8               	decfsz	wreg,f,c
-   472  007F6C  D7FE               	bra	u587
+   472  007F6C  D7FE               	bra	u397
    473  007F6E  F000               	nop	
    474                           
-   475                           ;newmain.c: 151: PORTCbits.RC2 = 0;
+   475                           ;newmain.c: 133: PORTCbits.RC2 = 0;
    476  007F70  9482               	bcf	3970,2,c	;volatile
    477  007F72                     l63:
    478  007F72  BC82               	btfsc	3970,6,c	;volatile
    479  007F74  D7FE               	goto	l63
    480                           
-   481                           ;newmain.c: 154: C = PORTB;
+   481                           ;newmain.c: 136: C = PORTB;
    482  007F76  CF81 F005          	movff	3969,_C	;volatile
    483  007F7A  6A06               	clrf	_C+1,c
    484                           
-   485                           ;newmain.c: 158: PORTCbits.RC0 = 1;
+   485                           ;newmain.c: 140: PORTCbits.RC0 = 1;
    486  007F7C  8082               	bsf	3970,0,c	;volatile
    487                           
-   488                           ;newmain.c: 159: PORTCbits.RC1 = 1;
+   488                           ;newmain.c: 141: PORTCbits.RC1 = 1;
    489  007F7E  8282               	bsf	3970,1,c	;volatile
    490                           
-   491                           ;newmain.c: 161: PORTCbits.RC2 = 1;
+   491                           ;newmain.c: 143: PORTCbits.RC2 = 1;
    492  007F80  8482               	bsf	3970,2,c	;volatile
    493                           
-   494                           ;newmain.c: 162: _delay((unsigned long)((5)*(32000000/4000000.0)));
+   494                           ;newmain.c: 144: _delay((unsigned long)((5)*(32000000/4000000.0)));
    495  007F82  0E0D               	movlw	13
-   496  007F84                     u597:
+   496  007F84                     u407:
    497  007F84  2EE8               	decfsz	wreg,f,c
-   498  007F86  D7FE               	bra	u597
+   498  007F86  D7FE               	bra	u407
    499  007F88  F000               	nop	
    500                           
-   501                           ;newmain.c: 163: PORTCbits.RC2 = 0;
+   501                           ;newmain.c: 145: PORTCbits.RC2 = 0;
    502  007F8A  9482               	bcf	3970,2,c	;volatile
    503  007F8C                     l66:
    504  007F8C  BC82               	btfsc	3970,6,c	;volatile
    505  007F8E  D7FE               	goto	l66
    506                           
-   507                           ;newmain.c: 166: D = PORTB;
+   507                           ;newmain.c: 148: D = PORTB;
    508  007F90  CF81 F003          	movff	3969,_D	;volatile
    509  007F94  6A04               	clrf	_D+1,c
    510                           
-   511                           ;newmain.c: 172: Input = (A+B)-(C+D);
+   511                           ;newmain.c: 154: Input = (A+B)-(C+D);
    512  007F96  5003               	movf	_D,w,c
    513  007F98  2405               	addwf	_C,w,c
    514  007F9A  6E1A               	movwf	??_main& (0+255),c
@@ -544,7 +544,7 @@ Microchip Technology Omniscient Code Generator v1.42 (Free mode) build 201704130
    530  007FBA  201B               	addwfc	??_main+1,w,c
    531  007FBC  6E0C               	movwf	_Input+1,c
    532                           
-   533                           ;newmain.c: 173: Output = Input-Setpoint;
+   533                           ;newmain.c: 155: Output = Input-Setpoint;
    534  007FBE  C00D  F01A         	movff	_Setpoint,??_main
    535  007FC2  C00E  F01B         	movff	_Setpoint+1,??_main+1
    536  007FC6  1E1A               	comf	??_main,f,c
@@ -558,41 +558,41 @@ Microchip Technology Omniscient Code Generator v1.42 (Free mode) build 201704130
    544  007FD6  201B               	addwfc	??_main+1,w,c
    545  007FD8  6E10               	movwf	_Output+1,c
    546                           
-   547                           ;newmain.c: 183: if(Output>0){
+   547                           ;newmain.c: 165: if(Output>0){
    548  007FDA  BE10               	btfsc	_Output+1,7,c
-   549  007FDC  D007               	goto	l1093
+   549  007FDC  D007               	goto	l931
    550  007FDE  5010               	movf	_Output+1,w,c
-   551  007FE0  E103               	bnz	u510
+   551  007FE0  E103               	bnz	u320
    552  007FE2  040F               	decf	_Output,w,c
    553  007FE4  A0D8               	btfss	status,0,c
-   554  007FE6  D002               	goto	l1093
-   555  007FE8                     u510:
+   554  007FE6  D002               	goto	l931
+   555  007FE8                     u320:
    556                           
-   557                           ;newmain.c: 185: PORTCbits.RC7 = 0;
+   557                           ;newmain.c: 167: PORTCbits.RC7 = 0;
    558  007FE8  9E82               	bcf	3970,7,c	;volatile
    559                           
-   560                           ;newmain.c: 186: }
-   561  007FEA  D005               	goto	l1097
-   562  007FEC                     l1093:
+   560                           ;newmain.c: 168: }
+   561  007FEA  D005               	goto	l935
+   562  007FEC                     l931:
    563                           
-   564                           ;newmain.c: 187: else{
-   565                           ;newmain.c: 188: Output = -Output;
+   564                           ;newmain.c: 169: else{
+   565                           ;newmain.c: 170: Output = -Output;
    566  007FEC  6C0F               	negf	_Output,c
    567  007FEE  1E10               	comf	_Output+1,f,c
    568  007FF0  B0D8               	btfsc	status,0,c
    569  007FF2  2A10               	incf	_Output+1,f,c
    570                           
-   571                           ;newmain.c: 189: PORTCbits.RC7 = 1;
+   571                           ;newmain.c: 171: PORTCbits.RC7 = 1;
    572  007FF4  8E82               	bsf	3970,7,c	;volatile
-   573  007FF6                     l1097:
+   573  007FF6                     l935:
    574                           
-   575                           ;newmain.c: 190: }
-   576                           ;newmain.c: 191: output = Output;
+   575                           ;newmain.c: 172: }
+   576                           ;newmain.c: 173: output = Output;
    577  007FF6  C00F  F011         	movff	_Output,_output
    578                           
-   579                           ;newmain.c: 192: PORTD = output;
+   579                           ;newmain.c: 174: PORTD = output;
    580  007FFA  C011  FF83         	movff	_output,3971	;volatile
-   581  007FFE  D797               	goto	l1067
+   581  007FFE  D797               	goto	l905
    582  008000                     __end_of_main:
    583                           	opt stack 0
    584                           postinc0	equ	0xFEE
@@ -641,23 +641,23 @@ Microchip Technology Omniscient Code Generator v1.42 (Free mode) build 201704130
    627  007DB6  0E00               	movlw	0
    628  007DB8  6E17               	movwf	___awdiv@sign,c
    629  007DBA  AE15               	btfss	___awdiv@divisor+1,7,c
-   630  007DBC  D006               	goto	l987
+   630  007DBC  D006               	goto	l825
    631  007DBE  6C14               	negf	___awdiv@divisor,c
    632  007DC0  1E15               	comf	___awdiv@divisor+1,f,c
    633  007DC2  B0D8               	btfsc	status,0,c
    634  007DC4  2A15               	incf	___awdiv@divisor+1,f,c
    635  007DC6  0E01               	movlw	1
    636  007DC8  6E17               	movwf	___awdiv@sign,c
-   637  007DCA                     l987:
+   637  007DCA                     l825:
    638  007DCA  AE13               	btfss	___awdiv@dividend+1,7,c
-   639  007DCC  D006               	goto	l993
+   639  007DCC  D006               	goto	l831
    640  007DCE  6C12               	negf	___awdiv@dividend,c
    641  007DD0  1E13               	comf	___awdiv@dividend+1,f,c
    642  007DD2  B0D8               	btfsc	status,0,c
    643  007DD4  2A13               	incf	___awdiv@dividend+1,f,c
    644  007DD6  0E01               	movlw	1
    645  007DD8  1A17               	xorwf	___awdiv@sign,f,c
-   646  007DDA                     l993:
+   646  007DDA                     l831:
    647  007DDA  0E00               	movlw	0
    648  007DDC  6E19               	movwf	___awdiv@quotient+1,c
    649  007DDE  0E00               	movlw	0
@@ -665,19 +665,19 @@ Microchip Technology Omniscient Code Generator v1.42 (Free mode) build 201704130
    651  007DE2  5014               	movf	___awdiv@divisor,w,c
    652  007DE4  1015               	iorwf	___awdiv@divisor+1,w,c
    653  007DE6  B4D8               	btfsc	status,2,c
-   654  007DE8  D01C               	goto	l1015
+   654  007DE8  D01C               	goto	l853
    655  007DEA  0E01               	movlw	1
    656  007DEC  6E16               	movwf	___awdiv@counter,c
-   657  007DEE  D004               	goto	l1001
-   658  007DF0                     l999:
+   657  007DEE  D004               	goto	l839
+   658  007DF0                     l837:
    659  007DF0  90D8               	bcf	status,0,c
    660  007DF2  3614               	rlcf	___awdiv@divisor,f,c
    661  007DF4  3615               	rlcf	___awdiv@divisor+1,f,c
    662  007DF6  2A16               	incf	___awdiv@counter,f,c
-   663  007DF8                     l1001:
+   663  007DF8                     l839:
    664  007DF8  AE15               	btfss	___awdiv@divisor+1,7,c
-   665  007DFA  D7FA               	goto	l999
-   666  007DFC                     l1003:
+   665  007DFA  D7FA               	goto	l837
+   666  007DFC                     l841:
    667  007DFC  90D8               	bcf	status,0,c
    668  007DFE  3618               	rlcf	___awdiv@quotient,f,c
    669  007E00  3619               	rlcf	___awdiv@quotient+1,f,c
@@ -686,27 +686,27 @@ Microchip Technology Omniscient Code Generator v1.42 (Free mode) build 201704130
    672  007E06  5015               	movf	___awdiv@divisor+1,w,c
    673  007E08  5813               	subwfb	___awdiv@dividend+1,w,c
    674  007E0A  A0D8               	btfss	status,0,c
-   675  007E0C  D005               	goto	l1011
+   675  007E0C  D005               	goto	l849
    676  007E0E  5014               	movf	___awdiv@divisor,w,c
    677  007E10  5E12               	subwf	___awdiv@dividend,f,c
    678  007E12  5015               	movf	___awdiv@divisor+1,w,c
    679  007E14  5A13               	subwfb	___awdiv@dividend+1,f,c
    680  007E16  8018               	bsf	___awdiv@quotient,0,c
-   681  007E18                     l1011:
+   681  007E18                     l849:
    682  007E18  90D8               	bcf	status,0,c
    683  007E1A  3215               	rrcf	___awdiv@divisor+1,f,c
    684  007E1C  3214               	rrcf	___awdiv@divisor,f,c
    685  007E1E  2E16               	decfsz	___awdiv@counter,f,c
-   686  007E20  D7ED               	goto	l1003
-   687  007E22                     l1015:
+   686  007E20  D7ED               	goto	l841
+   687  007E22                     l853:
    688  007E22  5017               	movf	___awdiv@sign,w,c
    689  007E24  B4D8               	btfsc	status,2,c
-   690  007E26  D004               	goto	l1019
+   690  007E26  D004               	goto	l857
    691  007E28  6C18               	negf	___awdiv@quotient,c
    692  007E2A  1E19               	comf	___awdiv@quotient+1,f,c
    693  007E2C  B0D8               	btfsc	status,0,c
    694  007E2E  2A19               	incf	___awdiv@quotient+1,f,c
-   695  007E30                     l1019:
+   695  007E30                     l857:
    696  007E30  C018  F012         	movff	___awdiv@quotient,?___awdiv
    697  007E34  C019  F013         	movff	___awdiv@quotient+1,?___awdiv+1
    698  007E38  0012               	return	
@@ -837,7 +837,7 @@ CODE                 0      0       0       0        0.0%
 
 
 Microchip Technology PIC18 Macro Assembler V1.42 build -159332390 
-Symbol Table                                                                                   Thu Jul 13 12:59:30 2017
+Symbol Table                                                                                   Fri Jul 14 11:06:09 2017
 
                       _A 0009                        _B 0007                        _C 0005  
                       _D 0003                       l41 7F02                       l43 7E76  
@@ -845,16 +845,16 @@ Symbol Table                                                                    
                      l63 7F72                       l57 7F3E                       l49 7EAA  
                      l66 7F8C             ___awdiv@sign 0017              __CFG_BORV$3 000000  
            __CFG_CP0$OFF 000000             __CFG_CP1$OFF 000000             __CFG_CP2$OFF 000000  
-           __CFG_CP3$OFF 000000                      l993 7DDA                      l987 7DCA  
-                    l999 7DF0             __CFG_CPB$OFF 000000                      u510 7FE8  
-           __CFG_CPD$OFF 000000                      u527 7E6E                      u537 7E88  
-                    u547 7EA2                      u557 7EBC                      u567 7F36  
-                    u577 7F50                      u587 7F6A                      u597 7F84  
+           __CFG_CP3$OFF 000000                      l831 7DDA                      l841 7DFC  
+                    l825 7DCA                      l905 7F2E                      l931 7FEC  
+                    l837 7DF0                      l853 7E22                      l839 7DF8  
+                    l935 7FF6                      l857 7E30                      l849 7E18  
+                    l877 7E5A             __CFG_CPB$OFF 000000                      u320 7FE8  
+                    u407 7F84                      u337 7E6E             __CFG_CPD$OFF 000000  
+                    u347 7E88                      u357 7EA2                      u367 7EBC  
+                    u377 7F36                      u387 7F50                      u397 7F6A  
            __CFG_BOR$OFF 000000                      wreg 000FE8             __CFG_LVP$OFF 000000  
-           __CFG_WDT$OFF 000000                     l1001 7DF8                     l1011 7E18  
-                   l1003 7DFC                     l1015 7E22                     l1019 7E30  
-                   l1039 7E5A                     l1067 7F2E                     l1093 7FEC  
-                   l1097 7FF6             __CFG_PWRT$ON 000000                     _main 7E3A  
+           __CFG_WDT$OFF 000000             __CFG_PWRT$ON 000000                     _main 7E3A  
                    _sign 0001                     start 0000            __CFG_IESO$OFF 000000  
            ___param_bank 000000            __CFG_PLLDIV$5 000000                    ?_main 0012  
         __end_of___awdiv 7E3A          ___awdiv@divisor 0014          ___awdiv@counter 0016  

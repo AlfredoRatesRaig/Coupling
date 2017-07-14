@@ -3,36 +3,18 @@
 [d edition pro ]
 [d chip 18F4550 ]
 [d frameptr 4065 ]
-"17 C:\Users\Astrolab\Documents\GitHub\Coupling\pid.c
-[e E7 . `uc
-PID_Direction_Direct 0
-PID_Direction_Reverse 1
-]
-"154
-[e E3 . `uc
-PID_Mode_Automatic 1
-PID_Mode_Manual 0
-]
 "8 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\awdiv.c
 [v ___awdiv __awdiv `(i  1 e 2 0 ]
-"32 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\awtoft.c
-[v ___awtoft __awtoft `(f  1 e 3 0 ]
 "62 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\float.c
 [v ___ftpack __ftpack `(f  1 e 3 0 ]
 "86 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\ftadd.c
 [v ___ftadd __ftadd `(f  1 e 3 0 ]
 "54 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\ftdiv.c
 [v ___ftdiv __ftdiv `(f  1 e 3 0 ]
-"4 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\ftge.c
-[v ___ftge __ftge `(b  1 e 0 0 ]
 "62 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\ftmul.c
 [v ___ftmul __ftmul `(f  1 e 3 0 ]
-"15 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\ftneg.c
-[v ___ftneg __ftneg `(f  1 e 3 0 ]
 "20 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\ftsub.c
 [v ___ftsub __ftsub `(f  1 e 3 0 ]
-"35 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\lltoft.c
-[v ___lltoft __lltoft `(f  1 e 3 0 ]
 "10 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\sprcadd.c
 [v ___fladd __fladd `(d  1 e 3 0 ]
 "245
@@ -43,16 +25,8 @@ PID_Mode_Manual 0
 [v ___flmul __flmul `(d  1 e 3 0 ]
 "15 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\Umul32.c
 [v ___lmul __lmul `(ul  1 e 4 0 ]
-"52 C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+"34 C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
 [v _main main `(v  1 e 1 0 ]
-"85 C:\Users\Astrolab\Documents\GitHub\Coupling\pid.c
-[v _PID_SetTunings PID_SetTunings `(v  1 e 1 0 ]
-"126
-[v _PID_SetOutputLimits PID_SetOutputLimits `(v  1 e 1 0 ]
-"167
-[v _PID_Initialize PID_Initialize `(v  1 e 1 0 ]
-"183
-[v _PID_SetControllerDirection PID_SetControllerDirection `(v  1 e 1 0 ]
 "2451 C:\Program Files (x86)\Microchip\xc8\v1.42\include\pic18f4550.h
 [v _PORTB PORTB `VEuc  1 e 1 @3969 ]
 [s S26 . 1 `uc 1 RC0 1 0 :1:0 
@@ -100,30 +74,30 @@ PID_Mode_Manual 0
 [v _TMR1CS TMR1CS `VEb  1 e 0 @32361 ]
 "10199
 [v _TMR3CS TMR3CS `VEb  1 e 0 @32137 ]
-"40 C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
+"22 C:\Users\Astrolab\Documents\GitHub\Coupling\newmain.c
 [v _Output Output `i  1 e 2 0 ]
-"43
+"25
 [v _Setpoint Setpoint `i  1 e 2 0 ]
-"44
+"26
 [v _Input Input `i  1 e 2 0 ]
-"45
+"27
 [v _A A `i  1 e 2 0 ]
-"46
+"28
 [v _B B `i  1 e 2 0 ]
-"47
+"29
 [v _C C `i  1 e 2 0 ]
-"48
+"30
 [v _D D `i  1 e 2 0 ]
-"50
+"32
 [v _output output `uc  1 e 1 0 ]
-"52
+"34
 [v _main main `(v  1 e 1 0 ]
 {
-"62
+"44
 [v main@count count `i  1 a 2 12 ]
-"63
+"45
 [v main@err err `i  1 a 2 10 ]
-"195
+"177
 } 0
 "8 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\awdiv.c
 [v ___awdiv __awdiv `(i  1 e 2 0 ]
