@@ -1,0 +1,2178 @@
+Disassembly Listing for dsPIC33EP128GS8XX_Eval_Board
+Generated From:
+C:/Projects/3_2QFY17/1_TLAY_Breakout/Firmware/dsPIC33EP128GS8XX_Eval_Board.X/dist/XC16_dsPIC33EP128GS808/production/dsPIC33EP128GS8XX_Eval_Board.X.production.elf
+Oct 27, 2016 2:46:00 PM
+
+---  C:/Projects/3_2QFY17/1_TLAY_Breakout/Firmware/src/user.c  ------------------------------------------
+1:                 /******************************************************************************/
+2:                 /* Files to Include                                                           */
+3:                 /******************************************************************************/
+4:                 #include <p33Exxxx.h> 
+5:                 #include <stdint.h>          /* For uint16_t definition                       */
+6:                 #include <stdio.h>           
+7:                 #include "libpic30.h"
+8:                 #include "user.h"            /* variables/params used by user.c               */
+9:                 #include "init.h"
+10:                
+11:                /******************************************************************************/
+12:                /* User Functions                                                             */
+13:                /******************************************************************************/
+14:                
+15:                /* <Initialize variables in user.h and insert code for user algorithms.> */
+16:                
+17:                void TransientResponse(void)
+18:                {
+00072C  FA0000     LNK #0x0
+19:                    /* Test pushbutton switch and LED functions */
+20:                    /* LED1 is ON for the duration of SW1 press */
+21:                    
+22:                    if(SW1 == 0)
+00072E  807210     MOV PORTE, W0
+000730  600070     AND W0, #0x10, W0
+000732  E00000     CP0 W0
+000734  3A0009     BRA NZ, 0x748
+23:                        {
+24:                        #if(LOADSW == PULLDOWN)
+25:                            LOADSWGND = 1;
+000736  A80E44     BSET LATE, #0
+26:                        #else
+27:                            LOADSWVCC = 0;
+28:                        #endif
+29:                        __delay_us(100);
+000738  21B590     MOV #0x1B59, W0
+00073A  200001     MOV #0x0, W1
+00073C  070042     RCALL 0x7C2
+30:                        #if(LOADSW == PULLDOWN)
+31:                            LOADSWGND = 0;
+00073E  A90E44     BCLR LATE, #0
+32:                        #else       
+33:                            LOADSWVCC = 1;
+34:                        #endif
+35:                        LED1 = ON;           /* Turn ON GREEN LED */
+000740  A86E45     BSET 0xE45, #3
+36:                        __delay_ms(DEBOUNCE_DELAY);
+000742  2D59C0     MOV #0xD59C, W0
+000744  2006A1     MOV #0x6A, W1
+000746  07003D     RCALL 0x7C2
+37:                        }
+38:                        LED1 = OFF;           /* Turn OFF GREEN LED */
+000748  A96E45     BCLR 0xE45, #3
+39:                 //   __delay_ms(1);
+40:                };
+00074A  FA8000     ULNK
+00074C  060000     RETURN
+41:                
+42:                void TestIO(void)
+43:                {
+00074E  FA0000     LNK #0x0
+44:                    /* Test pushbutton switch and LED functions */
+45:                    /* LED1 is ON for the duration of SW1 press */
+46:                    /* LED2 is toggled for every SW1 press */
+47:                
+48:                    if(!SW1)
+000750  807210     MOV PORTE, W0
+000752  600070     AND W0, #0x10, W0
+000754  E00000     CP0 W0
+000756  3A0017     BRA NZ, 0x786
+49:                    {    
+50:                        LED1 = ON;   // Turn LED1 ON
+000758  A86E45     BSET 0xE45, #3
+51:                        while(!SW1)
+00075A  000000     NOP
+00075C  807210     MOV PORTE, W0
+00075E  600070     AND W0, #0x10, W0
+000760  E00000     CP0 W0
+000762  32FFFC     BRA Z, 0x75C
+52:                        {
+53:                        //__delay_ms(DEBOUNCE_DELAY); // Wait for switch debounce time
+54:                        };
+55:                
+56:                        LED1 = OFF;  // Turn LED1 OFF
+000764  A96E45     BCLR 0xE45, #3
+57:                        LED2 = !LED2; // Toggle LED2
+000766  807221     MOV LATE, W1
+000768  204000     MOV #0x400, W0
+00076A  608000     AND W1, W0, W0
+00076C  A7F000     BTSC W0, #15
+00076E  EA0000     NEG W0, W0
+000770  E90000     DEC W0, W0
+000772  DE004F     LSR W0, #15, W0
+000774  784000     MOV.B W0, W0
+000776  FB8000     ZE W0, W0
+000778  600061     AND W0, #0x1, W0
+00077A  DD004A     SL W0, #10, W0
+00077C  807222     MOV LATE, W2
+00077E  2FBFF1     MOV #0xFBFF, W1
+000780  610081     AND W2, W1, W1
+000782  700001     IOR W0, W1, W0
+000784  887220     MOV W0, LATE
+58:                    };      
+59:                };
+000786  FA8000     ULNK
+000788  060000     RETURN
+60:                
+61:                void Can1Tx(void)
+62:                {
+00078A  FA0000     LNK #0x0
+63:                ///* ECAN1 module is ready to transmit a message */
+64:                ///* Standard data frame transmission is considered */ 
+65:                // 
+66:                // /* Write to message buffer 0 */
+67:                // /* CiTRBnSID = 0bxxx1 0010 0011 1100
+68:                // IDE = 0b0
+69:                // SRR = 0b0
+70:                // SID<10:0>= 0b100 1000 1111 */
+71:                // ecan1MsgBuf[0][0] = 0x123C;
+72:                // /* CiTRBnEID = 0bxxxx 0000 0000 0000
+73:                // EID<17:6> = 0b0000 0000 0000 */
+74:                // ecan1MsgBuf[0][1] = 0x0000;
+75:                ///* CiTRBnDLC = 0b0000 0000 xxx0 1111
+76:                // EID<17:6> = 0b000000
+77:                // RTR = 0b0
+78:                // RB1 = 0b0
+79:                // RB0 = 0b0
+80:                // DLC = 0b1111 */
+81:                // ecan1MsgBuf[0][2] = 0x0008;
+82:                ///* Write message data bytes */
+83:                // ecan1MsgBuf[0][3] = 0xabcd;
+84:                // ecan1MsgBuf[0][4] = 0xabcd;
+85:                // ecan1MsgBuf[0][5] = 0xabcd;
+86:                // ecan1MsgBuf[0][6] = 0xabcd;
+87:                // /* Request message buffer 0 transmission */
+88:                // C1TR01CONbits.TXREQ0 = 0x1;
+89:                //
+90:                // /* TXREQ bit is polled to check if transmission is complete. */
+91:                // while(C1TR01CONbits.TXREQ0 == 1);
+92:                
+93:                };
+00078C  FA8000     ULNK
+00078E  060000     RETURN
+94:                
+95:                void CAN1Rx(void)
+96:                {
+000790  FA0000     LNK #0x0
+97:                // /* Wait for a message to be received in message buffer 10 */
+98:                // /* Message was received. */
+99:                // while (C1RXFUL1bits.RXFUL10 == 0);
+100:               // C1RXFUL1bits.RXFUL10 = 0;
+101:               
+102:               };
+000792  FA8000     ULNK
+000794  060000     RETURN
+103:               
+104:               void LIN1Tx(void)
+105:               {
+000796  FA0000     LNK #0x0
+106:               //    U1TXREG = 'a'; // Transmit one character
+107:               //    while(U1STAbits.TRMT == 0); //Wait till transmit complete
+108:               };
+000798  FA8000     ULNK
+00079A  060000     RETURN
+109:               
+110:               void LIN1Rx(void)
+111:               {
+00079C  FA0000     LNK #0x0
+112:               //    while(1)
+113:               //    {
+114:               //    char ReceivedChar;
+115:               //    /* Check for receive errors */
+116:               //    if(U1STAbits.FERR == 1)
+117:               //        {
+118:               //        continue;
+119:               //        }
+120:               //    /* Must clear the overrun error to keep UART receiving */
+121:               //    if(U1STAbits.OERR == 1)
+122:               //        {
+123:               //        U1STAbits.OERR = 0;
+124:               //        continue;
+125:               //        }
+126:               //    /* Get the data */
+127:               //    if(U1STAbits.URXDA == 1)
+128:               //        {
+129:               //        ReceivedChar = U1RXREG;
+130:               //        }
+131:               //    }
+132:               };
+00079E  FA8000     ULNK
+0007A0  060000     RETURN
+---  C:/Projects/3_2QFY17/1_TLAY_Breakout/Firmware/src/traps.c  -----------------------------------------
+1:                 /******************************************************************************/
+2:                 /* Files to Include                                                           */
+3:                 /******************************************************************************/
+4:                 #include <p33Exxxx.h>
+5:                 #include <stdint.h>        /* Includes uint16_t definition */
+6:                 #include <stdbool.h>       /* Includes true/false definition */
+7:                 
+8:                 /******************************************************************************/
+9:                 /* Trap Function Prototypes                                                   */
+10:                /******************************************************************************/
+11:                
+12:                /* <Other function prototypes for debugging trap code may be inserted here>   */
+13:                
+14:                /* Use if INTCON2 ALTIVT=1 */
+15:                void __attribute__((interrupt,no_auto_psv)) _OscillatorFail(void);
+16:                void __attribute__((interrupt,no_auto_psv)) _AddressError(void);
+17:                void __attribute__((interrupt,no_auto_psv)) _StackError(void);
+18:                void __attribute__((interrupt,no_auto_psv)) _MathError(void);
+19:                
+20:                
+21:                /* Default interrupt handler */
+22:                void __attribute__((interrupt,no_auto_psv)) _DefaultInterrupt(void);
+23:                
+24:                #if defined(__dsPIC33E__)
+25:                
+26:                /* These are additional traps in the 33E family.  Refer to the PIC33E
+27:                migration guide.  There are no Alternate Vectors in the 33E family. */
+28:                void __attribute__((interrupt,no_auto_psv)) _HardTrapError(void);
+29:                void __attribute__((interrupt,no_auto_psv)) _SoftTrapError(void);
+30:                
+31:                #endif
+32:                
+33:                /******************************************************************************/
+34:                /* Trap Handling                                                              */
+35:                /*                                                                            */
+36:                /* These trap routines simply ensure that the device continuously loops       */
+37:                /* within each routine.  Users who actually experience one of these traps     */
+38:                /* can add code to handle the error.  Some basic examples for trap code,      */
+39:                /* including assembly routines that process trap sources, are available at    */
+40:                /* www.microchip.com/codeexamples                                             */
+41:                /******************************************************************************/
+42:                
+43:                /* Primary (non-alternate) address error trap function declarations */
+44:                void __attribute__((interrupt,no_auto_psv)) _OscillatorFail(void)
+45:                {
+0002E0  FA0000     LNK #0x0
+46:                        INTCON1bits.OSCFAIL = 0;        /* Clear the trap flag */
+0002E2  A928C0     BCLR INTCON1, #1
+47:                        while(1);
+0002E4  37FFFF     BRA 0x2E4
+48:                }
+49:                
+50:                void __attribute__((interrupt,no_auto_psv)) _AddressError(void)
+51:                {
+0002E6  FA0000     LNK #0x0
+52:                        INTCON1bits.ADDRERR = 0;        /* Clear the trap flag */
+0002E8  A968C0     BCLR INTCON1, #3
+53:                        while (1);
+0002EA  37FFFF     BRA 0x2EA
+54:                }
+55:                void __attribute__((interrupt,no_auto_psv)) _StackError(void)
+56:                {
+0002EC  FA0000     LNK #0x0
+57:                        INTCON1bits.STKERR = 0;         /* Clear the trap flag */
+0002EE  A948C0     BCLR INTCON1, #2
+58:                        while (1);
+0002F0  37FFFF     BRA 0x2F0
+59:                }
+60:                
+61:                void __attribute__((interrupt,no_auto_psv)) _MathError(void)
+62:                {
+0002F2  FA0000     LNK #0x0
+63:                        INTCON1bits.MATHERR = 0;        /* Clear the trap flag */
+0002F4  A988C0     BCLR INTCON1, #4
+64:                        while (1);
+0002F6  37FFFF     BRA 0x2F6
+65:                }
+66:                
+67:                
+68:                
+69:                /******************************************************************************/
+70:                /* Default Interrupt Handler                                                  */
+71:                /*                                                                            */
+72:                /* This executes when an interrupt occurs for an interrupt source with an     */
+73:                /* improperly defined or undefined interrupt handling routine.                */
+74:                /******************************************************************************/
+75:                void __attribute__((interrupt,no_auto_psv)) _DefaultInterrupt(void)
+76:                {
+0002F8  FA0000     LNK #0x0
+77:                        while(1);
+0002FA  37FFFF     BRA 0x2FA
+78:                }
+79:                
+80:                #if defined(__dsPIC33E__)
+81:                
+82:                /* These traps are new to the dsPIC33E family.  Refer to the device Interrupt
+83:                chapter of the FRM to understand trap priority. */
+84:                void __attribute__((interrupt,no_auto_psv)) _HardTrapError(void)
+85:                {
+0002FC  FA0000     LNK #0x0
+86:                    while(1);
+0002FE  37FFFF     BRA 0x2FE
+87:                }
+88:                void __attribute__((interrupt,no_auto_psv)) _SoftTrapError(void)
+89:                {
+000300  FA0000     LNK #0x0
+90:                    while(1);
+000302  37FFFF     BRA 0x302
+91:                }
+92:                
+93:                #endif
+---  C:/Projects/3_2QFY17/1_TLAY_Breakout/Firmware/src/smps_2p2z_dspic_v2.s  ----------------------------
+                                                  1:     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                                  2:     ; © 2015 Microchip Technology Inc.
+                                                  3:     ;
+                                                  4:     ; MICROCHIP SOFTWARE NOTICE AND DISCLAIMER:  You may use this software, and any
+                                                  5:     ; derivatives created by any person or entity by or on your behalf, exclusively
+                                                  6:     ; with Microchip?s products.  Microchip and its licensors retain all ownership
+                                                  7:     ; and intellectual property rights in the accompanying software and in all
+                                                  8:     ; derivatives here to.
+                                                  9:     ;
+                                                  10:    ; This software and any accompanying information is for suggestion only.  It
+                                                  11:    ; does not modify Microchip?s standard warranty for its products.  You agree
+                                                  12:    ; that you are solely responsible for testing the software and determining its
+                                                  13:    ; suitability.  Microchip has no obligation to modify, test, certify, or
+                                                  14:    ; support the software.
+                                                  15:    ;
+                                                  16:    ; THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".  NO WARRANTIES, WHETHER
+                                                  17:    ; EXPRESS, IMPLIED OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, IMPLIED
+                                                  18:    ; WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR
+                                                  19:    ; PURPOSE APPLY TO THIS SOFTWARE, ITS INTERACTION WITH MICROCHIP?S PRODUCTS,
+                                                  20:    ; COMBINATION WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION.
+                                                  21:    ;
+                                                  22:    ; IN NO EVENT, WILL MICROCHIP BE LIABLE, WHETHER IN CONTRACT, WARRANTY, TORT
+                                                  23:    ; (INCLUDING NEGLIGENCE OR BREACH OF STATUTORY DUTY), STRICT LIABILITY,
+                                                  24:    ; INDEMNITY, CONTRIBUTION, OR OTHERWISE, FOR ANY INDIRECT, SPECIAL, PUNITIVE,
+                                                  25:    ; EXEMPLARY, INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, FOR COST OR EXPENSE OF
+                                                  26:    ; ANY KIND WHATSOEVER RELATED TO THE SOFTWARE, HOWSOEVER CAUSED, EVEN IF
+                                                  27:    ; MICROCHIP HAS BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.
+                                                  28:    ; TO THE FULLEST EXTENT ALLOWABLE BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL
+                                                  29:    ; CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF
+                                                  30:    ; FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+                                                  31:    ;
+                                                  32:    ; MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF THESE
+                                                  33:    ; TERMS.
+                                                  34:    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                                  35:    
+                                                  36:    
+                                                  37:    ; Local inclusions.
+                                                  38:        .nolist
+                                                  39:        .list
+                                                  40:    
+                                                  41:    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                                  42:    
+                                                  43:    ;        .section .libdsp, code     ; use this section type when used as hidden library file
+                                                  44:            .section .text              ; use this section type for debugging
+                                                  45:    
+                                                  46:    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                                  47:    
+                                                  48:    ; _SMPS_Controller2P2ZUpdate_HW_Accel:
+                                                  49:    
+                                                  50:    ; Prototype:
+                                                  51:    
+                                                  52:    ;            void SMPS_Controller2P2ZUpdate_HW_Accel(void);
+                                                  53:    ;
+                                                  54:    ; Operation:
+                                                  55:    ;                                          Wcp0   ( S + Wcz1 )
+                                                  56:    ;  Calculate the transfer function Hc(s) = ---- X ------------
+                                                  57:    ;                                           S     ( S + Wcp1 )
+                                                  58:    ;
+                                                  59:    ;
+                                                  60:    ;
+                                                  61:    ;                                  --                                                   ----------
+                                                  62:    ;                                 |Bo|                                                 |postScalar|
+                                                  63:    ;                                  --                                                   ----------
+                                                  64:    ;Reference                          |                                                       |                                                    ------------------
+                                                  65:    ;Input                              |                                    -------------      |           ------------                            |   SYSTEM PLANT   |
+                                                  66:    ;        -   e[n]   ----------      -   e[n]*Bo   -      ---------      |    Sat      |     -          |  Sat       |      --------    u[n]     |                  |
+                                                  67:    ;  o----|-|------->| preShift |--->|x|---------->|+|--->|postShift|---->|(Rnd(ACCAH)) |--->|x|-------->|(Rnd(ACCAH))|---->|Clamping|---------- >0   PDCx Update    |   
+                                                  68:    ;        -    |     ----------      -             -      ---------       -------------      -           ------------   |   --------     |       |                  |
+                                                  69:    ;        |    |                                   ^                                                                    |                |       |  Voltage/Current |
+                                                  70:    ;        |    |                                   |                                                                    |                |       |    Feedback      |
+                                                  71:    ;        |    |                                   |                                                                    |                |       |       |          |
+                                                  72:    ;        |    |                                    <-----------------------------<              u[n] pre-clamping      |                |       |       |          |
+                                                  73:    ;        |    |                                                                   |          <------------------------<                 |        -------0----------
+                                                  74:    ;        |    |                                                                   |         |                                           |               |
+                                                  75:    ;        |    |                                                                   |         |                                           |               |
+                                                  76:    ;        |    |                                                                   |         |                       -------------------                 |
+                                                  77:    ;        |    |                                                                   |         |                      |                                    |
+                                                  78:    ;Measured|    |         ------     e[n-1]      ------    e[n-2]                   |         |                      | (Selectable by user)               |
+                                                  79:    ;Input   |     ------->| z^-1 |-------------->| z^-1 |-----------                 |         |                      |                                    |
+                                                  80:    ;        |              ------       |         ------            |                |         |        ----------    |     ---------                      |
+                                                  81:    ;        |                           |                           |                |         |       |  Trigger |<------>| Trigger |                     |
+                                                  82:    ;        |                           -                           -                |         |       | Off-Time |        | On-Time |                     |
+                                                  83:    ;        |                   B1 --->|x|                 B2 ---->|x|               |         |        ----------          ---------                      |
+                                                  84:    ;        |                           -                           -                |         |             |                  |                          |
+                                                  85:    ;        |                           |                           |                |         |             |                  |                          |
+                                                  86:    ;        |                           |                           |                |         |             |                  |                          |
+                                                  87:    ;        |                     ----------------------------------------------     |         |              -------->-<-------                           |
+                                                  88:    ;        |                    |                                              |    |         |                       |                                   |
+                                                  89:    ;        |                    |            A C C U M U L A T O R             |--->          |                       |                                   |
+                                                  90:    ;        |                    |                                              |              |                       |                                   |
+                                                  91:    ;        |                     ----------------------------------------------               |                   ---------                               |
+                                                  92:    ;        |                           |                           |                          |                  |  TRIGx  |                              |
+                                                  93:    ;        |                           |                           |                          |                   ---------                               |
+                                                  94:    ;        |                          |x|<---- A2                 |x|<---- A1                 |                                                           |
+                                                  95:    ;        |                           -                           -                          |                                                           |
+                                                  96:    ;        |                           |                           |                          |                                                           |
+                                                  97:    ;        |                           |     ------                |    ------                |                                                           |
+                                                  98:    ;        |                            ----| z^-1 |<------------------| z^-1 |<-------------<                                                            |
+                                                  99:    ;        |                       u[n-2]    ------              u[n-1] ------                                                                            |
+                                                  100:   ;        |                                                                                                                                              |
+                                                  101:   ;        |                                                                                                                                              |
+                                                  102:   ;         <--------------------------------------------------------------------------------------------------------------------------------------------<
+                                                  103:   ;                                                                                                    Measured Output
+                                                  104:   ;
+                                                  105:   ;   2P2Z Compensator Function:
+                                                  106:   ;
+                                                  107:   ;   u[n] = B0*e[n] + B1*e[n-1] + B2*e[n-2] + A1*u[n-1] + A2*u[n-2]
+                                                  108:   ;
+                                                  109:   ;
+                                                  110:   ;  where:
+                                                  111:   ;
+                                                  112:   ;   xABCoefficients[0]  = B0
+                                                  113:   ;   xABCoefficients[1]  = B1
+                                                  114:   ;   xABCoefficients[2]  = B2
+                                                  115:   
+                                                  116:   ;   xABCoefficients[3]  = A1
+                                                  117:   ;   xABCoefficients[4]  = A2
+                                                  118:   
+                                                  119:   ;   xErrorControlHistory[0] = e[n-1]
+                                                  120:   ;   xErrorControlHistory[1] = e[n-2]
+                                                  121:   
+                                                  122:   ;   xErrorControlHistory[2] = u[n-1]
+                                                  123:   ;   xErrorControlHistory[3] = u[n-2]
+                                                  124:   
+                                                  125:   ;   where 'x' is for the converter name
+                                                  126:   ;
+                                                  127:   ;   Note that e[n] and u[n] are obtained during the critical path, prior to the MAC
+                                                  128:   ;   instructions and thus not shown in the array assignments above.  After the critical
+                                                  129:   ;   path, they become e[n-1] and u[n-1] for the subsequent iteration.
+                                                  130:   ;
+                                                  131:   ;   Function call inputs:
+                                                  132:   ;   none
+                                                  133:   ;
+                                                  134:       
+                                                  135:       .global _SMPS_Controller2P2ZUpdate_HW_Accel    ; Provide global scope to routine
+                                                  136:   
+                                                  137:   _SMPS_Controller2P2ZUpdate_HW_Accel:
+000810  F80044     PUSH CORCON                    138:       push CORCON
+                                                  139:       
+                                                  140:       ; Immediately load previous ACCUMULATOR results to free up Alt-W registers w3, w4, & w5 for misc. instructions
+                                                  141:   
+000812  880113     MOV W3, ACCA                   142:       mov w3, ACCAL     ; Load bits 15:0
+000814  880124     MOV W4, ACCAH                  143:       mov w4, ACCAH     ; Load bits 31:16
+000816  880135     MOV W5, ACCAU                  144:       mov w5, ACCAU     ; Load bits 39:32
+                                                  145:   
+000818  200A04     MOV #0xA0, W4                  146:       mov  #0xA0, w4    
+00081A  880224     MOV W4, CORCON                 147:       mov  w4, _CORCON
+                                                  148:       
+                                                  149:   ;    ; Calculate the most recent error with normalization
+                                                  150:   ;
+                                                  151:   ;    mov [w0], w4      ; Move the contents of control reference to working register 
+                                                  152:   ;    sub w4, [w1], w5  ; w5 = Control Reference - ADCBUFx  ( w5 = w4 - [w1] )
+                                                  153:   ;
+                                                  154:   ;    mov w5, [w10]     ; Store most recent error; becomes e[n-1] for next iteration
+                                                  155:   
+                                                  156:   ;    mov [w9++], w4    ; w4 = B0
+                                                  157:   ;    mac w4*w5,  a     ; ACCA = ( B0 * e[n] ) + Previously ACCA stored results
+                                                  158:   ;
+                                                  159:   ;
+                                                  160:   ;    sftac a, w7       ; w7 = Normalization shift value to compensate coefficient scaling
+                                                  161:   ;                      ; ACC = ACC>>PostShift or ACC = ACC<<PostShift depending on sign of value
+                                                  162:   ;
+                                                  163:   ;    sac.r a, #0, w4   ; w4 = Sat(Rnd(ACCAH)) - this is the control output value from previous
+                                                  164:   ;                      ; line of code after having been shifted.  Store bits 31:16 of the ACCA
+                                                  165:   ;                      ; into w4 temp register
+                                                  166:   ;
+                                                  167:   ;    mpy   w4*w6, a    ; Multiply control output (after rounding) and postScalar factor
+                                                  168:   ;    sac.r a, w4       ; w4 = Sat(Rnd(ACCAH) again after normalization
+                                                  169:   ;
+                                                  170:   ;    ; Save control output to control history array prior to clamping
+                                                  171:   ;
+                                                  172:   ;    mov w4, [w10 + #0x4]    ; w4 = u[n] ( becomes u[n-1] for next calculation )
+                                                  173:   ;
+                                                  174:   ;    ; Clamp to minimum if needed
+                                                  175:   ;    cpsgt w4, w11     ; Check if u[n] > minClamp.  If true, the next instruction is discarded and a Nop() is executed
+                                                  176:   ;                     ; If not true, execute next instruction
+                                                  177:   ;    mov.w w11, w4     ; Update u[n] with minClamp value
+                                                  178:   ;
+                                                  179:   ;    ; Clamp to maximum if needed
+                                                  180:   ;    cpslt w4, w12    ; Check if u[n] < maxClamp. If true, the next instruction is discarded and a Nop() is executed
+                                                  181:   ;                     ; If not true, execute next instruction
+                                                  182:   ;    mov.w w12, w4    ; Update u[n] with maxClamp value
+                                                  183:   ;
+                                                  184:   ;    ; Update the target register (Output):  [w2] = PFC Output variable
+                                                  185:   ;
+                                                  186:   ;;    mov 292, w4 ; Fixed dutycycle for test
+                                                  187:   ;    mov w4, [w2]
+                                                  188:   ;;    lsr w4,[w2];
+                                                  189:   ;    
+                                                  190:   ;    ; ------------------------------- End of Critical Path ------------------------------------------ ;
+                                                  191:   ;   
+                                                  192:   ;   ; Update control history:
+                                                  193:   ;
+                                                  194:   ;    clr  a,        [w9]+=2, w4, [w10]+=2, w5     ; ACCA = EMPTY
+                                                  195:   ;                                                 ; w4   = B1, w5 = e[n-1]
+                                                  196:   ;
+                                                  197:   ;    mac  w4*w5, a, [w9]+=2, w4, [w10]+=2, w5     ; ACCA = B1 * e[n-1]
+                                                  198:   ;                                                 ; w4   = B2, w5 = e[n-2]
+                                                  199:   ;
+                                                  200:   ;    ; Calculate second section of 2P2Z controller -> (ACoefficients * controlHistory) and add results to accumulator 'A'
+                                                  201:   ;
+                                                  202:   ;    mac  w4*w5, a, [w9]+=2, w4, [w10]+=2, w5     ; ACCA = B1 * e[n-1] + B2 * e[n-2] 
+                                                  203:   ;                                                 ; w4 = A1, w5 = u[n-1]
+                                                  204:   ;
+                                                  205:   ;    mac  w4*w5, a, [w9]-=2, w4, [w10],    w5     ; ACCA = A1 * u[n-1] + B1 * e[n-1] + B2 * e[n-2] + B3 * e[n-3]
+                                                  206:   ;                                                 ; w4 = A2, w5 = u[n-2]
+                                                  207:   ;
+                                                  208:   ;    mac  w4*w5, a, [w9]-=6, w4,  [w10]-=6, w5    ; ACCA = A1 * u[n-1] + A2 * u[n-2] + B0 * e[n] + B1 * e[n-1] + B2 * e[n-2]
+                                                  209:   ;                                                 ; Decrement w10 (error/control History) array back to base element
+                                                  210:   ;                         ; Decrement W9 array back to base
+                                                  211:   ;                         
+                                                  212:   ;    ; Update compensator errorControlHistory array elements
+                                                  213:   ;
+                                                  214:   ;    mov [w10 + #4], w3      ; w3 = u[n-1]
+                                                  215:   ;    mov  w3, [w10 + #6]     ; u[n-2] = w3
+                                                  216:   ;
+                                                  217:   ;    mov [w10], w3       ; w3 = e[n-1]
+                                                  218:   ;    mov  w3, [w10 + #2]     ; e[n-2] = w3
+                                                  219:   
+                                                  220:       ; Save 40-bit accumulator results for next iteration
+                                                  221:   
+00081C  800113     MOV ACCA, W3                   222:       mov ACCAL, w3   ; Load bits: 15:0
+00081E  800124     MOV ACCAH, W4                  223:       mov ACCAH, w4   ; Load bits: 31:16
+000820  800135     MOV ACCAU, W5                  224:       mov ACCAU, w5   ; Load bits: 39:32
+                                                  225:   
+000822  F90044     POP CORCON                     226:       pop CORCON
+                                                  227:       
+000824  060000     RETURN                         228:       return
+                                                  229:              
+                                                  230:   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                                  231:   
+                                                  232:     .end
+                                                  233:   
+                                                  234:   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                                  235:   ; EOF
+---  C:/Projects/3_2QFY17/1_TLAY_Breakout/Firmware/src/main.c  ------------------------------------------
+1:                 /******************************************************************************/
+2:                 /* Files to Include                                                           */
+3:                 /******************************************************************************/
+4:                 #include "main.h"
+5:                 #include "init.h"
+6:                 #include "user.h"
+7:                 
+8:                 /******************************************************************************/
+9:                 /* Configuration Bits                                                         */
+10:                /******************************************************************************/
+11:                #pragma config FNOSC = FRC              // Oscillator Source Selection (Internal Fast RC (FRC))
+12:                #pragma config FCKSM = CSECMD           // Clock switching is enabled,Fail-safe Clock Monitor is disabled
+13:                #pragma config OSCIOFNC = ON            // OSC2 Pin Function bit (OSC2 is clock output)
+14:                #pragma config WDTEN = OFF              // Watchdog Timer Enable bits (WDT and SWDTEN disabled)
+15:                #pragma config ICS = PGD3               // ICD Communication Channel Select bits (Communicate on PGEC3 and PGED3)
+16:                #pragma config JTAGEN = OFF             // JTAG Enable bit (JTAG is disabled)
+17:                #pragma config PWMLOCK = OFF             // PWMx Lock Enable bit (Certain PWM registers may only be written after key sequency)
+18:                
+19:                /* Interrupt Priority Level For Alternate Working Registers */
+20:                #pragma config CTXT1 = IPL7              // Specifies Interrupt Priority Level (IPL) Associated to Alternate Working Register 1 bits 
+21:                
+22:                /******************************************************************************/
+23:                /* Global Variable Declaration                                                */
+24:                /******************************************************************************/
+25:                uint16_t varCount=0 , varOpenLoopVoltage=0;
+26:                long varProduct;
+27:                uint16_t test1,test2,test3,test4,test5,test6;
+28:                
+29:                
+30:                
+31:                /******************************************************************************/
+32:                /* Main Program                                                               */
+33:                /******************************************************************************/
+34:                int16_t main(void)
+35:                {
+0006AE  FA0000     LNK #0x0
+36:                    /* For Debug */
+37:                    TRISEbits.TRISE7=0;
+0006B0  A9EE40     BCLR TRISE, #7
+38:                        
+39:                   
+40:                    /******************************************************************************/
+41:                    /* Initialization Routines                                                         */
+42:                    /******************************************************************************/    
+43:                    /* Configure the oscillator for the device */
+44:                    initClock();
+0006B2  07FE2E     RCALL initClock
+45:                    
+46:                    /* Initialize IO ports and peripherals */
+47:                    initIOPorts();  
+0006B4  07FF5A     RCALL initIOPorts
+48:                              
+49:                //    initTimer();
+50:                    initPWM();
+0006B6  07FE62     RCALL initPWM
+51:                    initADC();
+0006B8  07FEA8     RCALL initADC
+52:                //    initCMP();
+53:                //    initPGA();
+54:                   
+55:                //       while(1)
+56:                //       {
+57:                //    if(SW1 == 0)
+58:                //    {
+59:                //        LED1=1;
+60:                //        LOADSWGND = 1;
+61:                //    __delay_ms(10);
+62:                //    LED1=0;
+63:                //    LOADSWGND = 0;
+64:                //    }
+65:                //       }
+66:                     
+67:                //    PTPER = 9437;        
+68:                //    PDC4=PTPER>>1;
+69:                //    _PTEN=1;
+70:                //    while(1);
+71:                //    {
+72:                //    INTCON2bits.GIE = 1; /* Enable Interrupts */
+73:                //    };
+74:                //    ADCON4Hbits.C2CHS = 1; // AN11 
+75:                    
+76:                //    _PTEN=1;
+77:                //    while(1);
+78:                       
+79:                    /******************************************************************************/
+80:                    /* User Program                                                         */
+81:                    /******************************************************************************/
+82:                    switch(MODE) 
+83:                    {
+84:                        /* Open Loop Code     */
+85:                        case OPENLOOPDEMO :
+86:                        
+87:                            /* Vary potentiometer R12 to vary dutycycle*/    
+88:                            /* Verify appropriate PWM signal based on PWMSELECT */
+89:                            
+90:                            PTCONbits.PTEN = 1;     // Enable the PWM 
+91:                            ADCON3Lbits.CNVCHSEL = 2; //Channel 2 select
+92:                            
+93:                            while(1)
+94:                            {
+95:                                /* Read and set dutycycle value */
+96:                                ADCON3Lbits.CNVRTCH = 1;     // Trigger ADC conversion
+97:                                __delay_us(10);                
+98:                                varOpenLoopVoltage = ADCBUF2; // Read ADC buffer
+99:                                
+100:                               #if(PWMSELECT == PWM1)
+101:                                   varProduct = __builtin_muluu(varOpenLoopVoltage,PWMPERIOD);
+102:                                   PDC1 = __builtin_divud(varProduct,4095);
+103:                               #elif(PWMSELECT == PWM2)   
+104:                                   varProduct = __builtin_muluu(varOpenLoopVoltage,PWMPERIOD);
+105:                                   PDC2 = __builtin_divud(varProduct,4095);
+106:                               #elif(PWMSELECT == PWM3)   
+107:                                   varProduct = __builtin_muluu(varOpenLoopVoltage,PWMPERIOD);
+108:                                   PDC3 = __builtin_divud(varProduct,4095);
+109:                               #elif(PWMSELECT == PWM4)   
+110:                                   varProduct = __builtin_muluu(varOpenLoopVoltage,PWMPERIOD);
+111:                                   PDC4 = __builtin_divud(varProduct,4095);
+112:                               #endif 
+113:                                   
+114:                               __delay_us(10); // Generic delay
+115:                               
+116:                               /* SW1 to be pressed for load transients */
+117:                               TransientResponse();
+118:                           };
+119:                       
+120:                       break;
+121:               
+122:                       
+123:                       case CLOSEDLOOPDEMO :       /* Closed Loop Code    */
+124:                                       
+125:                           varVoltageRef = VOUTADC;    /* Default Reference voltage */
+0006BA  207FF0     MOV #0x7FF, W0
+0006BC  888150     MOV W0, varVoltageRef
+126:                           varState = IDLE;        /* Start in Idle mode */
+0006BE  EF302E     CLR varState
+127:                           initComp();             /* Initialize Compensator */
+0006C0  07FF95     RCALL initComp
+128:                           PTCONbits.PTEN = 1;     /* Enable the PWM */
+0006C2  A8EC01     BSET 0xC01, #7
+129:                           ADCON3Lbits.CNVCHSEL = 2; /*Channel 2 select */
+0006C4  801841     MOV ADCON3L, W1
+0006C6  2FFC00     MOV #0xFFC0, W0
+0006C8  608000     AND W1, W0, W0
+0006CA  A01000     BSET W0, #1
+0006CC  881840     MOV W0, ADCON3L
+130:                           
+131:                           while(1)
+132:                           {
+133:                               switch(varState)
+0006CE  808170     MOV varState, W0
+0006D0  500FE1     SUB W0, #0x1, [W15]
+0006D2  32000A     BRA Z, 0x6E8
+0006D4  500FE1     SUB W0, #0x1, [W15]
+0006D6  390005     BRA NC, 0x6E2
+0006D8  500FE2     SUB W0, #0x2, [W15]
+0006DA  32001C     BRA Z, 0x714
+0006DC  500FE3     SUB W0, #0x3, [W15]
+0006DE  320021     BRA Z, 0x722
+134:                               {
+135:                               
+136:                                   case IDLE:  
+137:                                       /* Insert code to verify if the input voltage is within limits */
+138:                                       varState = SOFTSTART; /* Code for next state */
+0006E2  200010     MOV #0x1, W0
+0006E4  888170     MOV W0, varState
+139:                                   break;
+0006E6  370021     BRA 0x72A
+140:               
+141:                                   case SOFTSTART:
+142:               
+143:                                      for(varCount=0;varCount<=SSCOUNT;varCount++)                                            
+0006E8  EF300A     CLR varCount
+0006EA  370009     BRA 0x6FE
+0006F8  808050     MOV varCount, W0
+0006FA  E80000     INC W0, W0
+0006FC  888050     MOV W0, varCount
+0006FE  808051     MOV varCount, W1
+000700  212680     MOV #0x1268, W0
+000702  508F80     SUB W1, W0, [W15]
+000704  36FFF3     BRA LEU, 0x6EC
+144:                                       {
+145:                                       PDC4++;
+0006EC  806430     MOV PDC4, W0
+0006EE  E80000     INC W0, W0
+0006F0  886430     MOV W0, PDC4
+146:                                       __delay_us(SSTICKS);
+0006F2  2008C0     MOV #0x8C, W0
+0006F4  200001     MOV #0x0, W1
+0006F6  070065     RCALL 0x7C2
+147:                                       }
+148:                                       varState = NORMAL; /* Code for next state */
+000706  200020     MOV #0x2, W0
+000708  888170     MOV W0, varState
+149:                                       Nop();
+00070A  000000     NOP
+150:                                       Nop();
+00070C  000000     NOP
+151:                                       INTCON2bits.GIE = 1;    /* Enable Interrupts */ 
+00070E  A8E8C3     BSET 0x8C3, #7
+152:                                       _ADCAN0IE = 1;
+000710  A8C82D     BSET 0x82D, #6
+153:                                       
+154:                                   break;
+000712  37000B     BRA 0x72A
+155:               
+156:                                   case NORMAL:
+157:               
+158:                                       {
+159:                                           
+160:                                       /* Read and set dutycycle value */
+161:                                       ADCON3Lbits.CNVRTCH = 1;     // Trigger ADC conversion
+000714  A80309     BSET 0x309, #0
+162:                                       __delay_us(10);               
+000716  202BC0     MOV #0x2BC, W0
+000718  200001     MOV #0x0, W1
+00071A  070053     RCALL 0x7C2
+163:                                       varVoltageRef = ADCBUF2; // Read ADC buffer
+00071C  802080     MOV ADCBUF2, W0
+00071E  888150     MOV W0, varVoltageRef
+164:                                                               
+165:                                       /* SW1 to be pressed for load transients */
+166:               //                            TransientResponse();
+167:                                       }
+168:                                   break;
+000720  370004     BRA 0x72A
+169:                               
+170:                                   case FAULT :
+171:                                       {
+172:                                       PTCONbits.PTEN = 0;  /* Disable PWM */
+000722  A9EC01     BCLR 0xC01, #7
+173:                                       INTCON2bits.GIE = 0; /* Disable Interrupts */
+000724  A9E8C3     BCLR 0x8C3, #7
+174:                                       LED2 = ON;           /* Turn ON RED LED */
+000726  A84E45     BSET 0xE45, #2
+175:                                       }
+176:                                   break;
+000728  000000     NOP
+177:                               
+178:                               }
+179:                           }
+0006E0  37FFF6     BRA 0x6CE
+00072A  37FFD1     BRA 0x6CE
+180:                       
+181:                       break;
+182:                          
+183:               
+184:                       /* CAN Demo Code      */
+185:                       case CANDEMO :
+186:                           initCAN();
+187:                           /* Insert ISRC code here */
+188:               
+189:                       break;  
+190:               
+191:                       /* LIN Demo Code      */
+192:                       case LINDEMO :
+193:                           initLIN();
+194:                           /* Delay before sending the first character */
+195:                           __delay_us(105);
+196:                           /* Insert LIN code here */
+197:                       break;
+198:               
+199:               
+200:                       /* Current Source Demo Code      */
+201:                       case CURRENTSOURCEDEMO :
+202:                            initISRC();
+203:                            /* Insert ISRC code here */
+204:               
+205:                       break;
+206:                       
+207:                       default :
+208:                           /* Insert default code */
+209:                       break;
+210:                       
+211:                   } // End of Switch  
+212:                   
+213:                    return 0;   
+214:               }
+---  C:/Projects/3_2QFY17/1_TLAY_Breakout/Firmware/src/interrupts.c  ------------------------------------
+1:                 /******************************************************************************/
+2:                 /* Files to Include                                                           */
+3:                 /******************************************************************************/
+4:                 
+5:                 /* Device header file */
+6:                 #if defined(__XC16__)
+7:                     #include <xc.h>
+8:                 #elif defined(__C30__)
+9:                     #if defined(__dsPIC33E__)
+10:                    	#include <p33Exxxx.h>
+11:                    #elif defined(__dsPIC33F__)
+12:                    	#include <p33Fxxxx.h>
+13:                    #endif
+14:                #endif
+15:                
+16:                #include <stdint.h>        /* Includes uint16_t definition   */
+17:                #include <stdbool.h>       /* Includes true/false definition */
+18:                #include "init.h"          /* Includes user definitions */  
+19:                
+20:                /******************************************************************************/
+21:                /* Interrupt Routines                                                         */
+22:                /******************************************************************************/
+23:                //uint16_t varVoltage,varState;
+24:                
+25:                //void __attribute__((__interrupt__,no_auto_psv)) _ADCAN0Interrupt()
+26:                //{
+27:                //    LATEbits.LATE7=1;   // Debug IO
+28:                //    varVoltage = ADCBUF0;
+29:                //    
+30:                //    if(varState == NORMAL)
+31:                //    SMPS_Controller2P2ZUpdate_HW_Accel(); /* Call 2P2Z Compensator */
+32:                //    
+33:                //    LATEbits.LATE7=0;   // Debug IO
+34:                ////    IFS6bits.ADCAN0IF = 0; // Clear Interrupt Flag
+35:                //    _ADCAN0IF = 0;
+36:                //};
+37:                
+38:                void __attribute__((__interrupt__,no_auto_psv)) _T1Interrupt()
+39:                {
+000304  FA0000     LNK #0x0
+40:                    LATEbits.LATE7=1;
+000306  A8EE44     BSET LATE, #7
+41:                    LATEbits.LATE7=0;
+000308  A9EE44     BCLR LATE, #7
+42:                    
+43:                    /* Check for output voltage */    
+44:                //    if(varVoltage >= VOUTMAXADC || varVoltage <= VOUTMINADC )
+45:                //        varState = FAULT;
+46:                    
+47:                    IFS0bits.T1IF = 0;  // Clear Interrupt Flag
+00030A  A96800     BCLR IFS0, #3
+48:                };
+00030C  FA8000     ULNK
+00030E  064000     RETFIE
+---  C:/Projects/3_2QFY17/1_TLAY_Breakout/Firmware/src/interrupt.s  -------------------------------------
+                                                  1:     
+                                                  2:     .include "p33Exxxx.inc"
+                                                  3:     #include "init.h"
+                                                  4:         
+                                                  5:     .data
+                                                  6:     
+                                                  7:         
+                                                  8:     .text
+                                                  9:     
+                                                  10:    .section .text._ADCAN0Interrupt, keep, code
+                                                  11:    .global __ADCAN0Interrupt
+                                                  12:    
+                                                  13:    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                                  14:    ; ISR:          ADCAN0Interrupt
+                                                  15:    ; Working Reg:  Uses Alt W-Reg Bank #1
+                                                  16:    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                                  17:    __ADCAN0Interrupt:
+                                                  18:     
+0007DE  A84E45     BSET 0xE45, #2                 19:        bset LATE, #10 ;led
+0007E0  A8EE44     BSET LATE, #7                  20:        bset LATE, #7
+                                                  21:           
+0007E2  2102A0     MOV #0x102A, W0                22:        mov #_varVoltageRef, w0
+0007E4  802061     MOV ADCBUF0, W1                23:        mov ADCBUF0, w1;
+0007E6  806432     MOV PDC4, W2                   24:        mov _PDC4, w2;
+                                                  25:           
+                                                  26:        ; Function calls 2P2Z controllers
+0007E8  020810     CALL 0x810                     27:        call _SMPS_Controller2P2ZUpdate_HW_Accel
+                                                  28:        
+                                                  29:        ; Update Trigger (50% Trigger on-time)
+0007EC  80643E     MOV PDC4, W14                  30:        mov _PDC4, w14
+                                                  31:        
+0007EE  DEF741     ASR W14, #1, W14               32:        asr w14, #1, w14                   ; Divide PDCx by 2
+                                                  33:    ;    mov #GATEDRV_DLY, w13
+                                                  34:    ;    add w14, w13, w13                 ; Add delay to account for gate drive delay
+                                                  35:    ;    mov w13, _TRIG4
+0007F0  88649E     MOV W14, TRIG4                 36:        mov w14, _TRIG4
+                                                  37:        
+0007F2  A9EE44     BCLR LATE, #7                  38:        bclr LATE, #7
+                                                  39:            
+0007F4  A9C80D     BCLR 0x80D, #6                 40:        bclr IFS6, #14
+0007F6  064000     RETFIE                         41:        retfie 
+                                                  42:    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                                  43:    ;   End of ISR
+                                                  44:    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                                  45:    
+                                                  46:    .end
+---  C:/Projects/3_2QFY17/1_TLAY_Breakout/Firmware/src/init.c  ------------------------------------------
+1:                 /*******************************************************************************
+2:                 Microchip's products.  Microchip and its licensors retain all ownership and
+3:                 intellectual property rights in the accompanying software and in all
+4:                 derivatives here to.
+5:                 
+6:                 This software and any accompanying information is for suggestion only. It
+7:                 does not modify Microchip's standard warranty for its products. You agree
+8:                 that you are solely responsible for testing the software and determining its
+9:                 suitability. Microchip has no obligation to modify, test, certify, or
+10:                support the software.
+11:                
+12:                THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".  NO WARRANTIES, WHETHER
+13:                EXPRESS, IMPLIED OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, IMPLIED
+14:                WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR
+15:                PURPOSE APPLY TO THIS SOFTWARE, ITS INTERACTION WITH MICROCHIP?S PRODUCTS,
+16:                COMBINATION WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION.
+17:                
+18:                IN NO EVENT, WILL MICROCHIP BE LIABLE, WHETHER IN CONTRACT, WARRANTY, TORT
+19:                (INCLUDING NEGLIGENCE OR BREACH OF STATUTORY DUTY), STRICT LIABILITY,
+20:                INDEMNITY, CONTRIBUTION, OR OTHERWISE, FOR ANY INDIRECT, SPECIAL, PUNITIVE,
+21:                EXEMPLARY, INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, FOR COST OR EXPENSE OF
+22:                ANY KIND WHATSOEVER RELATED TO THE SOFTWARE, HOWSOEVER CAUSED, EVEN IF
+23:                MICROCHIP HAS BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.
+24:                TO THE FULLEST EXTENT ALLOWABLE BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL
+25:                CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF
+26:                FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+27:                
+28:                MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF
+29:                THESE TERMS.
+30:                *******************************************************************************/
+31:                
+32:                #include "init.h"
+33:                
+34:                /*******************************************************************************
+35:                Global variables
+36:                *******************************************************************************/
+37:                int16_t VoltageABCoefficients[5]__attribute__ ((section (".xbss")));
+38:                int16_t VoltageErrorControlHistory[4] __attribute__ ((space (ymemory), far));
+39:                
+40:                int16_t VoltagePostscaler,VoltagePostshift,VoltageMinClamp,VoltageMaxClamp;
+41:                int16_t varGateDelay = GATEDRV_DLY, varPWM; 
+42:                
+43:                uint16_t varVoltageRef=0,varVoltage,varState;
+44:                
+45:                unsigned int ecan1MsgBuf[NUM_OF_ECAN_BUFFERS][8] __attribute__((aligned(NUM_OF_ECAN_BUFFERS * 16)));
+46:                
+47:                /*******************************************************************************
+48:                Function: 	initClock
+49:                Description:	Initialize system clock and PWM/ADC clock
+50:                *******************************************************************************/
+51:                void initClock(void)
+52:                {
+000310  FA0000     LNK #0x0
+53:                    // Configure Oscillator to operate the device at 70Mhz
+54:                    // Fosc = Fin*M/(N1*N2), Fcy = Fosc/2
+55:                    // Fosc = 7.37*(76)/(2*2)= 140Mhz for Fosc, Fcy = 70Mhz
+56:                
+57:                    // Configure PLL prescaler, PLL postscaler, PLL divisor
+58:                    PLLFBD             = 74;   // M = PLLFBD + 2
+000312  2004A0     MOV #0x4A, W0
+000314  883A30     MOV W0, PLLFBD
+59:                    CLKDIVbits.PLLPOST = 0;     // N1 = 2
+000316  803A20     MOV CLKDIV, W0
+000318  A16000     BCLR W0, #6
+00031A  A17000     BCLR W0, #7
+00031C  883A20     MOV W0, CLKDIV
+60:                    CLKDIVbits.PLLPRE = 0;      // N2 = 2
+00031E  803A21     MOV CLKDIV, W1
+000320  2FFE00     MOV #0xFFE0, W0
+000322  608000     AND W1, W0, W0
+000324  883A20     MOV W0, CLKDIV
+61:                
+62:                    // Change oscillator to FRC + PLL
+63:                    __builtin_write_OSCCONH(0x01);      // New Oscillator FRC w/ PLL
+000326  200012     MOV #0x1, W2
+000328  200780     MOV #0x78, W0
+00032A  2009A1     MOV #0x9A, W1
+00032C  207433     MOV #0x743, W3
+00032E  784980     MOV.B W0, [W3]
+000330  784981     MOV.B W1, [W3]
+000332  784982     MOV.B W2, [W3]
+64:                    __builtin_write_OSCCONL(0x01);  	// Enable Clock Switch
+000334  200012     MOV #0x1, W2
+000336  200460     MOV #0x46, W0
+000338  200571     MOV #0x57, W1
+00033A  207423     MOV #0x742, W3
+00033C  784980     MOV.B W0, [W3]
+00033E  784981     MOV.B W1, [W3]
+000340  784982     MOV.B W2, [W3]
+65:                
+66:                    while(OSCCONbits.COSC != 0b001);	// Wait for new Oscillator - FRC w/ PLL
+000342  000000     NOP
+000344  803A11     MOV OSCCON, W1
+000346  270000     MOV #0x7000, W0
+000348  608080     AND W1, W0, W1
+00034A  210000     MOV #0x1000, W0
+00034C  508F80     SUB W1, W0, [W15]
+00034E  3AFFFA     BRA NZ, 0x344
+67:                    while(OSCCONbits.LOCK != 1);        // Wait for Pll to Lock
+000350  000000     NOP
+000352  803A11     MOV OSCCON, W1
+000354  200200     MOV #0x20, W0
+000356  608000     AND W1, W0, W0
+000358  E00000     CP0 W0
+00035A  32FFFB     BRA Z, 0x352
+68:                
+69:                    // Now setup the ADC and PWM clock for 120MHz
+70:                    //   ((FRC * 16) / APSTSCLR ) = (7.37 * 16) / 1 = ~ 120MHz
+71:                
+72:                    ACLKCONbits.FRCSEL = 1;     // FRC provides input to Auxiliary PLL (x16)
+00035C  A8C750     BSET ACLKCON, #6
+73:                    ACLKCONbits.SELACLK = 1;	// Auxiliary Oscillator provides clock
+00035E  A8A751     BSET 0x751, #5
+74:                                                // source for PWM & ADC
+75:                    ACLKCONbits.APSTSCLR = 7;   // Divide Auxiliary clock by 1
+000360  803A80     MOV ACLKCON, W0
+000362  A08000     BSET W0, #8
+000364  A09000     BSET W0, #9
+000366  A0A000     BSET W0, #10
+000368  883A80     MOV W0, ACLKCON
+76:                    ACLKCONbits.ENAPLL = 1;     // Enable Auxiliary PLL
+00036A  A8E751     BSET 0x751, #7
+77:                    while(ACLKCONbits.APLLCK != 1);	// Wait for Aux. PLL to Lock
+00036C  000000     NOP
+00036E  803A81     MOV ACLKCON, W1
+000370  240000     MOV #0x4000, W0
+000372  608000     AND W1, W0, W0
+000374  E00000     CP0 W0
+000376  32FFFB     BRA Z, 0x36E
+78:                //    __delay_us(50);
+79:                }
+000378  FA8000     ULNK
+00037A  060000     RETURN
+80:                /*******************************************************************************
+81:                End of Function
+82:                *******************************************************************************/
+83:                
+84:                /*******************************************************************************
+85:                Function: 	initPWM
+86:                Description:	Initialize PWM modules
+87:                *******************************************************************************/
+88:                void initPWM(void)
+89:                {
+00037C  FA0000     LNK #0x0
+90:                    PTCONbits.PTEN = 0;     // Disable the PWM 
+00037E  A9EC01     BCLR 0xC01, #7
+91:                    
+92:                    PTCON2bits.PCLKDIV = (PWMRESOLUTION_REG-1); // PWM Resolution
+000380  806010     MOV PTCON2, W0
+000382  A10000     BCLR W0, #0
+000384  A11000     BCLR W0, #1
+000386  A12000     BCLR W0, #2
+000388  886010     MOV W0, PTCON2
+93:                    PTPER = PWMPERIOD;              // Set PWM frequency
+00038A  224D00     MOV #0x24D0, W0
+00038C  886020     MOV W0, PTPER
+94:                                
+95:                    #if(PWMSELECT==PWM1)
+96:                        IOCON1bits.PMOD = 1;            // Redundant Mode
+97:                
+98:                        IOCON1bits.POLH = 0;            // Drive signals are active-high
+99:                        IOCON1bits.POLL = 0;            // Drive signals are active-high
+100:               
+101:                       IOCON1bits.OVRENH = 0;          // Override disabled
+102:                       IOCON1bits.OVRENL = 0;	  
+103:                       IOCON1bits.OVRDAT = 0b00;       // Override data PWMH and PWML
+104:                       IOCON1bits.FLTDAT = 0b00;       // If fault occurs:
+105:                                                       // PWMH = 0 & PWML = 0
+106:                       PWMCON1bits.DTC   = 0;          // Positive Deadtime enabled
+107:                       DTR1    = 80;
+108:                       ALTDTR1 = 110;
+109:               
+110:                       PWMCON1bits.IUE = 0;            // Disable Immediate duty cycle updates
+111:                       PWMCON1bits.ITB = 0;            // Select Primary Timebase mode
+112:               
+113:                       FCLCON1bits.FLTSRC = 0b01101;   // Fault Control Signal assigned to CMP4
+114:                       FCLCON1bits.FLTPOL = 0;         // Fault Signal is active-high
+115:                       FCLCON1bits.FLTMOD = 0b11;      // Fault mode disabled
+116:               
+117:                       LEBCON1bits.PHR      = 1;       // Enable LEB bit for HS MOSFET rising edge
+118:                       LEBCON1bits.CLLEBEN = 1;       // Fault Input LEB Enabled
+119:                       LEBDLY1bits.LEB      = 20;      // 8.32n Steps x 20 = 160ns
+120:               
+121:                       TRGCON1bits.TRGDIV  = 0;        // Trigger interrupt generated every PWM cycle
+122:               
+123:                       TRGCON1bits.TRGSTRT = 0;        // Trigger generated after waiting 0 PWM cycles
+124:                       
+125:                       PDC1 = OPENLOOPDC;              // Set default Open-loop Duty-cycle
+126:                       
+127:                       TRIG1 = 100;                     // Set Initial Trigger location
+128:                       
+129:                       varPWM = PWM1;
+130:                      
+131:                   #elif(PWMSELECT==PWM2)
+132:                      
+133:                       IOCON2bits.PMOD = 1;            // Redundant Mode
+134:               
+135:                       IOCON2bits.POLH = 0;            // Drive signals are active-high
+136:                       IOCON2bits.POLL = 0;            // Drive signals are active-high
+137:               
+138:                       IOCON2bits.OVRENH = 0;          // Override disabled
+139:                       IOCON2bits.OVRENL = 0;	  
+140:                       IOCON2bits.OVRDAT = 0b00;       // Override data PWMH and PWML
+141:                       IOCON2bits.FLTDAT = 0b00;       // If fault occurs:
+142:                                                       // PWMH = 0 & PWML = 0
+143:                       PWMCON2bits.DTC   = 0;          // Positive Deadtime enabled
+144:                       DTR2    = 80;
+145:                       ALTDTR2 = 110;
+146:               
+147:                       PWMCON2bits.IUE = 0;            // Disable Immediate duty cycle updates
+148:                       PWMCON2bits.ITB = 0;            // Select Primary Timebase mode
+149:               
+150:                       FCLCON2bits.FLTSRC = 0b01101;   // Fault Control Signal assigned to CMP4
+151:                       FCLCON2bits.FLTPOL = 0;         // Fault Signal is active-high
+152:                       FCLCON2bits.FLTMOD = 0b11;      // Fault mode disabled
+153:               
+154:                       LEBCON2bits.PHR      = 1;       // Enable LEB bit for HS MOSFET rising edge
+155:                       LEBCON2bits.CLLEBEN = 1;       // Fault Input LEB Enabled
+156:                       LEBDLY2bits.LEB      = 20;      // 8.32n Steps x 20 = 160ns
+157:               
+158:                       TRGCON2bits.TRGDIV  = 0;        // Trigger interrupt generated every PWM cycle
+159:               
+160:                       TRGCON2bits.TRGSTRT = 0;        // Trigger generated after waiting 0 PWM cycles
+161:               
+162:                       PDC2 = OPENLOOPDC;              // Set default Open-loop Duty-cycle
+163:               
+164:                       TRIG2 = 30;                     // Set Initial Trigger location
+165:                       
+166:                       varPWM = PWM2;
+167:                       
+168:                   #elif(PWMSELECT==PWM3)
+169:                      
+170:                       IOCON3bits.PMOD = 1;            // Redundant Mode
+171:               
+172:                       IOCON3bits.POLH = 0;            // Drive signals are active-high
+173:                       IOCON3bits.POLL = 0;            // Drive signals are active-high
+174:               
+175:                       IOCON3bits.OVRENH = 0;          // Override disabled
+176:                       IOCON3bits.OVRENL = 0;	  
+177:                       IOCON3bits.OVRDAT = 0b00;       // Override data PWMH and PWML
+178:                       IOCON3bits.FLTDAT = 0b00;       // If fault occurs:
+179:                                                       // PWMH = 0 & PWML = 0
+180:                       PWMCON3bits.DTC   = 0;          // Positive Deadtime enabled
+181:                       DTR3    = 80;
+182:                       ALTDTR3 = 110;
+183:               
+184:                       PWMCON3bits.IUE = 0;            // Disable Immediate duty cycle updates
+185:                       PWMCON3bits.ITB = 0;            // Select Primary Timebase mode
+186:               
+187:                       FCLCON3bits.FLTSRC = 0b01101;   // Fault Control Signal assigned to CMP4
+188:                       FCLCON3bits.FLTPOL = 0;         // Fault Signal is active-high
+189:                       FCLCON3bits.FLTMOD = 0b11;    // Fault mode disabled
+190:               
+191:                       LEBCON3bits.PHR      = 1;       // Enable LEB bit for HS MOSFET rising edge
+192:                       LEBCON3bits.CLLEBEN = 1;       // Fault Input LEB Enabled
+193:                       LEBDLY3bits.LEB      = 20;      // 8.32n Steps x 20 = 160ns
+194:               
+195:                       TRGCON3bits.TRGDIV  = 0;        // Trigger interrupt generated every PWM cycle
+196:               
+197:                       TRGCON3bits.TRGSTRT = 0;        // Trigger generated after waiting 0 PWM cycles
+198:               
+199:                       PDC3 = OPENLOOPDC;              // Set default Open-loop Duty-cycle
+200:               
+201:                       TRIG3 = 30;                     // Set Initial Trigger location
+202:                       
+203:                       varPWM = PWM3;
+204:                       
+205:                             
+206:                   #elif(PWMSELECT==PWM4)
+207:                              
+208:                       IOCON4bits.PMOD = 1;            // Redundant Mode
+00038E  806410     MOV IOCON4, W0
+000390  A0A000     BSET W0, #10
+000392  A1B000     BCLR W0, #11
+000394  886410     MOV W0, IOCON4
+209:               
+210:                       IOCON4bits.POLH = 0;            // Drive signals are active-high
+000396  A9AC83     BCLR 0xC83, #5
+211:                       IOCON4bits.POLL = 0;            // Drive signals are active-high
+000398  A98C83     BCLR 0xC83, #4
+212:               
+213:                       IOCON4bits.OVRENH = 0;          // Override disabled
+00039A  A92C83     BCLR 0xC83, #1
+214:                       IOCON4bits.OVRENL = 0;	  
+00039C  A90C83     BCLR 0xC83, #0
+215:                       IOCON4bits.OVRDAT = 0b00;       // Override data PWMH and PWML
+00039E  806410     MOV IOCON4, W0
+0003A0  A16000     BCLR W0, #6
+0003A2  A17000     BCLR W0, #7
+0003A4  886410     MOV W0, IOCON4
+216:                       IOCON4bits.FLTDAT = 0b00;       // If fault occurs:
+0003A6  806410     MOV IOCON4, W0
+0003A8  A14000     BCLR W0, #4
+0003AA  A15000     BCLR W0, #5
+0003AC  886410     MOV W0, IOCON4
+217:                                                       // PWMH = 0 & PWML = 0
+218:                       PWMCON4bits.DTC   = 0;          // Positive Deadtime enabled
+0003AE  806400     MOV PWMCON4, W0
+0003B0  A16000     BCLR W0, #6
+0003B2  A17000     BCLR W0, #7
+0003B4  886400     MOV W0, PWMCON4
+219:                       DTR4    = 80;
+0003B6  200500     MOV #0x50, W0
+0003B8  886450     MOV W0, DTR4
+220:                       ALTDTR4 = 110;
+0003BA  2006E0     MOV #0x6E, W0
+0003BC  886460     MOV W0, ALTDTR4
+221:               
+222:                       PWMCON4bits.IUE = 0;            // Disable Immediate duty cycle updates
+0003BE  A90C80     BCLR PWMCON4, #0
+223:                       PWMCON4bits.ITB = 0;            // Select Primary Timebase mode
+0003C0  A92C81     BCLR 0xC81, #1
+224:               
+225:                       FCLCON4bits.FLTSRC = 0b01101;   // Fault Control Signal assigned to CMP4
+0003C2  806421     MOV FCLCON4, W1
+0003C4  2FF070     MOV #0xFF07, W0
+0003C6  608080     AND W1, W0, W1
+0003C8  200680     MOV #0x68, W0
+0003CA  700001     IOR W0, W1, W0
+0003CC  886420     MOV W0, FCLCON4
+226:                       FCLCON4bits.FLTPOL = 0;         // Fault Signal is active-high
+0003CE  A94C84     BCLR FCLCON4, #2
+227:                       FCLCON4bits.FLTMOD = 0b11;      // Fault mode disabled
+0003D0  806420     MOV FCLCON4, W0
+0003D2  A00000     BSET W0, #0
+0003D4  A01000     BSET W0, #1
+0003D6  886420     MOV W0, FCLCON4
+228:               
+229:                       LEBCON4bits.PHR      = 1;       // Enable LEB bit for HS MOSFET rising edge
+0003D8  A8EC9B     BSET 0xC9B, #7
+230:                       LEBCON4bits.CLLEBEN = 1;       // Fault Input LEB Enabled
+0003DA  A84C9B     BSET 0xC9B, #2
+231:                       LEBDLY4bits.LEB      = 20;      // 8.32n Steps x 20 = 160ns
+0003DC  8064E1     MOV LEBDLY4, W1
+0003DE  2F0070     MOV #0xF007, W0
+0003E0  608080     AND W1, W0, W1
+0003E2  200A00     MOV #0xA0, W0
+0003E4  700001     IOR W0, W1, W0
+0003E6  8864E0     MOV W0, LEBDLY4
+232:               
+233:                       TRGCON4bits.TRGDIV  = 0;        // Trigger interrupt generated every PWM cycle
+0003E8  8064A0     MOV TRGCON4, W0
+0003EA  A1C000     BCLR W0, #12
+0003EC  A1D000     BCLR W0, #13
+0003EE  A1E000     BCLR W0, #14
+0003F0  A1F000     BCLR W0, #15
+0003F2  8864A0     MOV W0, TRGCON4
+234:                       TRGCON4bits.TRGSTRT = 0;        // Trigger generated after waiting 0 PWM cycles
+0003F4  8064A1     MOV TRGCON4, W1
+0003F6  2FFC00     MOV #0xFFC0, W0
+0003F8  608000     AND W1, W0, W0
+0003FA  8864A0     MOV W0, TRGCON4
+235:               
+236:                       PDC4 = OPENLOOPDC;              // Set default Open-loop Duty-cycle
+0003FC  EF2C86     CLR PDC4
+237:               
+238:                       TRIG4 = 200;                     // Set Initial Trigger location
+0003FE  200C80     MOV #0xC8, W0
+000400  886490     MOV W0, TRIG4
+239:                       
+240:                       varPWM = PWM4;
+000402  200040     MOV #0x4, W0
+000404  888140     MOV W0, varPWM
+241:                               
+242:                     
+243:                   #elif(PWMSELECT==PWM5)
+244:                              
+245:                       IOCON5bits.PMOD = 1;            // Redundant Mode
+246:               
+247:                       IOCON5bits.POLH = 0;            // Drive signals are active-high
+248:                       IOCON5bits.POLL = 0;            // Drive signals are active-high
+249:               
+250:                       IOCON5bits.OVRENH = 0;          // Override disabled
+251:                       IOCON5bits.OVRENL = 0;	  
+252:                       IOCON5bits.OVRDAT = 0b00;       // Override data PWMH and PWML
+253:                       IOCON5bits.FLTDAT = 0b00;       // If fault occurs:
+254:                                                       // PWMH = 0 & PWML = 0
+255:                       PWMCON5bits.DTC   = 0;          // Positive Deadtime enabled
+256:                       DTR5    = 80;
+257:                       ALTDTR5 = 110;
+258:               
+259:                       PWMCON5bits.IUE = 0;            // Disable Immediate duty cycle updates
+260:                       PWMCON5bits.ITB = 0;            // Select Primary Timebase mode
+261:               
+262:                       FCLCON5bits.FLTSRC = 0b01101;   // Fault Control Signal assigned to CMP4
+263:                       FCLCON5bits.FLTPOL = 0;         // Fault Signal is active-high
+264:                       FCLCON5bits.FLTMOD = 0b11;      // Fault mode disabled
+265:               
+266:                       LEBCON5bits.PHR      = 1;       // Enable LEB bit for HS MOSFET rising edge
+267:                       LEBCON5bits.CLLEBEN = 1;       // Fault Input LEB Enabled
+268:                       LEBDLY5bits.LEB      = 20;      // 8.32n Steps x 20 = 160ns
+269:               
+270:                       TRGCON5bits.TRGDIV  = 0;        // Trigger interrupt generated every PWM cycle
+271:               
+272:                       TRGCON5bits.TRGSTRT = 0;        // Trigger generated after waiting 0 PWM cycles
+273:               
+274:                       PDC5 = OPENLOOPDC;              // Set default Open-loop Duty-cycle
+275:               
+276:                       TRIG5 = 30;                     // Set Initial Trigger location
+277:                       
+278:                       varPWM = PWM5;
+279:                               
+280:                   #elif(PWMSELECT==PWM6)
+281:                              
+282:                       IOCON6bits.PMOD = 1;            // Redundant Mode
+283:               
+284:                       IOCON6bits.POLH = 0;            // Drive signals are active-high
+285:                       IOCON6bits.POLL = 0;            // Drive signals are active-high
+286:               
+287:                       IOCON6bits.OVRENH = 0;          // Override disabled
+288:                       IOCON6bits.OVRENL = 0;	  
+289:                       IOCON6bits.OVRDAT = 0b00;       // Override data PWMH and PWML
+290:                       IOCON6bits.FLTDAT = 0b00;       // If fault occurs:
+291:                                                       // PWMH = 0 & PWML = 0
+292:                       PWMCON6bits.DTC   = 0;          // Positive Deadtime enabled
+293:                       DTR6    = 80;
+294:                       ALTDTR6 = 110;
+295:               
+296:                       PWMCON6bits.IUE = 0;            // Disable Immediate duty cycle updates
+297:                       PWMCON6bits.ITB = 0;            // Select Primary Timebase mode
+298:               
+299:                       FCLCON6bits.FLTSRC = 0b01101;   // Fault Control Signal assigned to CMP4
+300:                       FCLCON6bits.FLTPOL = 0;         // Fault Signal is active-high
+301:                       FCLCON6bits.FLTMOD = 0b11;      // Fault mode disabled
+302:               
+303:                       LEBCON6bits.PHR      = 1;       // Enable LEB bit for HS MOSFET rising edge
+304:                       LEBCON6bits.CLLEBEN = 1;       // Fault Input LEB Enabled
+305:                       LEBDLY6bits.LEB      = 20;      // 8.32n Steps x 20 = 160ns
+306:               
+307:                       TRGCON6bits.TRGDIV  = 0;        // Trigger interrupt generated every PWM cycle
+308:               
+309:                       TRGCON6bits.TRGSTRT = 0;        // Trigger generated after waiting 0 PWM cycles
+310:               
+311:                       PDC6 = OPENLOOPDC;              // Set default Open-loop Duty-cycle
+312:               
+313:                       TRIG6 = 30;                     // Set Initial Trigger location
+314:                       
+315:                       varPWM = PWM6;     
+316:                       
+317:                   #elif(PWMSELECT==PWM7)
+318:                              
+319:                       IOCON7bits.PMOD = 1;            // Redundant Mode
+320:               
+321:                       IOCON7bits.POLH = 0;            // Drive signals are active-high
+322:                       IOCON7bits.POLL = 0;            // Drive signals are active-high
+323:               
+324:                       IOCON7bits.OVRENH = 0;          // Override disabled
+325:                       IOCON7bits.OVRENL = 0;	  
+326:                       IOCON7bits.OVRDAT = 0b00;       // Override data PWMH and PWML
+327:                       IOCON7bits.FLTDAT = 0b00;       // If fault occurs:
+328:                                                       // PWMH = 0 & PWML = 0
+329:                       PWMCON7bits.DTC   = 0;          // Positive Deadtime enabled
+330:                       DTR7   = 80;
+331:                       ALTDTR7 = 110;
+332:               
+333:                       PWMCON7bits.IUE = 0;            // Disable Immediate duty cycle updates
+334:                       PWMCON7bits.ITB = 0;            // Select Primary Timebase mode
+335:               
+336:                       FCLCON7bits.FLTSRC = 0b01101;   // Fault Control Signal assigned to CMP4
+337:                       FCLCON7bits.FLTPOL = 0;         // Fault Signal is active-high
+338:                       FCLCON7bits.FLTMOD = 0b11;      // Fault mode disabled
+339:               
+340:                       LEBCON7bits.PHR      = 1;       // Enable LEB bit for HS MOSFET rising edge
+341:                       LEBCON7bits.CLLEBEN = 1;        // Fault Input LEB Enabled
+342:                       LEBDLY7bits.LEB      = 20;      // 8.32n Steps x 20 = 160ns
+343:               
+344:                       PDC7 = OPENLOOPDC>>1;              // Set default Open-loop Duty-cycle
+345:                             
+346:                       varPWM = PWM7;
+347:                       
+348:                   #endif
+349:                       
+350:               };
+000406  FA8000     ULNK
+000408  060000     RETURN
+351:               /*******************************************************************************
+352:               End of Function
+353:               *******************************************************************************/
+354:               
+355:               /*******************************************************************************
+356:               Function: 	initADC
+357:               Description:	Initialize ADC module and ADC interrupts
+358:               *******************************************************************************/
+359:               void initADC(void)
+360:               {
+00040A  FA0000     LNK #0x0
+361:                   // Setup ADC Clock Input Max speed of 70 MHz --> Fosc = 140 MHz
+362:                   ADCON3Hbits.CLKSEL  = 1;    // 0-Fsys, 1-Fosc, 2-FRC, 3-APLL
+00040C  801850     MOV ADCON3H, W0
+00040E  A0E000     BSET W0, #14
+000410  A1F000     BCLR W0, #15
+000412  881850     MOV W0, ADCON3H
+363:                   ADCON3Hbits.CLKDIV  = 0;    // Global Clock divider (1:1)
+000414  801851     MOV ADCON3H, W1
+000416  2C0FF0     MOV #0xC0FF, W0
+000418  608000     AND W1, W0, W0
+00041A  881850     MOV W0, ADCON3H
+364:                   ADCORE0Hbits.ADCS   = 0;    // Core 0 clock divider (1:2)
+00041C  801EB1     MOV ADCORE0H, W1
+00041E  2FF800     MOV #0xFF80, W0
+000420  608000     AND W1, W0, W0
+000422  881EB0     MOV W0, ADCORE0H
+365:                   ADCORE1Hbits.ADCS   = 0;    // Core 1 clock divider (1:2)
+000424  801ED1     MOV ADCORE1H, W1
+000426  2FF800     MOV #0xFF80, W0
+000428  608000     AND W1, W0, W0
+00042A  881ED0     MOV W0, ADCORE1H
+366:                   ADCORE2Hbits.ADCS   = 0;    // Core 2 clock divider (1:2)
+00042C  801EF1     MOV ADCORE2H, W1
+00042E  2FF800     MOV #0xFF80, W0
+000430  608000     AND W1, W0, W0
+000432  881EF0     MOV W0, ADCORE2H
+367:                   ADCORE3Hbits.ADCS   = 0;    // Core 3 clock divider (1:2)
+000434  801F11     MOV ADCORE3H, W1
+000436  2FF800     MOV #0xFF80, W0
+000438  608000     AND W1, W0, W0
+00043A  881F10     MOV W0, ADCORE3H
+368:                   ADCON2Lbits.SHRADCS = 0;    // 1/2 clock divider
+00043C  801821     MOV ADCON2L, W1
+00043E  2FF800     MOV #0xFF80, W0
+000440  608000     AND W1, W0, W0
+000442  881820     MOV W0, ADCON2L
+369:               
+370:                   ADCON1Hbits.FORM    = 0;    // Integer format
+000444  A9E302     BCLR ADCON1H, #7
+371:                   ADCON3Lbits.REFSEL  = 0;    // AVdd as voltage reference
+000446  801840     MOV ADCON3L, W0
+000448  A1D000     BCLR W0, #13
+00044A  A1E000     BCLR W0, #14
+00044C  A1F000     BCLR W0, #15
+00044E  881840     MOV W0, ADCON3L
+372:               
+373:                    // ADC Cores in 12-bit resolution mode
+374:                   ADCON1Hbits.SHRRES  = 3;    // Shared ADC Core in 12-bit resolution mode
+000450  801810     MOV ADCON1H, W0
+000452  A05000     BSET W0, #5
+000454  A06000     BSET W0, #6
+000456  881810     MOV W0, ADCON1H
+375:                   ADCORE0Hbits.RES    = 3;    // Core 0 ADC Core in 12-bit resolution mode
+000458  801EB0     MOV ADCORE0H, W0
+00045A  A08000     BSET W0, #8
+00045C  A09000     BSET W0, #9
+00045E  881EB0     MOV W0, ADCORE0H
+376:                   ADCORE1Hbits.RES    = 3;    // Core 1 ADC Core in 12-bit resolution mode
+000460  801ED0     MOV ADCORE1H, W0
+000462  A08000     BSET W0, #8
+000464  A09000     BSET W0, #9
+000466  881ED0     MOV W0, ADCORE1H
+377:                   ADCORE2Hbits.RES    = 3;    // Core 2 ADC Core in 12-bit resolution mode
+000468  801EF0     MOV ADCORE2H, W0
+00046A  A08000     BSET W0, #8
+00046C  A09000     BSET W0, #9
+00046E  881EF0     MOV W0, ADCORE2H
+378:                   ADCORE3Hbits.RES    = 3;    // Core 3 ADC Core in 12-bit resolution mode
+000470  801F10     MOV ADCORE3H, W0
+000472  A08000     BSET W0, #8
+000474  A09000     BSET W0, #9
+000476  881F10     MOV W0, ADCORE3H
+379:                   ADCON2Hbits.SHRSAMC = 2;    // Shared ADC Core sample time 4Tad
+000478  801831     MOV ADCON2H, W1
+00047A  2FC000     MOV #0xFC00, W0
+00047C  608000     AND W1, W0, W0
+00047E  A01000     BSET W0, #1
+000480  881830     MOV W0, ADCON2H
+380:               
+381:                   /* Configure ANx for unsigned format and single ended (0,0) */
+382:                   ADMOD0L = 0x0000;
+000482  EF2310     CLR ADMOD0L
+383:               
+384:                   /* Calibrate ADC Modules */
+385:                   calibrateADC();
+000484  07000E     RCALL calibrateADC
+386:                          
+387:                   /* ADC0 Settings */
+388:                   ADTRIG0Lbits.TRGSRC0 = 8;    /* ADC0 triggered by PWM4 */
+000486  801C01     MOV ADTRIG0L, W1
+000488  2FFE00     MOV #0xFFE0, W0
+00048A  608000     AND W1, W0, W0
+00048C  A03000     BSET W0, #3
+00048E  881C00     MOV W0, ADTRIG0L
+389:                   IFS6bits.ADCAN0IF  = 0;      /* Clear ADC interrupt flag */
+000490  A9C80D     BCLR 0x80D, #6
+390:                   IPC27bits.ADCAN0IP = 7;      /* Set ADC0 interrupt priority to 7 */
+000492  8043B0     MOV IPC27, W0
+000494  A08000     BSET W0, #8
+000496  A09000     BSET W0, #9
+000498  A0A000     BSET W0, #10
+00049A  8843B0     MOV W0, IPC27
+391:                   ADIELbits.IE0  = 1;     /* Enable ADC0 Interrupt */
+00049C  A80320     BSET ADIEL, #0
+392:               //   _ADCAN0IE = 1;  
+393:                  
+394:               }
+00049E  FA8000     ULNK
+0004A0  060000     RETURN
+395:               
+396:               void calibrateADC(void)
+397:               {
+0004A2  FA0000     LNK #0x0
+398:                   /* Power Up delay: 2048 Core Clock Source Periods (TCORESRC) for all ADC cores */
+399:                   /* (~14.6 us) */
+400:                   _WARMTIME = 11;
+0004A4  802010     MOV ADCON5H, W0
+0004A6  A08000     BSET W0, #8
+0004A8  A09000     BSET W0, #9
+0004AA  A1A000     BCLR W0, #10
+0004AC  A0B000     BSET W0, #11
+0004AE  882010     MOV W0, ADCON5H
+401:               
+402:                   /* Turn on ADC module */
+403:                   ADCON1Lbits.ADON  = 1;
+0004B0  A8E301     BSET 0x301, #7
+404:                   
+405:                   // Turn on analog power for dedicated core 0
+406:                   ADCON5Lbits.C0PWR = 1;
+0004B2  A80400     BSET ADCON5L, #0
+407:                   while(ADCON5Lbits.C0RDY == 0);
+0004B4  000000     NOP
+0004B6  802001     MOV ADCON5L, W1
+0004B8  201000     MOV #0x100, W0
+0004BA  608000     AND W1, W0, W0
+0004BC  E00000     CP0 W0
+0004BE  32FFFB     BRA Z, 0x4B6
+408:                   ADCON3Hbits.C0EN  = 1;   // Enable ADC core 0
+0004C0  A8030A     BSET ADCON3H, #0
+409:               
+410:                   // Turn on analog power for dedicated core 1
+411:                   ADCON5Lbits.C1PWR = 1;
+0004C2  A82400     BSET ADCON5L, #1
+412:                   while(ADCON5Lbits.C1RDY == 0);
+0004C4  000000     NOP
+0004C6  802001     MOV ADCON5L, W1
+0004C8  202000     MOV #0x200, W0
+0004CA  608000     AND W1, W0, W0
+0004CC  E00000     CP0 W0
+0004CE  32FFFB     BRA Z, 0x4C6
+413:                   ADCON3Hbits.C1EN  = 1;   // Enable ADC core 1
+0004D0  A8230A     BSET ADCON3H, #1
+414:               
+415:                   // Turn on analog power for dedicated core 2
+416:                   ADCON5Lbits.C2PWR = 1;
+0004D2  A84400     BSET ADCON5L, #2
+417:                   while(ADCON5Lbits.C2RDY == 0);
+0004D4  000000     NOP
+0004D6  802001     MOV ADCON5L, W1
+0004D8  204000     MOV #0x400, W0
+0004DA  608000     AND W1, W0, W0
+0004DC  E00000     CP0 W0
+0004DE  32FFFB     BRA Z, 0x4D6
+418:                   ADCON3Hbits.C2EN  = 1;   // Enable ADC core 2
+0004E0  A8430A     BSET ADCON3H, #2
+419:               
+420:                   // Turn on analog power for dedicated core 3
+421:                   ADCON5Lbits.C3PWR = 1;
+0004E2  A86400     BSET ADCON5L, #3
+422:                   while(ADCON5Lbits.C3RDY == 0);
+0004E4  000000     NOP
+0004E6  802001     MOV ADCON5L, W1
+0004E8  208000     MOV #0x800, W0
+0004EA  608000     AND W1, W0, W0
+0004EC  E00000     CP0 W0
+0004EE  32FFFB     BRA Z, 0x4E6
+423:                   ADCON3Hbits.C3EN  = 1;   // Enable ADC core 3
+0004F0  A8630A     BSET ADCON3H, #3
+424:               
+425:                   // Turn on analog power for shared core
+426:                   ADCON5Lbits.SHRPWR = 1;
+0004F2  A8E400     BSET ADCON5L, #7
+427:                   while(ADCON5Lbits.SHRRDY == 0);
+0004F4  000000     NOP
+0004F6  802001     MOV ADCON5L, W1
+0004F8  280000     MOV #0x8000, W0
+0004FA  608000     AND W1, W0, W0
+0004FC  E00000     CP0 W0
+0004FE  32FFFB     BRA Z, 0x4F6
+428:                   ADCON3Hbits.SHREN  = 1;  // Enable shared ADC core
+000500  A8E30A     BSET ADCON3H, #7
+429:               
+430:                   // Enable calibration for the dedicated core 0
+431:                   ADCAL0Lbits.CAL0EN   = 1;
+000502  A82404     BSET ADCAL0L, #1
+432:                   ADCAL0Lbits.CAL0DIFF = 0;         // Single-ended input calibration
+000504  A94404     BCLR ADCAL0L, #2
+433:                   ADCAL0Lbits.CAL0RUN  = 1;         // Start Cal
+000506  A80404     BSET ADCAL0L, #0
+434:                   while(ADCAL0Lbits.CAL0RDY == 0);
+000508  000000     NOP
+00050A  802021     MOV ADCAL0L, W1
+00050C  200800     MOV #0x80, W0
+00050E  608000     AND W1, W0, W0
+000510  E00000     CP0 W0
+000512  32FFFB     BRA Z, 0x50A
+435:                   ADCAL0Lbits.CAL0EN   = 0;         // Cal complete
+000514  A92404     BCLR ADCAL0L, #1
+436:               
+437:                   // Enable calibration for the dedicated core 1
+438:                   ADCAL0Lbits.CAL1EN   = 1;
+000516  A82405     BSET 0x405, #1
+439:                   ADCAL0Lbits.CAL1DIFF = 0;         // Single-ended input calibration
+000518  A94405     BCLR 0x405, #2
+440:                   ADCAL0Lbits.CAL1RUN  = 1;         // Start Cal
+00051A  A80405     BSET 0x405, #0
+441:                   while(ADCAL0Lbits.CAL1RDY == 0);
+00051C  000000     NOP
+00051E  802021     MOV ADCAL0L, W1
+000520  280000     MOV #0x8000, W0
+000522  608000     AND W1, W0, W0
+000524  E00000     CP0 W0
+000526  32FFFB     BRA Z, 0x51E
+442:                   ADCAL0Lbits.CAL1EN   = 0;         // Cal complete
+000528  A92405     BCLR 0x405, #1
+443:               
+444:                   // Enable calibration for the dedicated core 2
+445:                   ADCAL0Hbits.CAL2EN   = 1;
+00052A  A82406     BSET ADCAL0H, #1
+446:                   ADCAL0Hbits.CAL2DIFF = 0;         // Single-ended input calibration
+00052C  A94406     BCLR ADCAL0H, #2
+447:                   ADCAL0Hbits.CAL2RUN  = 1;         // Start Cal
+00052E  A80406     BSET ADCAL0H, #0
+448:                   while(ADCAL0Hbits.CAL2RDY == 0);
+000530  000000     NOP
+000532  802031     MOV ADCAL0H, W1
+000534  200800     MOV #0x80, W0
+000536  608000     AND W1, W0, W0
+000538  E00000     CP0 W0
+00053A  32FFFB     BRA Z, 0x532
+449:                   ADCAL0Hbits.CAL2EN   = 0;         // Cal complete
+00053C  A92406     BCLR ADCAL0H, #1
+450:               
+451:                   // Enable calibration for the dedicated core 3
+452:                   ADCAL0Hbits.CAL3EN   = 1;
+00053E  A82407     BSET 0x407, #1
+453:                   ADCAL0Hbits.CAL3DIFF = 0;         // Single-ended input calibration
+000540  A94407     BCLR 0x407, #2
+454:                   ADCAL0Hbits.CAL3RUN  = 1;         // Start Cal
+000542  A80407     BSET 0x407, #0
+455:                   while(ADCAL0Hbits.CAL3RDY == 0);
+000544  000000     NOP
+000546  802031     MOV ADCAL0H, W1
+000548  280000     MOV #0x8000, W0
+00054A  608000     AND W1, W0, W0
+00054C  E00000     CP0 W0
+00054E  32FFFB     BRA Z, 0x546
+456:                   ADCAL0Hbits.CAL3EN   = 0;         // Cal complete
+000550  A92407     BCLR 0x407, #1
+457:               
+458:                   // Enable calibration for the shared core
+459:                   ADCAL1Hbits.CSHREN   = 1;
+000552  A8240B     BSET 0x40B, #1
+460:                   ADCAL1Hbits.CSHRDIFF = 0;        // Single-ended input calibration
+000554  A9440B     BCLR 0x40B, #2
+461:                   ADCAL1Hbits.CSHRRUN  = 1;        // Start calibration cycle
+000556  A8040B     BSET 0x40B, #0
+462:                   while(ADCAL1Hbits.CSHRRDY == 0); // while calibration is still in progress
+000558  000000     NOP
+00055A  802051     MOV ADCAL1H, W1
+00055C  280000     MOV #0x8000, W0
+00055E  608000     AND W1, W0, W0
+000560  E00000     CP0 W0
+000562  32FFFB     BRA Z, 0x55A
+463:               
+464:                   ADCAL1Hbits.CSHREN   = 0;        // Calibration is complete       
+000564  A9240B     BCLR 0x40B, #1
+465:               };
+000566  FA8000     ULNK
+000568  060000     RETURN
+466:               /*******************************************************************************
+467:               End of Function
+468:               *******************************************************************************/
+469:               
+470:               /*******************************************************************************
+471:               Function: 	initIOPorts
+472:               Description:	Initialize all IO pins
+473:               *******************************************************************************/
+474:               void initIOPorts(void)
+475:               {
+00056A  FA0000     LNK #0x0
+476:                   // Unused PWM, used as IO
+477:                   IOCON8bits.PENH = 0;
+00056C  A9ED03     BCLR 0xD03, #7
+478:                   IOCON8bits.PENL = 0;
+00056E  A9CD03     BCLR 0xD03, #6
+479:                   
+480:                  // Initialize IOs
+481:                   LOADSWGNDTRIS = 0;      /* PWM8L pin set as IO rather than PWM */
+000570  A90E40     BCLR TRISE, #0
+482:                   LOADSWVCCTRIS = 0;      /* PWM8H pin set as IO rather than PWM */
+000572  A92E40     BCLR TRISE, #1
+483:                   LED1TRIS = 0;           /* Pin set as output to drive LED1 */
+000574  A96E41     BCLR 0xE41, #3
+484:                   LED2TRIS = 0;           /* Pin set as output to drive LED2 */
+000576  A94E41     BCLR 0xE41, #2
+485:                   SW1TRIS = 1;            /* Pin set as input to read SW1 */
+000578  A88E40     BSET TRISE, #4
+486:                   
+487:                   LOADSWGND = 0;          /* Default = 0; 1 to turn on, N-CH */
+00057A  A90E44     BCLR LATE, #0
+488:                   LOADSWVCC = 1;          /* Default = 1; 0 to turn on, P-CH */
+00057C  A82E44     BSET LATE, #1
+489:                
+490:                   /* Set up Digital Inputs by setting ANSELxbits.ANSx1=0*/
+491:                   
+492:               }
+00057E  FA8000     ULNK
+000580  060000     RETURN
+493:               /*******************************************************************************
+494:               End of Function
+495:               *******************************************************************************/
+496:               
+497:               /*******************************************************************************
+498:               Function: 	initCMP
+499:               Description:	Initialize comparator modules
+500:               *******************************************************************************/
+501:               void initCMP(void)
+502:               {    
+000582  FA0000     LNK #0x0
+503:                   /* Comparator 4 */
+504:                   /* Use jumper J20-1 and select PWM1 */
+505:                   CMP4CONbits.INSEL = 0;      // CMP4A as input
+000584  802A60     MOV CMP4CON, W0
+000586  A16000     BCLR W0, #6
+000588  A17000     BCLR W0, #7
+00058A  882A60     MOV W0, CMP4CON
+506:                   CMP4CONbits.HYSSEL = 3;     // Add hysteresis
+00058C  802A60     MOV CMP4CON, W0
+00058E  A0B000     BSET W0, #11
+000590  A0C000     BSET W0, #12
+000592  882A60     MOV W0, CMP4CON
+507:                   CMP4CONbits.RANGE = 1;      // Need to set RANGE bits
+000594  A8054C     BSET CMP4CON, #0
+508:                   CMP4CONbits.ALTINP = 0;     /* Select A input */
+000596  A9454C     BCLR CMP4CON, #2
+509:                   CMP4DAC = 2500;             /* 2V level */
+000598  209C40     MOV #0x9C4, W0
+00059A  882A70     MOV W0, CMP4DAC
+510:               //    CMP4CONbits.DACOE = 1;      /* Output on DACOUT pin */
+511:                   CMP4CONbits.CMPON = 1;      /* Comparator ON */
+00059C  A8E54D     BSET 0x54D, #7
+512:                    
+513:               //    RPOR15bits.RP60R = 50;      /* Monitor CMP4 output on RP60*/
+514:               }
+00059E  FA8000     ULNK
+0005A0  060000     RETURN
+515:               /*******************************************************************************
+516:               End of Function
+517:               *******************************************************************************/
+518:               
+519:               /*******************************************************************************
+520:               Function: 	initPGA
+521:               Description:	Initialize comparator modules
+522:               *******************************************************************************/
+523:               void initPGA(void)
+524:               {    
+0005A2  FA0000     LNK #0x0
+525:                   /* EXTREF2 connected to PGA1P4 */
+526:                   PGA1CONbits.SELNI = 0;  /* GND */
+0005A4  802820     MOV PGA1CON, W0
+0005A6  A18000     BCLR W0, #8
+0005A8  A19000     BCLR W0, #9
+0005AA  A1A000     BCLR W0, #10
+0005AC  882820     MOV W0, PGA1CON
+527:                   PGA1CONbits.SELPI = 3;  /* CH4 */
+0005AE  802820     MOV PGA1CON, W0
+0005B0  A0B000     BSET W0, #11
+0005B2  A0C000     BSET W0, #12
+0005B4  A1D000     BCLR W0, #13
+0005B6  882820     MOV W0, PGA1CON
+528:                   PGA1CONbits.GAIN = 2;   /* Min. Gain = 4*/
+0005B8  802820     MOV PGA1CON, W0
+0005BA  A10000     BCLR W0, #0
+0005BC  A01000     BSET W0, #1
+0005BE  A12000     BCLR W0, #2
+0005C0  882820     MOV W0, PGA1CON
+529:                   PGA1CONbits.PGAOEN = 1; /* Connect output to DACOUT */
+0005C2  A8C505     BSET 0x505, #6
+530:                   PGA1CONbits.PGAEN = 1;  /* Enable PGA */
+0005C4  A8E505     BSET 0x505, #7
+531:                               
+532:               }
+0005C6  FA8000     ULNK
+0005C8  060000     RETURN
+533:               /*******************************************************************************
+534:               End of Function
+535:               *******************************************************************************/
+536:               
+537:               /*******************************************************************************
+538:               Function: 	initTMR
+539:               Description:	Initialize Timers
+540:               *******************************************************************************/
+541:               void initTimer(void)
+542:               {
+0005CA  FA0000     LNK #0x0
+543:                   PR1 = TMR1PERIOD;
+0005CC  21B590     MOV #0x1B59, W0
+0005CE  880810     MOV W0, PR1
+544:                   T1CONbits.TCKPS = TMR1SCALER;
+0005D0  800820     MOV T1CON, W0
+0005D2  A04000     BSET W0, #4
+0005D4  A15000     BCLR W0, #5
+0005D6  880820     MOV W0, T1CON
+545:                   T1CONbits.TCS = 0;              // Clock source is internal Fcy
+0005D8  A92104     BCLR T1CON, #1
+546:               
+547:                   IFS0bits.T1IF = 0;
+0005DA  A96800     BCLR IFS0, #3
+548:                   IPC0bits.T1IP = 4;
+0005DC  804200     MOV IPC0, W0
+0005DE  A1C000     BCLR W0, #12
+0005E0  A1D000     BCLR W0, #13
+0005E2  A0E000     BSET W0, #14
+0005E4  884200     MOV W0, IPC0
+549:                   IEC0bits.T1IE = 1;
+0005E6  A86820     BSET IEC0, #3
+550:               //    T1CONbits.TON = 1; // Start Timer1
+551:                };
+0005E8  FA8000     ULNK
+0005EA  060000     RETURN
+552:               /*******************************************************************************
+553:               End of Function
+554:               *******************************************************************************/
+555:               
+556:               /*******************************************************************************
+557:               Function: 	initComp
+558:               Description:	Initialize compensators 
+559:               *******************************************************************************/
+560:               void initComp(void)
+561:               {
+0005EC  FA0000     LNK #0x0
+562:                     
+563:                   MACRO_CLR_VOLTAGEHISTORY();
+0005EE  22FF80     MOV #0x2FF8, W0
+0005F0  EB0080     CLR W1
+0005F2  780801     MOV W1, [W0]
+0005F4  22FF80     MOV #0x2FF8, W0
+0005F6  EB0080     CLR W1
+0005F8  980011     MOV W1, [W0+2]
+0005FA  22FF80     MOV #0x2FF8, W0
+0005FC  EB0080     CLR W1
+0005FE  980021     MOV W1, [W0+4]
+000600  22FF80     MOV #0x2FF8, W0
+000602  EB0080     CLR W1
+000604  980031     MOV W1, [W0+6]
+564:                   
+565:                   VoltageABCoefficients[0] = VOLTAGE_COMP_2P2Z_COEFF_B0;
+000606  27FFC0     MOV #0x7FFC, W0
+000608  888000     MOV W0, VoltageABCoefficients
+566:                   VoltageABCoefficients[1] = VOLTAGE_COMP_2P2Z_COEFF_B1;
+00060A  201450     MOV #0x145, W0
+00060C  888010     MOV W0, 0x1002
+567:                   VoltageABCoefficients[2] = VOLTAGE_COMP_2P2Z_COEFF_B2;
+00060E  281490     MOV #0x8149, W0
+000610  888020     MOV W0, 0x1004
+568:                   
+569:                   VoltageABCoefficients[3] = VOLTAGE_COMP_2P2Z_COEFF_A1;
+000612  20EBB0     MOV #0xEBB, W0
+000614  888030     MOV W0, 0x1006
+570:                   VoltageABCoefficients[4] = VOLTAGE_COMP_2P2Z_COEFF_A2;
+000616  200BB0     MOV #0xBB, W0
+000618  888040     MOV W0, 0x1008
+571:                   
+572:                   VoltagePostscaler = VOLTAGE_COMP_2P2Z_POSTSCALER;
+00061A  242360     MOV #0x4236, W0
+00061C  8880F0     MOV W0, VoltagePostscaler
+573:                   VoltagePostshift  = VOLTAGE_COMP_2P2Z_POSTSHIFT;
+00061E  2FFFC0     MOV #0xFFFC, W0
+000620  888100     MOV W0, VoltagePostshift
+574:                   VoltageMinClamp   = VOLTAGE_COMP_2P2Z_MIN_CLAMP;  
+000622  EF3022     CLR VoltageMinClamp
+575:                   VoltageMaxClamp   = VOLTAGE_COMP_2P2Z_MAX_CLAMP;
+000624  27FFF0     MOV #0x7FFF, W0
+000626  888120     MOV W0, VoltageMaxClamp
+576:                   
+577:                   AltWREG1Setup();        // Setup working registers to be used with compensator
+000628  0700E7     RCALL 0x7F8
+578:                       
+579:               }
+00062A  FA8000     ULNK
+00062C  060000     RETURN
+580:               /*******************************************************************************
+581:               End of Function
+582:               *******************************************************************************/
+583:               
+584:               /*******************************************************************************
+585:               Function: 	initPMDBits
+586:               Description:	UnClock all unused modules
+587:               *******************************************************************************/
+588:               void initPMDBits(void)
+589:               {        
+00062E  FA0000     LNK #0x0
+590:               // 	PMD1 = 0xD0D8;  // T3,T1, PWM, U1, and ADC left clocked
+591:               //    PMD2 = 0x0F0F;  // All modules unclocked
+592:               //    PMD3 = 0x0002;  // CMP clocked
+593:               //    PMD4 = 0x0008;  // All modules unclocked
+594:               //    PMD6 = 0x1C00;  // PWM1 clocked
+595:               //    PMD7 = 0x0002;  // CMP1-CMP4 clocked
+596:               //    PMD8 = 0x0602;  // All modules unclocked
+597:               }
+000630  FA8000     ULNK
+000632  060000     RETURN
+598:               
+599:               /*******************************************************************************
+600:               End of Function
+601:               *******************************************************************************/
+602:               
+603:               /*******************************************************************************
+604:               Function: 	initCAN
+605:               Description:	Initialize CAN Modules
+606:               *******************************************************************************/
+607:               void initCAN(void)
+608:               {
+000634  FA0000     LNK #0x0
+609:                       /* I/O remap */
+610:               
+611:                    RPOR10bits.RP48R = 13;   //Can 1 Tx = RP20, Pin 6
+000636  8033E1     MOV RPOR10, W1
+000638  2FF800     MOV #0xFF80, W0
+00063A  608000     AND W1, W0, W0
+00063C  B300D0     IOR #0xD, W0
+00063E  8833E0     MOV W0, RPOR10
+612:                    RPINR26bits.C1RXR = 61;   //Can 1 Rx = RP61, Pin 7
+000640  B3C3D0     MOV.B #0x3D, W0
+000642  B7E6D4     MOV.B WREG, RPINR26
+613:               
+614:                    RPOR13bits.RP55R = 15;   //Can 2 Tx = RP27, Pin 46
+000644  803411     MOV RPOR13, W1
+000646  280FF0     MOV #0x80FF, W0
+000648  608080     AND W1, W0, W1
+00064A  20F000     MOV #0xF00, W0
+00064C  700001     IOR W0, W1, W0
+00064E  883410     MOV W0, RPOR13
+615:                    RPINR26bits.C2RXR = 28;   //Can 2 Rx = RP28, Pin 47
+000650  B3C1C0     MOV.B #0x1C, W0
+000652  B7E6D5     MOV.B WREG, 0x6D5
+616:               
+617:               //     /* Set up the ECAN1 module to operate at 250 kbps. */
+618:               //     C1CTRL1bits.REQOP = 4;
+619:               //     while(C1CTRL1bits.OPMODE != 4);
+620:               //     C1CTRL1bits.WIN = 0;
+621:               //
+622:               //     /* Set up the CAN module for 250kbps speed with 10 Tq per bit. */
+623:               //     C1CFG1 = 0x47; // BRP = 8 SJW = 2 Tq
+624:               //     C1CFG2 = 0x2D2;
+625:               //     C1FCTRL = 0xC01F; // No FIFO, 32 Buffers
+626:               //
+627:               //     /* Assign 32x8word Message Buffers for ECAN1 in device RAM using DMA0 for TX */
+628:               //     DMA0CONbits.SIZE = 0x0;
+629:               //     DMA0CONbits.DIR = 0x1;
+630:               //     DMA0CONbits.AMODE = 0x2;
+631:               //     //DMA0CONbits.MODE = 0x0;
+632:               //     DMA0REQ = 70;
+633:               //     DMA0CNT = 7;
+634:               //     DMA0PAD = (volatile unsigned int)&C1TXD;
+635:               //     DMA0STAL = (unsigned int) &ecan1MsgBuf;
+636:               //     DMA0STAH = (unsigned int) &ecan1MsgBuf;
+637:               //     DMA0CONbits.CHEN = 0x1;
+638:               //
+639:               //     /* Configure Message Buffer 0 for Transmission and assign priority */
+640:               //     C1TR01CONbits.TXEN0 = 0x1;
+641:               //     C1TR01CONbits.TX0PRI = 0x3;
+642:               //
+643:               //     /* Assign 32x8word Message Buffers for ECAN1 in device RAM using DMA1 for RX */
+644:               //     DMA1CONbits.SIZE = 0x0;
+645:               //     DMA1CONbits.DIR = 0x0;
+646:               //     DMA1CONbits.AMODE = 0x2;
+647:               ////     DMA1CONbits.MODE = 0x0;
+648:               //     DMA1REQ = 34;
+649:               //     DMA1CNT = 7;
+650:               //     DMA1PAD = (volatile unsigned int)&C1RXD;
+651:               //     DMA1STAL = (unsigned int) &ecan1MsgBuf;
+652:               //     DMA1STAH = (unsigned int) &ecan1MsgBuf;
+653:               //     DMA1CONbits.CHEN = 0x1;
+654:               //
+655:               //    /* Select Acceptance Filter Mask 0 for Acceptance Filter 0 */
+656:               //    C1FMSKSEL1bits.F0MSK=0x0;
+657:               //
+658:               //    /* Configure Acceptance Filter Mask 0 register to mask SID<2:0>
+659:               //     * Mask Bits (11-bits) : 0b111 1111 1000 */
+660:               //    C1RXM0SIDbits.SID = 0x7F8;
+661:               //
+662:               //    /* Configure Acceptance Filter 0 to match standard identifier
+663:               //    Filter Bits (11-bits): 0b011 1010 xxx with the mask setting, message with SID
+664:               //    range 0x1D0-0x1D7 will be accepted by the ECAN module. */
+665:               //    C1RXF0SIDbits.SID = 0x01D0;
+666:               //
+667:               //    /* Acceptance Filter 0 to check for Standard Identifier */
+668:               //    C1RXM0SIDbits.MIDE = 0x1;
+669:               //    C1RXF0SIDbits.EXIDE= 0x0;
+670:               //
+671:               //    /* Acceptance Filter 0 to use Message Buffer 10 to store message */
+672:               //    C1BUFPNT1bits.F0BP = 0xA;
+673:               //
+674:               //    /* Filter 0 enabled for Identifier match with incoming message */
+675:               //    C1FEN1bits.FLTEN0=0x1;
+676:               //
+677:               //    /* Clear Window Bit to Access ECAN Control Registers */
+678:               //    C1CTRL1bits.WIN=0x0;
+679:               //
+680:               //    /* ECAN1 in normal mode ready to TX/RX */
+681:               //    C1CTRL1bits.REQOP = 0;
+682:               //    while(C1CTRL1bits.OPMODE != 0);
+683:               
+684:               };
+000654  FA8000     ULNK
+000656  060000     RETURN
+685:               /*******************************************************************************
+686:               End of Function
+687:               *******************************************************************************/
+688:               
+689:               /*******************************************************************************
+690:               Function: 	initLIN
+691:               Description:	Initialize LIN Modules
+692:               *******************************************************************************/
+693:               void initLIN(void)
+694:               {
+000658  FA0000     LNK #0x0
+695:                       /* I/O remap */
+696:                   RPINR18bits.U1RXR = 63;   //U1 Rx = RP63, Pin 39
+00065A  B3C3F0     MOV.B #0x3F, W0
+00065C  B7E6C4     MOV.B WREG, RPINR18
+697:                   RPINR18bits.U1CTSR = 64;  //U1 CTSR = RP64, Pin 59
+00065E  B3C400     MOV.B #0x40, W0
+000660  B7E6C5     MOV.B WREG, 0x6C5
+698:                   RPOR21bits.RP72R = 1;     //U1 Tx = RP72, Pin 54
+000662  803491     MOV RPOR21, W1
+000664  280FF0     MOV #0x80FF, W0
+000666  608080     AND W1, W0, W1
+000668  201000     MOV #0x100, W0
+00066A  700001     IOR W0, W1, W0
+00066C  883490     MOV W0, RPOR21
+699:                   RPOR23bits.RP75R = 2;     //U1 RTS = RP75, Pin 57
+00066E  8034B1     MOV RPOR23, W1
+000670  2FF800     MOV #0xFF80, W0
+000672  608000     AND W1, W0, W0
+000674  A01000     BSET W0, #1
+000676  8834B0     MOV W0, RPOR23
+700:               
+701:                   RPINR19bits.U2RXR = 54;   //U2 Rx = RP54, Pin 66
+000678  B3C360     MOV.B #0x36, W0
+00067A  B7E6C6     MOV.B WREG, RPINR19
+702:                   RPINR19bits.U2CTSR = 52;  //U2 CTSR = RP52, Pin 62
+00067C  B3C340     MOV.B #0x34, W0
+00067E  B7E6C7     MOV.B WREG, 0x6C7
+703:                   RPOR12bits.RP53R = 3;     //U2 Tx = RP53, Pin 65
+000680  803401     MOV RPOR12, W1
+000682  280FF0     MOV #0x80FF, W0
+000684  608080     AND W1, W0, W1
+000686  203000     MOV #0x300, W0
+000688  700001     IOR W0, W1, W0
+00068A  883400     MOV W0, RPOR12
+704:                   RPOR20bits.RP69R = 4;     //U2 RTS = RP69, Pin 67
+00068C  803481     MOV RPOR20, W1
+00068E  2FF800     MOV #0xFF80, W0
+000690  608000     AND W1, W0, W0
+000692  A02000     BSET W0, #2
+000694  883480     MOV W0, RPOR20
+705:               
+706:               //    U1MODEbits.STSEL = 0; // 1-Stop bit
+707:               //    U1MODEbits.PDSEL = 0; // No Parity, 8-Data bits
+708:               //    U1MODEbits.ABAUD = 0; // Auto-Baud disabled
+709:               //    U1MODEbits.BRGH = 0; // Standard-Speed mode
+710:               //    U1BRG = BRGVAL; // Baud Rate setting for 9600
+711:               //    U1STAbits.UTXISEL0 = 0; // Interrupt after one TX character is transmitted
+712:               //    U1STAbits.UTXISEL1 = 0;
+713:               //    //IEC0bits.U1TXIE = 1; // Enable UART TX interrupt
+714:               //
+715:               //    U1MODEbits.UARTEN = 1; // Enable UART
+716:               //    U1STAbits.UTXEN = 1; // Enable UART TX
+717:               
+718:               };
+000696  FA8000     ULNK
+000698  060000     RETURN
+719:               /*******************************************************************************
+720:               End of Function
+721:               *******************************************************************************/
+722:               
+723:               /*******************************************************************************
+724:               Function: 	initISRC
+725:               Description:	Initialize Constant Current Source
+726:               *******************************************************************************/
+727:               
+728:               // Initialize Constant Current Source
+729:               void initISRC(void)
+730:               {
+00069A  FA0000     LNK #0x0
+731:                   ISRCCONbits.ISRCEN = 0; //Disable Current Source
+00069C  A9E501     BCLR 0x501, #7
+732:                   
+733:                   //ISRCCONbits.ISRCCAL = ReadCalData(0x800E78); // Update calibration data [Assembly TBLPAG]]
+734:                      
+735:                   ISRCCONbits.OUTSEL = 0b100; // Select AN4 as output
+00069E  802800     MOV ISRCCON, W0
+0006A0  A18000     BCLR W0, #8
+0006A2  A19000     BCLR W0, #9
+0006A4  A0A000     BSET W0, #10
+0006A6  882800     MOV W0, ISRCCON
+736:                   
+737:                   ISRCCONbits.ISRCEN = 1; //Enable Current Source
+0006A8  A8E501     BSET 0x501, #7
+738:               
+739:               };
+0006AA  FA8000     ULNK
+0006AC  060000     RETURN
+740:               /*******************************************************************************
+741:               End of Function
+742:               *******************************************************************************/
+---  C:/Projects/3_2QFY17/1_TLAY_Breakout/Firmware/src/AltWReg.s  ---------------------------------------
+                                                  1:     
+                                                  2:     .include "p33Exxxx.inc"
+                                                  3:     #include "init.h"
+                                                  4:     #include "user.h"
+                                                  5:         
+                                                  6:     .data
+                                                  7:     
+                                                  8:     
+                                                  9:     .text
+                                                  10:    
+                                                  11:    .section .text._AltWREG1Setup, keep, code
+                                                  12:    .global _AltWREG1Setup
+                                                  13:    
+                                                  14:    _AltWREG1Setup:
+                                                  15:    
+                                                  16:    ;Swap to Alternate W-Reg #1
+0007F8  FEE001     CTXTSWP #1                     17:    CTXTSWP #0x1
+                                                  18:    
+0007FA  2102A0     MOV #0x102A, W0                19:    mov #_varVoltageRef, w0 
+0007FC  2040C1     MOV #0x40C, W1                 20:    mov #_ADCBUF0, w1  
+                                                  21:    
+                                                  22:    ; Select PDC and TRIG register based on PWM
+                                                  23:    ;.if(PWMSELECT==1)
+0007FE  20C862     MOV #0xC86, W2                 24:        mov #_PDC4, w2
+                                                  25:    ;.endif
+                                                  26:    
+                                                  27:    ; W3, W4, W5 used for ACCAx, MAC/MPY instructions
+                                                  28:       
+000800  2101E6     MOV #0x101E, W6                29:    mov #_VoltagePostscaler, w6
+000802  210207     MOV #0x1020, W7                30:    mov #_VoltagePostshift, w7
+                                                  31:    
+000804  210009     MOV #0x1000, W9                32:    mov #_VoltageABCoefficients, w9
+000806  22FF8A     MOV #0x2FF8, W10               33:    mov #_VoltageErrorControlHistory, w10
+                                                  34:    
+000808  21022B     MOV #0x1022, W11               35:    mov #_VoltageMinClamp, w11
+00080A  21024C     MOV #0x1024, W12               36:    mov #_VoltageMaxClamp, w12
+                                                  37:    
+                                                  38:    ;mov #_varGateDelay, w13
+                                                  39:    ;WREG14 = Open for use in ISR
+                                                  40:        
+                                                  41:    ; Swap back to main register set
+00080C  FEE000     CTXTSWP #0                     42:    CTXTSWP #0x0
+                                                  43:    
+00080E  060000     RETURN                         44:     return
+                                                  45:     
+                                                  46:    .end

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <executable name="dist/XC16_dsPIC33EP128GS808/production/dsPIC33EP128GS8XX_Eval_Board.X.production.elf">
+    <memory name="data">
+      <units>bytes</units>
+      <length>8192</length>
+      <used>110</used>
+      <free>8082</free>
+    </memory>
+    <memory name="program">
+      <units>bytes</units>
+      <length>131136</length>
+      <used>4245</used>
+      <free>126891</free>
+    </memory>
+  </executable>
+</project>
